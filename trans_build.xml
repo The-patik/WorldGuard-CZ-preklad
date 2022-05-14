@@ -1,0 +1,19 @@
+<project name="WorldGuard CZ překlad" default="init" basedir=".">
+    <description>
+        simple example increment build variable
+    </description>
+    <!-- set global properties for this build -->
+    <property name="src" location="./worldguard-core/src"/>
+
+    <target name="init">
+        <echo file="myAntOut.txt">My first ant ${src} ${line.separator}</echo>
+
+        <buildnumber/>
+        <replaceregexp file="${src}/main/java/com/sk89q/worldguard/commands/WorldGuardCommands.java"
+                       match="private\s+final\s+String\s+build\s+=\s+&quot;.*&quot;;"
+                       replace="private final String build = &quot;${build.number}&quot;;"
+                       byline="true"
+        />
+
+    </target>
+</project>

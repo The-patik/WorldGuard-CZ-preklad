@@ -70,6 +70,7 @@ import javax.annotation.Nullable;
 public class WorldGuardCommands {
 
     private final WorldGuard worldGuard;
+    private final String build = "14";
     @Nullable
     private Sampler activeSampler;
 
@@ -77,16 +78,20 @@ public class WorldGuardCommands {
         this.worldGuard = worldGuard;
     }
 
-    @Command(aliases = {"version"}, desc = "Get the WorldGuard version", max = 0)
+    @Command(aliases = {"version"}, desc = "Verze WorldGuardu", max = 0)
     public void version(CommandContext args, Actor sender) throws CommandException {
-        sender.print("WorldGuard " + WorldGuard.getVersion());
+        sender.print("WorldGuard " + WorldGuard.getVersion() + " - PŘELOŽENO V0.1-BUILD-" + build);
         sender.print("http://www.enginehub.org");
+        sender.print(" ");
+        sender.print("§bPřeložil: _patik_");
+        sender.print("§bhttps://valleycube.cz");
+        sender.print(" ");
 
-        sender.printDebug("----------- Platforms -----------");
+        sender.printDebug("----------- Platformy -----------");
         sender.printDebug(String.format("* %s (%s)", worldGuard.getPlatform().getPlatformName(), worldGuard.getPlatform().getPlatformVersion()));
     }
 
-    @Command(aliases = {"reload"}, desc = "Reload WorldGuard configuration", max = 0)
+    @Command(aliases = {"reload"}, desc = "Znovu načti konfiguraci", max = 0)
     @CommandPermissions({"worldguard.reload"})
     public void reload(CommandContext args, Actor sender) throws CommandException {
         // TODO: This is subject to a race condition, but at least other commands are not being processed concurrently
@@ -114,9 +119,9 @@ public class WorldGuardCommands {
             }
             WorldGuard.getInstance().getPlatform().getRegionContainer().reload();
             // WGBukkit.cleanCache();
-            sender.print("WorldGuard configuration reloaded.");
+            sender.print("Konfigurace WorldGuard znovu načtena.");
         } catch (Throwable t) {
-            sender.printError("Error while reloading: " + t.getMessage());
+            sender.printError("Chyba při načítání WorldGuard: " + t.getMessage());
         } finally {
             if (minecraftLogger != null) {
                 minecraftLogger.removeHandler(handler);

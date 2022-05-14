@@ -81,6 +81,7 @@ fun Project.applyCommonJavaConfiguration(sourcesJar: Boolean, javaRelease: Int =
     }
 
     tasks.named("check").configure {
-        dependsOn("checkstyleMain", "checkstyleTest")
+        dependsOn("checkstyle" +
+                "Main", "checkstyleTest")
     }
 }
