@@ -70,7 +70,7 @@ import javax.annotation.Nullable;
 public class WorldGuardCommands {
 
     private final WorldGuard worldGuard;
-    private final String build = "14";
+    private final String build = "0";
     @Nullable
     private Sampler activeSampler;
 
