@@ -2,46 +2,34 @@
     <img src="worldguard-logo.svg" alt="WorldGuard" width="400" /> 
 </h1>
 
-WorldGuard lets you and players guard areas of land against griefers and undesirables, as well as tweak and disable various gameplay features of Minecraft.
+Český překlad známého a velmi používaného pluginu WorldGuard.
 
-* Block creeper and wither block damage, falling damage, etc.
-* Disable fire spread, lava fire spread, ice formation, Endermen picking up blocks, etc.
-* Blacklist certain items and blocks so they can't be used
-* Warn moderators when certain items and blocks are used
-* Protect areas of your world so only certain people can build in them
-* Set areas where PVP, TNT, mob damage, and other features are disabled
-* Protect your server from various 'exploits' like magical obsidian creation machines
-* Disable, or enable, various Minecraft features, like sponges from classic
-* Add useful commands like an immediate "STOP ALL FIRE SPREAD" command
-* Enable only features you want! Everything is off by default
+WolrdGuard umožňuje majitelům serverů ochránit části mapy před hráči. Navíc umožňuje další
+nastavení:
 
-WorldGuard is open source and is available under the GNU Lesser
+* Brání vybuchování creeperů, witherů, a dalších
+* Přidává možnost zabránit šíření lávy, vody, ohně, tvorbě ledu, sbírat endermanům bloky, atd
+* Zakázat určité bloky a itemy, aby nemohly být použity
+* Upozornit adminy a moderátory, že jsou používány určité bloky
+* Ochránit části světa, takže na nich mohou stavět jen povolení hráči
+* Povolit, či zakázat PvP, TNT, poškození mobů a další podobné funkce
+* Chránit server před vykořisťováním
+* Povolit, či zakázat funkce Minecraftu
+* Přidání užitečných příkazů, jako okamžitý příkaz pro zastavení šíření všech požárů
+* Povolit všechny funkce, jako výchozí jsou zakázány
+
+WorldGuard je open source a je dostupný pod GNU Lesser
 General Public License v3.
 
-A Bukkit server implementation (such as [Paper](https://papermc.io)) and the [WorldEdit plugin](https://dev.bukkit.org/projects/worldedit) are required to use WorldGuard. You can get a release copy of WorldGuard from the [BukkitDev site](https://dev.bukkit.org/projects/worldguard).
-
-Compiling
----------
-
-The project is written for Java 16 and our build process makes use of
-[Gradle](http://gradle.org).
-
-Dependencies are automatically handled by Gradle.
-
-Contributing
-------------
-
-We happily accept contributions, especially through pull requests on GitHub.
-
-Please read CONTRIBUTING.md for important guidelines to follow.
-
-Submissions must be licensed under the GNU Lesser General Public License v3.
+Pro použití WorldGuard je vyžadována implementace serveru Bukkit (jako [Paper](https://papermc.io)) a [WorldEdit plugin](https://dev.bukkit.org/projects/worldedit). Vydanou kopii WorldGuard můžete získat z [BukkitDev](https://dev.bukkit.org/projects/worldguard). Přeložená verze je dostupná na webu [ValleyCube Jenkins](http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad).
 
 Links
 -----
 
-* [Homepage](http://enginehub.org/worldguard)
-* [Discord](https://discord.gg/enginehub)
-* [Issue tracker](https://github.com/EngineHub/WorldGuard/issues)
-* [Continuous integration](http://builds.enginehub.org) [![Build Status](https://ci.enginehub.org/app/rest/builds/buildType:bt11,branch:master/statusIcon.svg)](http://ci.enginehub.org/viewType.html?buildTypeId=bt11&guest=1)
-* [End-user documentation](https://worldguard.enginehub.org/en/latest/)
+* [Domovská stránka WG](http://enginehub.org/worldguard)
+* [Domovská stránka CZ]()
+* [Discord WG](https://discord.gg/enginehub)
+* [Discord CZ]()
+* [Oznámení problémů](https://github.com/The-patik/WorldGuard-CZ-preklad/issues)
+* [Sestavení](http://jenkins.valleycube.cz) [![Build Status](http://jenkins.valleycube.cz/buildStatus/icon?job=WorldGuard-CZ-preklad)](http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad/)
+* [Dokumentace EN](https://worldguard.enginehub.org/en/latest/)
