@@ -51,6 +51,7 @@ public final class WorldGuard {
     public static final Logger logger = Logger.getLogger(WorldGuard.class.getCanonicalName());
 
     private static String version;
+    private static String transVersion;
     private static final WorldGuard instance = new WorldGuard();
 
     private WorldGuardPlatform platform;
@@ -234,5 +235,29 @@ public final class WorldGuard {
 
         return version;
     }
+    /**
+     * Verze překladu :)
+     */
+    public static String getTransVersion() {
+        if (transVersion != null) {
+            return transVersion;
+        }
 
+        Package p = WorldGuard.class.getPackage();
+
+        if (p == null) {
+            p = Package.getPackage("com.sk89q.worldguard");
+        }
+
+        if (p == null) {
+            transVersion = "(unknown)";
+        } else {
+            transVersion = p.getImplementationVersion();
+
+            if (transVersion == null) {
+                transVersion = "(unknown)";
+            }
+        }
+        return transVersion;
+    }
 }
