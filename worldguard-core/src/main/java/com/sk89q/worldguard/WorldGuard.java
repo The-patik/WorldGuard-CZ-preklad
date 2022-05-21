@@ -20,6 +20,7 @@
 package com.sk89q.worldguard;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static com.sk89q.worldguard.commands.WorldGuardCommands.build;
 
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
@@ -39,12 +40,16 @@ import com.sk89q.worldguard.protection.flags.registry.SimpleFlagRegistry;
 import com.sk89q.worldguard.util.WorldGuardExceptionConverter;
 import com.sk89q.worldguard.util.concurrent.EvenMoreExecutors;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public final class WorldGuard {
 
@@ -90,6 +95,53 @@ public final class WorldGuard {
         profileService = getPlatform().createProfileService(profileCache);
 
         getPlatform().load();
+
+        try {
+            String giturl = "https://github.com/The-patik/WorldGuard-CZ-preklad/blob/master/build.number";
+            URL url = new URL(giturl);
+            URLConnection con = url.openConnection();
+            Pattern p = Pattern.compile("text/html;\\s+charset=([^\\s]+)\\s*");
+            Matcher m = p.matcher(con.getContentType());
+
+            String charset = m.matches() ? m.group(1) : "UTF-8";
+            Reader r = new InputStreamReader(con.getInputStream(), charset);
+            StringBuilder buf = new StringBuilder();
+
+            while (true) {
+                int ch = r.read();
+                if (ch < 0)
+                    break;
+                buf.append((char) ch);
+            }
+            String str = buf.toString();
+
+            File output = new File("versioncheck.txt");
+            FileWriter writer = new FileWriter(output);
+
+            writer.write(str);
+            writer.flush();
+            writer.close();
+
+            try {
+                Scanner scan = new Scanner(output);
+                int lineNum = 0;
+
+                while (scan.hasNextLine()) {
+                    String line = scan.nextLine();
+                    lineNum++;
+                    if (build != line) {
+                        logger.log(Level.WARNING, "Nová verze WorldGuard je dostupná na http://jenkins.valleycube.cz");
+                    } else {
+                        logger.log(Level.INFO,"Nainstalovaná verze WorldGuardu je nejnovější!");
+                    }
+                }
+                Thread.sleep(1800 * 1000);
+            } catch (Exception e) {
+                logger.log(Level.WARNING,"Chyba při načítání updateru!");
+            }
+        } catch (Exception e) {
+            logger.log(Level.WARNING,"Fatální chyba při načítání updateru!");
+        }
     }
 
     /**
