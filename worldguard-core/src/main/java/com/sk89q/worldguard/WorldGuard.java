@@ -97,7 +97,7 @@ public final class WorldGuard {
         getPlatform().load();
 
         try {
-            String giturl = "https://github.com/The-patik/WorldGuard-CZ-preklad/blob/master/build.number";
+            String giturl = "http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad/ws/build.number";
             URL url = new URL(giturl);
             URLConnection con = url.openConnection();
             Pattern p = Pattern.compile("text/html;\\s+charset=([^\\s]+)\\s*");
@@ -140,7 +140,7 @@ public final class WorldGuard {
                 logger.log(Level.WARNING,"Chyba při načítání updateru!");
             }
         } catch (Exception e) {
-            logger.log(Level.WARNING,"Fatální chyba při načítání updateru!");
+            logger.log(Level.WARNING,"Chyba při načítání updateru!");
         }
     }
 

@@ -55,22 +55,26 @@ import com.sk89q.worldguard.util.profiler.ThreadNameFilter;
 import com.sk89q.worldguard.util.report.ApplicableRegionsReport;
 import com.sk89q.worldguard.util.report.ConfigReport;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.lang.management.ThreadInfo;
+import java.net.URL;
+import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.annotation.Nullable;
 
 public class WorldGuardCommands {
 
     private final WorldGuard worldGuard;
-    private final String build = "23";
+    public static String build = "23";
     @Nullable
     private Sampler activeSampler;
 
@@ -80,7 +84,7 @@ public class WorldGuardCommands {
 
     @Command(aliases = {"version"}, desc = "Verze WorldGuardu", max = 0)
     public void version(CommandContext args, Actor sender) throws CommandException {
-        sender.print("WorldGuard " + WorldGuard.getVersion() + " - PŘELOŽENO V" + WorldGuard.getTransVersion() + "-BUILD-" + build);
+        sender.print("WorldGuard " + WorldGuard.getVersion() + " - PŘELOŽENO v" + WorldGuard.getTransVersion() + "-BUILD-" + build);
         sender.print("http://www.enginehub.org");
         sender.print(" ");
         sender.print("§bPřeložil: _patik_");
@@ -89,6 +93,54 @@ public class WorldGuardCommands {
 
         sender.printDebug("----------- Platformy -----------");
         sender.printDebug(String.format("* %s (%s)", worldGuard.getPlatform().getPlatformName(), worldGuard.getPlatform().getPlatformVersion()));
+    }
+
+    @Command(aliases = {"update"}, desc = "Zkontroluj verzi", max = 0)
+    @CommandPermissions({"worldguard.update"})
+    public void update(CommandContext args, Actor sender) throws Exception {
+        String giturl = "http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad/ws/build.number";
+        URL url = new URL(giturl);
+        URLConnection con = url.openConnection();
+        Pattern p = Pattern.compile("text/html;\\s+charset=([^\\s]+)\\s*");
+        Matcher m = p.matcher(con.getContentType());
+
+        String charset = m.matches() ? m.group(1) : "UTF-8";
+        Reader r = new InputStreamReader(con.getInputStream(), charset);
+        StringBuilder buf = new StringBuilder();
+
+        while (true) {
+            int ch = r.read();
+            if (ch < 0)
+                break;
+            buf.append((char) ch);
+        }
+        String str = buf.toString();
+
+        File output = new File("versioncheck.txt");
+        FileWriter writer = new FileWriter(output);
+
+        writer.write(str);
+        writer.flush();
+        writer.close();
+
+        try {
+            Scanner scan = new Scanner(output);
+            int lineNum = 0;
+
+            while (scan.hasNextLine()) {
+                String line = scan.nextLine();
+                lineNum++;
+                if (build != line) {
+                    sender.print("Nová verze WorldGuard je dostupná na http://jenkins.valleycube.cz");
+                    sender.print("Aktuální verze: WorldGuard v" + WorldGuard.getVersion() + " - překlad v" + WorldGuard.getTransVersion() + "-BUILD-" + build);
+                } else {
+                    sender.print("Nainstalovaná verze WorldGuardu je nejnovější!");
+                    sender.print("Aktuální verze: WorldGuard v" + WorldGuard.getVersion() + " - překlad v" + WorldGuard.getTransVersion() + "-BUILD-" + build);
+                }
+            }
+        } catch (Exception e) {
+            sender.print("Chyba při načítání updateru!");
+        }
     }
 
     @Command(aliases = {"reload"}, desc = "Znovu načti konfiguraci", max = 0)
