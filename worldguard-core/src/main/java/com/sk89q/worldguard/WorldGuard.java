@@ -239,25 +239,7 @@ public final class WorldGuard {
      * Verze překladu :)
      */
     public static String getTransVersion() {
-        if (transVersion != null) {
-            return transVersion;
-        }
-
-        Package p = WorldGuard.class.getPackage();
-
-        if (p == null) {
-            p = Package.getPackage("com.sk89q.worldguard");
-        }
-
-        if (p == null) {
-            transVersion = "(unknown)";
-        } else {
-            transVersion = p.getImplementationVersion();
-
-            if (transVersion == null) {
-                transVersion = "(unknown)";
-            }
-        }
+        transVersion = "0.2";
         return transVersion;
     }
 }
