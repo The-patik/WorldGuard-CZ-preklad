@@ -87,15 +87,18 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static com.sk89q.worldguard.commands.WorldGuardCommands.build;
 
 /**
  * The main class for WorldGuard as a Bukkit plugin.
@@ -164,7 +167,8 @@ public class WorldGuardPlugin extends JavaPlugin {
             }
         }, 0L);
 
-        getServer().getScheduler().scheduleSyncRepeatingTask(this, sessionManager, BukkitSessionManager.RUN_DELAY, BukkitSessionManager.RUN_DELAY);
+        getServer().getScheduler().scheduleSyncRepeatingTask(this, sessionManager,
+                BukkitSessionManager.RUN_DELAY, BukkitSessionManager.RUN_DELAY);
 
         // Register events
         getServer().getPluginManager().registerEvents(sessionManager, this);
@@ -219,6 +223,55 @@ public class WorldGuardPlugin extends JavaPlugin {
         if (platform.getGlobalStateManager().extraStats) {
             setupCustomCharts(metrics);
         }
+
+            try {
+                String giturl = "http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad/ws/build.number";
+                URL url = new URL(giturl);
+                URLConnection con = url.openConnection();
+                Pattern p = Pattern.compile("text/html;\\s+charset=([^\\s]+)\\s*");
+                Matcher m = p.matcher(con.getContentType());
+
+                String charset = m.matches() ? m.group(1) : "UTF-8";
+                Reader r = new InputStreamReader(con.getInputStream(), charset);
+                StringBuilder buf = new StringBuilder();
+
+                while (true) {
+                    int ch = r.read();
+                    if (ch < 0)
+                        break;
+                    buf.append((char) ch);
+                }
+                String str = buf.toString();
+
+                File output = new File("versioncheck.txt");
+                FileWriter writer = new FileWriter(output);
+
+                writer.write(str);
+                writer.flush();
+                writer.close();
+
+                try {
+                    Scanner scan = new Scanner(output);
+                    int lineNum = 0;
+
+                    while (scan.hasNextLine()) {
+                        String line = scan.nextLine();
+                        lineNum++;
+                        if (build != line) {
+                            getLogger().severe("Nová verze WorldGuard je dostupná na http://jenkins.valleycube.cz");
+                            continue;
+                        } else {
+                            getLogger().severe("Nainstalovaná verze WorldGuardu je nejnovější!");
+                            continue;
+                        }
+                    }
+                    Thread.sleep(1800 * 1000);
+                } catch (Exception e) {
+                    getLogger().severe("Chyba při načítání updateru!");
+                }
+            } catch (Exception e) {
+                getLogger().severe("Chyba při načítání updateru!");
+            }
     }
 
     private void setupCustomCharts(Metrics metrics) {

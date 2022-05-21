@@ -96,55 +96,6 @@ public final class WorldGuard {
 
         getPlatform().load();
     }
-    public void checker(){
-
-        try {
-            String giturl = "http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad/ws/build.number";
-            URL url = new URL(giturl);
-            URLConnection con = url.openConnection();
-            Pattern p = Pattern.compile("text/html;\\s+charset=([^\\s]+)\\s*");
-            Matcher m = p.matcher(con.getContentType());
-
-            String charset = m.matches() ? m.group(1) : "UTF-8";
-            Reader r = new InputStreamReader(con.getInputStream(), charset);
-            StringBuilder buf = new StringBuilder();
-
-            while (true) {
-                int ch = r.read();
-                if (ch < 0)
-                    break;
-                buf.append((char) ch);
-            }
-            String str = buf.toString();
-
-            File output = new File("versioncheck.txt");
-            FileWriter writer = new FileWriter(output);
-
-            writer.write(str);
-            writer.flush();
-            writer.close();
-
-            try {
-                Scanner scan = new Scanner(output);
-                int lineNum = 0;
-
-                while (scan.hasNextLine()) {
-                    String line = scan.nextLine();
-                    lineNum++;
-                    if (build != line) {
-                        logger.log(Level.WARNING, "Nová verze WorldGuard je dostupná na http://jenkins.valleycube.cz");
-                    } else {
-                        logger.log(Level.INFO,"Nainstalovaná verze WorldGuardu je nejnovější!");
-                    }
-                }
-                Thread.sleep(1800 * 1000);
-            } catch (Exception e) {
-                logger.log(Level.WARNING,"Chyba při načítání updateru!");
-            }
-        } catch (Exception e) {
-            logger.log(Level.WARNING,"Chyba při načítání updateru!");
-        }
-    }
 
     /**
      * The WorldGuard Platform.
