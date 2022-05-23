@@ -128,7 +128,7 @@ public class WorldGuardCommands {
             int lineNum = 0;
 
             while(scan.hasNextLine()){
-                if (build.equals(scan.nextLine().trim())) {
+                if (!build.equals(scan.nextLine().trim())) {
                     sender.print("Nová verze WorldGuard je dostupná na http://jenkins.valleycube.cz");
                     sender.print("Aktuální verze: WorldGuard v" + WorldGuard.getVersion() + " - překlad v" + WorldGuard.getTransVersion() + "-BUILD-" + build);
                     break;
