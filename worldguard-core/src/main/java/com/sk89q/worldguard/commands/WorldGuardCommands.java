@@ -78,7 +78,7 @@ import static com.sk89q.worldguard.WorldGuard.getPlatform;
 public class WorldGuardCommands {
 
     private final WorldGuard worldGuard;
-    public static String build = "37";
+    public static String build = "39";
     @Nullable
     private Sampler activeSampler;
 
