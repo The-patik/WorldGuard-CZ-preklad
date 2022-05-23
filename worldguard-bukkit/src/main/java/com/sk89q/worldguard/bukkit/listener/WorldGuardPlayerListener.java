@@ -61,10 +61,7 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.inventory.ItemStack;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.InputStreamReader;
-import java.io.Reader;
+import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.file.Files;
@@ -177,10 +174,13 @@ public class WorldGuardPlayerListener extends AbstractListener {
                 writer.close();
 
                 try {
-                    String gitbuild = Files.readAllLines(Paths.get("plugins/worldguard/cache/versioncheck.txt")).get(3);
+                    BufferedReader br = new BufferedReader(new FileReader(output));
+                    br.readLine();
+                    br.readLine();
+                    String line3 = br.readLine();
 
-                    String target=gitbuild.copyValueOf("build.number=".toCharArray());
-                    String gbuild = gitbuild.replace(target, "");
+                    String target=line3.copyValueOf("build.number=".toCharArray());
+                    String gbuild = line3.replace(target, "");
 
                     if (!gbuild.equals(build)) {
                             player.sendMessage(ChatColor.GRAY + "Nová verze WorldGuard je dostupná na http://jenkins.valleycube.cz");

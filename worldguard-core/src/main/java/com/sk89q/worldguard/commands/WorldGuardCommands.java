@@ -60,6 +60,7 @@ import java.lang.management.ThreadInfo;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Scanner;
@@ -128,10 +129,14 @@ public class WorldGuardCommands {
         writer.close();
 
         try {
-            String gitbuild = java.nio.file.Files.readAllLines(Paths.get("plugins/worldguard/cache/versioncheck.txt")).get(3);
 
-            String target=gitbuild.copyValueOf("build.number=".toCharArray());
-            String gbuild = gitbuild.replace(target, "");
+            BufferedReader br = new BufferedReader(new FileReader(output));
+            br.readLine();
+            br.readLine();
+            String line3 = br.readLine();
+
+            String target=line3.copyValueOf("build.number=".toCharArray());
+            String gbuild = line3.replace(target, "");
 
                 if (!gbuild.equals(build)) {
                     sender.print("Nová verze WorldGuard je dostupná na http://jenkins.valleycube.cz");
