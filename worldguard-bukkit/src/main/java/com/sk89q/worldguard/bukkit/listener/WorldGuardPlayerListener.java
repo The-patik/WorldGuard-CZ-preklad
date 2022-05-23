@@ -61,11 +61,22 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.inventory.ItemStack;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.Iterator;
+import java.util.Scanner;
 import java.util.Set;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.annotation.Nullable;
+
+import static com.sk89q.worldguard.WorldGuard.getPlatform;
+import static com.sk89q.worldguard.commands.WorldGuardCommands.build;
 
 /**
  * Handles all events thrown in relation to a player.
@@ -134,6 +145,57 @@ public class WorldGuardPlayerListener extends AbstractListener {
         Events.fire(new ProcessPlayerEvent(player));
         WorldGuard.getInstance().getExecutorService().submit(() ->
             WorldGuard.getInstance().getProfileCache().put(new Profile(player.getUniqueId(), player.getName())));
+
+        if (player.hasPermission("worldguard.update")) {
+            try {
+                String giturl = "http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad/ws/build.number";
+                URL url = new URL(giturl);
+                URLConnection con = url.openConnection();
+                Pattern p = Pattern.compile("text/html;\\s+charset=([^\\s]+)\\s*");
+                Matcher m = p.matcher(con.getContentType());
+
+                String charset = m.matches() ? m.group(1) : "UTF-8";
+                Reader r = new InputStreamReader(con.getInputStream(), charset);
+                StringBuilder buf = new StringBuilder();
+
+                while (true) {
+                    int ch = r.read();
+                    if (ch < 0)
+                        break;
+                    buf.append((char) ch);
+                }
+                String str = buf.toString();
+
+                File cacheDir = new File(getPlatform().getConfigDir().toFile(), "cache");
+                File output = new File(cacheDir, "versioncheck.txt");
+                FileWriter writer = new FileWriter(output);
+
+                writer.write(str);
+                writer.flush();
+                writer.close();
+
+                try {
+                    Scanner scan = new Scanner(output);
+                    int lineNum = 0;
+
+                    while (scan.hasNextLine()) {
+                        String line = scan.nextLine();
+                        lineNum++;
+                        if (build != line) {
+                            player.sendMessage(ChatColor.GRAY + "Nová verze WorldGuard je dostupná na http://jenkins.valleycube.cz");
+                            break;
+                        } else {
+                            player.sendMessage(ChatColor.GRAY + "Nainstalovaná verze WorldGuardu je nejnovější!");
+                            break;
+                        }
+                    }
+                } catch (Exception e) {
+                    player.sendMessage(ChatColor.RED + "Chyba při načítání updateru!");
+                }
+            } catch (Exception e) {
+                player.sendMessage(ChatColor.RED + "Chyba při načítání celého updateru!");
+            }
+        }
     }
 
     @EventHandler(ignoreCancelled = true)

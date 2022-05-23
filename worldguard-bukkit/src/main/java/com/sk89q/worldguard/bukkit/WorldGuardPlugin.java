@@ -98,6 +98,7 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.sk89q.worldguard.WorldGuard.getPlatform;
 import static com.sk89q.worldguard.commands.WorldGuardCommands.build;
 
 /**
@@ -224,7 +225,6 @@ public class WorldGuardPlugin extends JavaPlugin {
             setupCustomCharts(metrics);
         }
 
-        /**
             try {
                 String giturl = "http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad/ws/build.number";
                 URL url = new URL(giturl);
@@ -244,7 +244,8 @@ public class WorldGuardPlugin extends JavaPlugin {
                 }
                 String str = buf.toString();
 
-                File output = new File("versioncheck.txt");
+                File cacheDir = new File(getPlatform().getConfigDir().toFile(), "cache");
+                File output = new File(cacheDir,"versioncheck.txt");
                 FileWriter writer = new FileWriter(output);
 
                 writer.write(str);
@@ -260,20 +261,18 @@ public class WorldGuardPlugin extends JavaPlugin {
                         lineNum++;
                         if (build != line) {
                             getLogger().severe("Nová verze WorldGuard je dostupná na http://jenkins.valleycube.cz");
-                            continue;
+                            break;
                         } else {
                             getLogger().severe("Nainstalovaná verze WorldGuardu je nejnovější!");
-                            continue;
+                            break;
                         }
                     }
-                    Thread.sleep(1800 * 1000);
                 } catch (Exception e) {
                     getLogger().severe("Chyba při načítání updateru!");
                 }
             } catch (Exception e) {
-                getLogger().severe("Chyba při načítání updateru!");
+                getLogger().severe("Chyba při načítání celého updateru!");
             }
-         */
     }
 
     private void setupCustomCharts(Metrics metrics) {

@@ -41,15 +41,10 @@ import com.sk89q.worldguard.util.WorldGuardExceptionConverter;
 import com.sk89q.worldguard.util.concurrent.EvenMoreExecutors;
 
 import java.io.*;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.List;
-import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public final class WorldGuard {
 
@@ -59,7 +54,7 @@ public final class WorldGuard {
     private static String transVersion;
     private static final WorldGuard instance = new WorldGuard();
 
-    private WorldGuardPlatform platform;
+    private static WorldGuardPlatform platform;
     private final SimpleFlagRegistry flagRegistry = new SimpleFlagRegistry();
     private final Supervisor supervisor = new SimpleSupervisor();
     private ProfileCache profileCache;
@@ -103,7 +98,7 @@ public final class WorldGuard {
      *
      * @return The platform
      */
-    public WorldGuardPlatform getPlatform() {
+    public static WorldGuardPlatform getPlatform() {
         checkNotNull(platform, "WorldGuard is not enabled, unable to access the platform.");
         return platform;
     }
