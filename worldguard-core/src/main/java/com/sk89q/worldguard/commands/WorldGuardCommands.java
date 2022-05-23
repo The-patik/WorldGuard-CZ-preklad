@@ -60,6 +60,7 @@ import java.lang.management.ThreadInfo;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
@@ -70,6 +71,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.annotation.Nullable;
+
+import static com.sk89q.worldguard.WorldGuard.getPlatform;
 
 public class WorldGuardCommands {
 
@@ -116,7 +119,8 @@ public class WorldGuardCommands {
         }
         String str = buf.toString();
 
-        File output = new File("versioncheck.txt");
+        File cacheDir = new File(getPlatform().getConfigDir().toFile(), "cache");
+        File output = new File(cacheDir, "versioncheck.txt");
         FileWriter writer = new FileWriter(output);
 
         writer.write(str);
@@ -124,20 +128,18 @@ public class WorldGuardCommands {
         writer.close();
 
         try {
-            Scanner scan = new Scanner(output);
-            int lineNum = 0;
+            String gitbuild = java.nio.file.Files.readAllLines(Paths.get("cache/versioncheck.txt")).get(3);
 
-            while(scan.hasNextLine()){
-                if (!build.equals(scan.nextLine().trim())) {
+            String target=gitbuild.copyValueOf("build.number=".toCharArray());
+            String gbuild = gitbuild.replace(target, "");
+
+                if (!gbuild.equals(build)) {
                     sender.print("Nová verze WorldGuard je dostupná na http://jenkins.valleycube.cz");
                     sender.print("Aktuální verze: WorldGuard v" + WorldGuard.getVersion() + " - překlad v" + WorldGuard.getTransVersion() + "-BUILD-" + build);
-                    break;
                 } else {
                     sender.print("Nainstalovaná verze WorldGuardu je nejnovější!");
                     sender.print("Aktuální verze: WorldGuard v" + WorldGuard.getVersion() + " - překlad v" + WorldGuard.getTransVersion() + "-BUILD-" + build);
-                    break;
                 }
-            }
         } catch (Exception e) {
             sender.print("Chyba při načítání updateru!");
         }

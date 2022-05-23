@@ -90,6 +90,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -224,7 +226,7 @@ public class WorldGuardPlugin extends JavaPlugin {
         if (platform.getGlobalStateManager().extraStats) {
             setupCustomCharts(metrics);
         }
-    /**
+
             try {
                 String giturl = "http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad/ws/build.number";
                 URL url = new URL(giturl);
@@ -253,25 +255,22 @@ public class WorldGuardPlugin extends JavaPlugin {
                 writer.close();
 
                 try {
-                    Scanner scan = new Scanner(output);
-                    int lineNum = 0;
+                    String gitbuild = Files.readAllLines(Paths.get("cache/versioncheck.txt")).get(3);
 
-                    while(scan.hasNextLine()){
-                        if (!build.equals(scan.nextLine().trim())) {
+                    String target=gitbuild.copyValueOf("build.number=".toCharArray());
+                    String gbuild = gitbuild.replace(target, "");
+
+                        if (!gbuild.equals(build)) {
                             getLogger().severe("Nová verze WorldGuard je dostupná na http://jenkins.valleycube.cz");
-                            break;
                         } else {
                             getLogger().severe("Nainstalovaná verze WorldGuardu je nejnovější!");
-                            break;
                         }
-                    }
                 } catch (Exception e) {
                     getLogger().severe("Chyba při načítání updateru!");
                 }
             } catch (Exception e) {
                 getLogger().severe("Chyba při načítání celého updateru!");
             }
-     */
     }
 
     private void setupCustomCharts(Metrics metrics) {

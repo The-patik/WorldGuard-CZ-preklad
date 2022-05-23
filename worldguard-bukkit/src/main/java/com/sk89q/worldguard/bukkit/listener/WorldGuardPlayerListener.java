@@ -67,6 +67,8 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.Scanner;
 import java.util.Set;
@@ -175,18 +177,16 @@ public class WorldGuardPlayerListener extends AbstractListener {
                 writer.close();
 
                 try {
-                    Scanner scan = new Scanner(output);
-                    int lineNum = 0;
+                    String gitbuild = Files.readAllLines(Paths.get("cache/versioncheck.txt")).get(3);
 
-                    while(scan.hasNextLine()){
-                        if (!build.equals(scan.nextLine().trim())) {
+                    String target=gitbuild.copyValueOf("build.number=".toCharArray());
+                    String gbuild = gitbuild.replace(target, "");
+
+                    if (!gbuild.equals(build)) {
                             player.sendMessage(ChatColor.GRAY + "Nová verze WorldGuard je dostupná na http://jenkins.valleycube.cz");
-                            break;
                         } else {
                             player.sendMessage(ChatColor.GRAY + "Nainstalovaná verze WorldGuardu je nejnovější!");
-                            break;
                         }
-                    }
                 } catch (Exception e) {
                     player.sendMessage(ChatColor.RED + "Chyba při načítání updateru!");
                 }
