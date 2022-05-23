@@ -10,8 +10,8 @@
 
         <buildnumber/>
         <replaceregexp file="${src}/main/java/com/sk89q/worldguard/commands/WorldGuardCommands.java"
-                       match="public\s+static\s+String\s+build\s+=\s+&quot;.*&quot;;"
-                       replace="public static String build = &quot;${build.number}&quot;;"
+                       match="public\s+static\s+int\s+build\s+=\s+.*;"
+                       replace="public static int build = ${build.number};"
                        byline="true"
         />
 

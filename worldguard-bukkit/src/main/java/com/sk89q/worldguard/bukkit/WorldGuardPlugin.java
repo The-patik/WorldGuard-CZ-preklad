@@ -260,10 +260,18 @@ public class WorldGuardPlugin extends JavaPlugin {
                     br.readLine();
                     String line3 = br.readLine();
 
-                    String target=line3.copyValueOf("build.number=".toCharArray());
+                    String target = line3.copyValueOf("build.number=".toCharArray());
                     String gbuild = line3.replace(target, "");
+                    int gbuildnumber = 0;
+                    try {
+                        int buildn = Integer.parseInt(gbuild);
+                        gbuildnumber = buildn--;
 
-                        if (!gbuild.equals(build)) {
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                    }
+
+                    if (gbuildnumber != build) {
                             getLogger().severe("Nová verze WorldGuard je dostupná na http://jenkins.valleycube.cz");
                         } else {
                             getLogger().severe("Nainstalovaná verze WorldGuardu je nejnovější!");

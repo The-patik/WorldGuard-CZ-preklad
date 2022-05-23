@@ -78,7 +78,7 @@ import static com.sk89q.worldguard.WorldGuard.getPlatform;
 public class WorldGuardCommands {
 
     private final WorldGuard worldGuard;
-    public static String build = "39";
+    public static int build = 39;
     @Nullable
     private Sampler activeSampler;
 
@@ -129,16 +129,23 @@ public class WorldGuardCommands {
         writer.close();
 
         try {
-
             BufferedReader br = new BufferedReader(new FileReader(output));
             br.readLine();
             br.readLine();
             String line3 = br.readLine();
 
-            String target=line3.copyValueOf("build.number=".toCharArray());
+            String target = line3.copyValueOf("build.number=".toCharArray());
             String gbuild = line3.replace(target, "");
+            int gbuildnumber = 0;
+            try {
+                int buildn = Integer.parseInt(gbuild);
+                gbuildnumber = buildn--;
 
-                if (!gbuild.equals(build)) {
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+
+            if (gbuildnumber != build) {
                     sender.print("Nová verze WorldGuard je dostupná na http://jenkins.valleycube.cz");
                     sender.print("Aktuální verze: WorldGuard v" + WorldGuard.getVersion() + " - překlad v" + WorldGuard.getTransVersion() + "-BUILD-" + build);
                 } else {
