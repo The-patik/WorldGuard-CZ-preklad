@@ -131,9 +131,11 @@ public class WorldGuardCommands {
                 if (build.equals(scan.nextLine().trim())) {
                     sender.print("Nová verze WorldGuard je dostupná na http://jenkins.valleycube.cz");
                     sender.print("Aktuální verze: WorldGuard v" + WorldGuard.getVersion() + " - překlad v" + WorldGuard.getTransVersion() + "-BUILD-" + build);
+                    break;
                 } else {
                     sender.print("Nainstalovaná verze WorldGuardu je nejnovější!");
                     sender.print("Aktuální verze: WorldGuard v" + WorldGuard.getVersion() + " - překlad v" + WorldGuard.getTransVersion() + "-BUILD-" + build);
+                    break;
                 }
             }
         } catch (Exception e) {
@@ -179,7 +181,7 @@ public class WorldGuardCommands {
         }
     }
     
-    @Command(aliases = {"report"}, desc = "Writes a report on WorldGuard", flags = "p", max = 0)
+    @Command(aliases = {"report"}, desc = "Nahlásí chybu na WorldGuard", flags = "p", max = 0)
     @CommandPermissions({"worldguard.report"})
     public void report(CommandContext args, final Actor sender) throws CommandException, AuthorizationException {
         ReportList report = new ReportList("Report");
