@@ -128,7 +128,7 @@ public class WorldGuardCommands {
         writer.close();
 
         try {
-            String gitbuild = java.nio.file.Files.readAllLines(Paths.get("cache/versioncheck.txt")).get(3);
+            String gitbuild = java.nio.file.Files.readAllLines(Paths.get("plugins/worldguard/cache/versioncheck.txt")).get(3);
 
             String target=gitbuild.copyValueOf("build.number=".toCharArray());
             String gbuild = gitbuild.replace(target, "");
