@@ -189,6 +189,7 @@ public class WorldGuardPlayerListener extends AbstractListener {
                         }
                 } catch (Exception e) {
                     player.sendMessage(ChatColor.RED + "Chyba při načítání updateru!");
+                    e.printStackTrace();
                 }
             } catch (Exception e) {
                 player.sendMessage(ChatColor.RED + "Chyba při načítání celého updateru!");

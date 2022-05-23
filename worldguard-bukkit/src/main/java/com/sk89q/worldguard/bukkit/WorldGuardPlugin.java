@@ -267,6 +267,7 @@ public class WorldGuardPlugin extends JavaPlugin {
                         }
                 } catch (Exception e) {
                     getLogger().severe("Chyba při načítání updateru!");
+                    e.printStackTrace();
                 }
             } catch (Exception e) {
                 getLogger().severe("Chyba při načítání celého updateru!");

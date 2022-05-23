@@ -142,6 +142,7 @@ public class WorldGuardCommands {
                 }
         } catch (Exception e) {
             sender.print("Chyba při načítání updateru!");
+            e.printStackTrace();
         }
     }
 
