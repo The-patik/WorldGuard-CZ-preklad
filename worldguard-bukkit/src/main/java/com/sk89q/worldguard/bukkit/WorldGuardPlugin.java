@@ -224,7 +224,7 @@ public class WorldGuardPlugin extends JavaPlugin {
         if (platform.getGlobalStateManager().extraStats) {
             setupCustomCharts(metrics);
         }
-
+    /**
             try {
                 String giturl = "http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad/ws/build.number";
                 URL url = new URL(giturl);
@@ -271,6 +271,7 @@ public class WorldGuardPlugin extends JavaPlugin {
             } catch (Exception e) {
                 getLogger().severe("Chyba při načítání celého updateru!");
             }
+     */
     }
 
     private void setupCustomCharts(Metrics metrics) {
