@@ -74,7 +74,7 @@ import javax.annotation.Nullable;
 public class WorldGuardCommands {
 
     private final WorldGuard worldGuard;
-    public static String build = "28";
+    public static String build = "30";
     @Nullable
     private Sampler activeSampler;
 
