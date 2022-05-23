@@ -178,10 +178,8 @@ public class WorldGuardPlayerListener extends AbstractListener {
                     Scanner scan = new Scanner(output);
                     int lineNum = 0;
 
-                    while (scan.hasNextLine()) {
-                        String line = scan.nextLine();
-                        lineNum++;
-                        if (build != line) {
+                    while(scan.hasNextLine()){
+                        if (!build.equals(scan.nextLine().trim())) {
                             player.sendMessage(ChatColor.GRAY + "Nová verze WorldGuard je dostupná na http://jenkins.valleycube.cz");
                             break;
                         } else {
