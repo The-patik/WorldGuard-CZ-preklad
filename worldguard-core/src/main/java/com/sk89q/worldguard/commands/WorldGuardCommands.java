@@ -133,7 +133,7 @@ public class WorldGuardCommands {
 
             if (gbuildnumber != build) {
                     sender.print("Nová verze WorldGuard CZ překlad je dostupná na http://jenkins.valleycube.cz");
-                    sender.print("Nová verze: WorldGuard_" + WorldGuard.getVersion() + "-překlad_PREv" + WorldGuard.getTransVersion() + "-B" + buildn);
+                    sender.print("Nová verze: WorldGuard_" + WorldGuard.getVersion() + "-překlad_PREv" + WorldGuard.getTransVersion() + "-B" + buildn + " " + gbuildnumber);
                 } else {
                     sender.print("Nainstalovaná verze WorldGuardu je nejnovější!");
                     sender.print("Aktuální verze: WorldGuard_" + WorldGuard.getVersion() + "-překlad_PREv" + WorldGuard.getTransVersion() + "-B" + build);
