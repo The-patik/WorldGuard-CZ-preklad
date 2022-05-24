@@ -190,7 +190,7 @@ public class WorldGuardPlayerListener extends AbstractListener {
                         e.printStackTrace();
                     }
 
-                    if (gbuildnumber == build) {
+                    if (gbuildnumber != build) {
                         player.sendMessage(ChatColor.GRAY + "Nová verze WorldGuard je dostupná na http://jenkins.valleycube.cz");
                         player.sendMessage(ChatColor.GRAY + "Nová verze: WorldGuard_" + WorldGuard.getVersion() + "-překlad_PREv" + WorldGuard.getTransVersion() + "-B" + buildn);
                     } else {

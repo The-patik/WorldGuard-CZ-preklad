@@ -271,7 +271,7 @@ public class WorldGuardPlugin extends JavaPlugin {
                         e.printStackTrace();
                     }
 
-                    if (gbuildnumber == build) {
+                    if (gbuildnumber != build) {
                         getLogger().info("Nová verze WorldGuard je dostupná na http://jenkins.valleycube.cz!");
                         getLogger().info("Nová verze: WorldGuard_" + WorldGuard.getVersion() + "-překlad_PREv" + WorldGuard.getTransVersion() + "-B" + buildn);
                         } else {
