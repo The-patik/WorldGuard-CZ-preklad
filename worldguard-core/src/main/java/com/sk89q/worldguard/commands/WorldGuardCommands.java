@@ -81,7 +81,7 @@ public class WorldGuardCommands {
 
     @Command(aliases = {"version"}, desc = "Verze WorldGuardu", max = 0)
     public void version(CommandContext args, Actor sender) throws CommandException {
-        sender.print("WorldGuard_" + WorldGuard.getVersion() + "-překlad_PREv" + WorldGuard.getTransVersion() + "-B" + build);
+        sender.print("WorldGuard_" + WorldGuard.getVersion() + "-překlad_PREv" + WorldGuard.getTransVersion() + "-B" + buildnumber);
         sender.print("http://www.enginehub.org");
         sender.print(" ");
         sender.print("§bPřeložil: _patik_");
