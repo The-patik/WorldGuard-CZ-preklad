@@ -64,7 +64,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.sk89q.worldguard.WorldGuard.getPlatform;
-import static com.sk89q.worldguard.commands.WorldGuardCommands.build;
+import static com.sk89q.worldguard.commands.WorldGuardCommands.buildnumber;
 
 /**
  * Handles all events thrown in relation to a player.
@@ -172,12 +172,12 @@ public class WorldGuardPlayerListener extends AbstractListener {
                     String gbuild = line3.replace(target, "");
                     int buildn = Integer.parseInt(gbuild);
 
-                    if (buildn-- != build) {
-                        player.sendMessage(ChatColor.GRAY + "Nová verze WorldGuard je dostupná na http://jenkins.valleycube.cz");
-                        player.sendMessage(ChatColor.GRAY + "Nová verze: WorldGuard_" + WorldGuard.getVersion() + "-překlad_PREv" + WorldGuard.getTransVersion() + "-B" + buildn--);
-                    } else {
+                    if (buildn == buildnumber) {
                         player.sendMessage(ChatColor.GRAY + "Nainstalovaná verze WorldGuardu je nejnovější!");
-                        player.sendMessage(ChatColor.GRAY + "Aktuální verze: WorldGuard_" + WorldGuard.getVersion() + "-překlad_PREv" + WorldGuard.getTransVersion() + "-B" + build);
+                        player.sendMessage(ChatColor.GRAY + "Aktuální verze: WorldGuard_" + WorldGuard.getVersion() + "-překlad_PREv" + WorldGuard.getTransVersion() + "-B" + buildnumber);
+                    } else {
+                        player.sendMessage(ChatColor.GRAY + "Nová verze WorldGuard je dostupná na http://jenkins.valleycube.cz");
+                        player.sendMessage(ChatColor.GRAY + "Nová verze: WorldGuard_" + WorldGuard.getVersion() + "-překlad_PREv" + WorldGuard.getTransVersion() + "-B" + buildn);
                     }
                 } catch (Exception e) {
                     player.sendMessage(ChatColor.RED + "Chyba při načítání updateru!");

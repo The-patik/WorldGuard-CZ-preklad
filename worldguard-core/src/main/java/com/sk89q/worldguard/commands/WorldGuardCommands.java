@@ -70,7 +70,8 @@ import static com.sk89q.worldguard.WorldGuard.getPlatform;
 public class WorldGuardCommands {
 
     private final WorldGuard worldGuard;
-    public static int build = 50;
+    private static int build = 50;
+    public static int buildnumber = build++;
     @Nullable
     private Sampler activeSampler;
 
@@ -130,12 +131,16 @@ public class WorldGuardCommands {
             String gbuild = line3.replace(target, "");
             int buildn = Integer.parseInt(gbuild);
 
-            if (buildn-- != build) {
-                    sender.print("Nová verze WorldGuard CZ překlad je dostupná na http://jenkins.valleycube.cz");
-                    sender.print("Nová verze: WorldGuard_" + WorldGuard.getVersion() + "-překlad_PREv" + WorldGuard.getTransVersion() + "-B" + buildn--);
+            if (buildn == buildnumber) {
+                sender.print("Nainstalovaná verze WorldGuardu je nejnovější!");
+                sender.print("Aktuální verze: WorldGuard_"
+                        + WorldGuard.getVersion() + "-překlad_PREv"
+                            + WorldGuard.getTransVersion() + "-B" + buildnumber);
                 } else {
-                    sender.print("Nainstalovaná verze WorldGuardu je nejnovější!");
-                    sender.print("Aktuální verze: WorldGuard_" + WorldGuard.getVersion() + "-překlad_PREv" + WorldGuard.getTransVersion() + "-B" + build);
+                sender.print("Nová verze WorldGuard CZ překlad je dostupná na http://jenkins.valleycube.cz");
+                sender.print("Nová verze: WorldGuard_"
+                        + WorldGuard.getVersion() + "-překlad_PREv"
+                            + WorldGuard.getTransVersion() + "-B" + buildn);
                 }
         } catch (Exception e) {
             sender.print("Chyba při načítání updateru!");

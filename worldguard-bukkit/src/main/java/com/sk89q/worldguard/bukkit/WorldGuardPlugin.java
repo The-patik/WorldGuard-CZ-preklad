@@ -72,7 +72,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.sk89q.worldguard.WorldGuard.getPlatform;
-import static com.sk89q.worldguard.commands.WorldGuardCommands.build;
+import static com.sk89q.worldguard.commands.WorldGuardCommands.buildnumber;
 
 /**
  * The main class for WorldGuard as a Bukkit plugin.
@@ -235,12 +235,16 @@ public class WorldGuardPlugin extends JavaPlugin {
                     String gbuild = line3.replace(target, "");
                     int buildn = Integer.parseInt(gbuild);
 
-                    if (buildn-- != build) {
-                        getLogger().warning("Nová verze WorldGuard je dostupná na http://jenkins.valleycube.cz!");
-                        getLogger().warning("Nová verze: WorldGuard_" + WorldGuard.getVersion() + "-překlad_PREv" + WorldGuard.getTransVersion() + "-B" + buildn--);
-                        } else {
+                    if (buildn == buildnumber) {
                         getLogger().info("Nainstalovaná verze WorldGuardu je nejnovější!");
-                        getLogger().info("Aktuální verze: WorldGuard_" + WorldGuard.getVersion() + "-překlad_PREv" + WorldGuard.getTransVersion() + "-B" + build);
+                        getLogger().info("Aktuální verze: WorldGuard_"
+                                + WorldGuard.getVersion() + "-překlad_PREv"
+                                    + WorldGuard.getTransVersion() + "-B" + buildnumber);
+                        } else {
+                        getLogger().warning("Nová verze WorldGuard je dostupná na http://jenkins.valleycube.cz!");
+                        getLogger().warning("Nová verze: WorldGuard_"
+                                + WorldGuard.getVersion() + "-překlad_PREv"
+                                    + WorldGuard.getTransVersion() + "-B" + buildn--);
                         }
                 } catch (Exception e) {
                     getLogger().warning("Chyba při načítání updateru!");
