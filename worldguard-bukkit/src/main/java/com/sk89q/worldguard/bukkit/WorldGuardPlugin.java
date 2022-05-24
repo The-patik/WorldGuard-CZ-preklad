@@ -235,9 +235,9 @@ public class WorldGuardPlugin extends JavaPlugin {
                     String gbuild = line3.replace(target, "");
                     int buildn = Integer.parseInt(gbuild);
 
-                    if (buildn != build) {
+                    if (buildn-- != build) {
                         getLogger().warning("Nová verze WorldGuard je dostupná na http://jenkins.valleycube.cz!");
-                        getLogger().warning("Nová verze: WorldGuard_" + WorldGuard.getVersion() + "-překlad_PREv" + WorldGuard.getTransVersion() + "-B" + buildn);
+                        getLogger().warning("Nová verze: WorldGuard_" + WorldGuard.getVersion() + "-překlad_PREv" + WorldGuard.getTransVersion() + "-B" + buildn--);
                         } else {
                         getLogger().info("Nainstalovaná verze WorldGuardu je nejnovější!");
                         getLogger().info("Aktuální verze: WorldGuard_" + WorldGuard.getVersion() + "-překlad_PREv" + WorldGuard.getTransVersion() + "-B" + build);
