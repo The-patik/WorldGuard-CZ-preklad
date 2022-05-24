@@ -130,7 +130,7 @@ public class WorldGuardCommands {
             String gbuild = line3.replace(target, "");
             int buildn = Integer.parseInt(gbuild);
 
-            if (buildn-- != build) {
+            if (buildn != build) {
                     sender.print("Nová verze WorldGuard CZ překlad je dostupná na http://jenkins.valleycube.cz");
                     sender.print("Nová verze: WorldGuard_" + WorldGuard.getVersion() + "-překlad_PREv" + WorldGuard.getTransVersion() + "-B" + buildn);
                 } else {
