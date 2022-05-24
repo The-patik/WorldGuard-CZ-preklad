@@ -182,8 +182,8 @@ public class WorldGuardPlayerListener extends AbstractListener {
                     String target = line3.copyValueOf("build.number=".toCharArray());
                     String gbuild = line3.replace(target, "");
                     int gbuildnumber = 0;
+                    int buildn = Integer.parseInt(gbuild);
                     try {
-                        int buildn = Integer.parseInt(gbuild);
                         gbuildnumber = buildn--;
 
                     } catch (NumberFormatException e) {
@@ -192,8 +192,10 @@ public class WorldGuardPlayerListener extends AbstractListener {
 
                     if (gbuildnumber == build) {
                         player.sendMessage(ChatColor.GRAY + "Nová verze WorldGuard je dostupná na http://jenkins.valleycube.cz");
+                        player.sendMessage(ChatColor.GRAY + "Nová verze: WorldGuard_" + WorldGuard.getVersion() + "-překlad_PREv" + WorldGuard.getTransVersion() + "-B" + buildn);
                     } else {
                         player.sendMessage(ChatColor.GRAY + "Nainstalovaná verze WorldGuardu je nejnovější!");
+                        player.sendMessage(ChatColor.GRAY + "Aktuální verze: WorldGuard_" + WorldGuard.getVersion() + "-překlad_PREv" + WorldGuard.getTransVersion() + "-B" + build);
                     }
                 } catch (Exception e) {
                     player.sendMessage(ChatColor.RED + "Chyba při načítání updateru!");

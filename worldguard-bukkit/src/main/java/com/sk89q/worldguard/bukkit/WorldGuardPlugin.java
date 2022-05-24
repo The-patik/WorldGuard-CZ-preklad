@@ -263,8 +263,8 @@ public class WorldGuardPlugin extends JavaPlugin {
                     String target = line3.copyValueOf("build.number=".toCharArray());
                     String gbuild = line3.replace(target, "");
                     int gbuildnumber = 0;
+                    int buildn = Integer.parseInt(gbuild);
                     try {
-                        int buildn = Integer.parseInt(gbuild);
                         gbuildnumber = buildn--;
 
                     } catch (NumberFormatException e) {
@@ -272,16 +272,18 @@ public class WorldGuardPlugin extends JavaPlugin {
                     }
 
                     if (gbuildnumber == build) {
-                            getLogger().severe("Nová verze WorldGuard je dostupná na http://jenkins.valleycube.cz");
+                        getLogger().info("Nová verze WorldGuard je dostupná na http://jenkins.valleycube.cz!");
+                        getLogger().info("Nová verze: WorldGuard_" + WorldGuard.getVersion() + "-překlad_PREv" + WorldGuard.getTransVersion() + "-B" + buildn);
                         } else {
-                            getLogger().severe("Nainstalovaná verze WorldGuardu je nejnovější!");
+                        getLogger().info("Nainstalovaná verze WorldGuardu je nejnovější!");
+                        getLogger().info("Aktuální verze: WorldGuard_" + WorldGuard.getVersion() + "-překlad_PREv" + WorldGuard.getTransVersion() + "-B" + build);
                         }
                 } catch (Exception e) {
-                    getLogger().severe("Chyba při načítání updateru!");
+                    getLogger().warning("Chyba při načítání updateru!");
                     e.printStackTrace();
                 }
             } catch (Exception e) {
-                getLogger().severe("Chyba při načítání celého updateru!");
+                getLogger().warning("Chyba při načítání celého updateru!");
             }
     }
 

@@ -88,7 +88,7 @@ public class WorldGuardCommands {
 
     @Command(aliases = {"version"}, desc = "Verze WorldGuardu", max = 0)
     public void version(CommandContext args, Actor sender) throws CommandException {
-        sender.print("WorldGuard " + WorldGuard.getVersion() + " - PŘELOŽENO v" + WorldGuard.getTransVersion() + "-BUILD-" + build);
+        sender.print("WorldGuard_" + WorldGuard.getVersion() + "-překlad_PREv" + WorldGuard.getTransVersion() + "-B" + build);
         sender.print("http://www.enginehub.org");
         sender.print(" ");
         sender.print("§bPřeložil: _patik_");
@@ -99,7 +99,7 @@ public class WorldGuardCommands {
         sender.printDebug(String.format("* %s (%s)", worldGuard.getPlatform().getPlatformName(), worldGuard.getPlatform().getPlatformVersion()));
     }
 
-    @Command(aliases = {"update"}, desc = "Zkontroluj verzi", max = 0)
+    @Command(aliases = {"update", "aktualizovat"}, desc = "Zkontroluj aktualizace", max = 0)
     @CommandPermissions({"worldguard.update"})
     public void update(CommandContext args, Actor sender) throws Exception {
         String giturl = "http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad/ws/build.number";
@@ -137,20 +137,19 @@ public class WorldGuardCommands {
             String target = line3.copyValueOf("build.number=".toCharArray());
             String gbuild = line3.replace(target, "");
             int gbuildnumber = 0;
+            int buildn = Integer.parseInt(gbuild);
             try {
-                int buildn = Integer.parseInt(gbuild);
                 gbuildnumber = buildn--;
-
             } catch (NumberFormatException e) {
                 e.printStackTrace();
             }
 
             if (gbuildnumber == build) {
-                    sender.print("Nová verze WorldGuard je dostupná na http://jenkins.valleycube.cz");
-                    sender.print("Aktuální verze: WorldGuard v" + WorldGuard.getVersion() + " - překlad v" + WorldGuard.getTransVersion() + "-BUILD-" + build);
+                    sender.print("Nová verze WorldGuard CZ překlad je dostupná na http://jenkins.valleycube.cz");
+                    sender.print("Nová verze: WorldGuard_" + WorldGuard.getVersion() + "-překlad_PREv" + WorldGuard.getTransVersion() + "-B" + buildn);
                 } else {
                     sender.print("Nainstalovaná verze WorldGuardu je nejnovější!");
-                    sender.print("Aktuální verze: WorldGuard v" + WorldGuard.getVersion() + " - překlad v" + WorldGuard.getTransVersion() + "-BUILD-" + build);
+                    sender.print("Aktuální verze: WorldGuard_" + WorldGuard.getVersion() + "-překlad_PREv" + WorldGuard.getTransVersion() + "-B" + build);
                 }
         } catch (Exception e) {
             sender.print("Chyba při načítání updateru!");

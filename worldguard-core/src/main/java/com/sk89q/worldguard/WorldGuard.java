@@ -239,7 +239,7 @@ public final class WorldGuard {
      * Verze překladu :)
      */
     public static String getTransVersion() {
-        transVersion = "0.2";
+        transVersion = "0.3";
         return transVersion;
     }
 }
