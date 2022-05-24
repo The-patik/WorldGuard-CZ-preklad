@@ -240,12 +240,14 @@ public class WorldGuardPlugin extends JavaPlugin {
                         getLogger().info("Aktuální verze: WorldGuard_"
                                 + WorldGuard.getVersion() + "-překlad_PREv"
                                     + WorldGuard.getTransVersion() + "-B" + buildnumber);
-                        } else {
-                        getLogger().warning("Nová verze WorldGuard je dostupná na http://jenkins.valleycube.cz!");
+                        } else if (buildn < buildnumber){
+                        getLogger().warning("Nová verze WorldGuard CZ překlad je dostupná na http://jenkins.valleycube.cz");
                         getLogger().warning("Nová verze: WorldGuard_"
                                 + WorldGuard.getVersion() + "-překlad_PREv"
-                                    + WorldGuard.getTransVersion() + "-B" + buildn--);
-                        }
+                                    + WorldGuard.getTransVersion() + "-B" + buildn);
+                    } else {
+                        getLogger().severe("Nesprávná verze! Koukni na http://jenkins.valleycube.cz");
+                    }
                 } catch (Exception e) {
                     getLogger().warning("Chyba při načítání updateru!");
                     e.printStackTrace();

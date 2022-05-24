@@ -174,10 +174,16 @@ public class WorldGuardPlayerListener extends AbstractListener {
 
                     if (buildn == buildnumber) {
                         player.sendMessage(ChatColor.GRAY + "Nainstalovaná verze WorldGuardu je nejnovější!");
-                        player.sendMessage(ChatColor.GRAY + "Aktuální verze: WorldGuard_" + WorldGuard.getVersion() + "-překlad_PREv" + WorldGuard.getTransVersion() + "-B" + buildnumber);
+                        player.sendMessage(ChatColor.GRAY + "Aktuální verze: WorldGuard_"
+                                + WorldGuard.getVersion() + "-překlad_PREv"
+                                    + WorldGuard.getTransVersion() + "-B" + buildnumber);
+                    } else if (buildn < buildnumber){
+                        player.sendMessage(ChatColor.GRAY + "Nová verze WorldGuard CZ překlad je dostupná na http://jenkins.valleycube.cz");
+                        player.sendMessage(ChatColor.GRAY + "Nová verze: WorldGuard_"
+                                + WorldGuard.getVersion() + "-překlad_PREv"
+                                    + WorldGuard.getTransVersion() + "-B" + buildn);
                     } else {
-                        player.sendMessage(ChatColor.GRAY + "Nová verze WorldGuard je dostupná na http://jenkins.valleycube.cz");
-                        player.sendMessage(ChatColor.GRAY + "Nová verze: WorldGuard_" + WorldGuard.getVersion() + "-překlad_PREv" + WorldGuard.getTransVersion() + "-B" + buildn);
+                        player.sendMessage(ChatColor.RED + "Nesprávná verze! Koukni na http://jenkins.valleycube.cz");
                     }
                 } catch (Exception e) {
                     player.sendMessage(ChatColor.RED + "Chyba při načítání updateru!");

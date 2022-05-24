@@ -136,12 +136,14 @@ public class WorldGuardCommands {
                 sender.print("Aktuální verze: WorldGuard_"
                         + WorldGuard.getVersion() + "-překlad_PREv"
                             + WorldGuard.getTransVersion() + "-B" + buildnumber);
-                } else {
+                } else if (buildn < buildnumber){
                 sender.print("Nová verze WorldGuard CZ překlad je dostupná na http://jenkins.valleycube.cz");
                 sender.print("Nová verze: WorldGuard_"
                         + WorldGuard.getVersion() + "-překlad_PREv"
                             + WorldGuard.getTransVersion() + "-B" + buildn);
-                }
+                } else {
+                sender.print("Nesprávná verze! Koukni na http://jenkins.valleycube.cz");
+            }
         } catch (Exception e) {
             sender.print("Chyba při načítání updateru!");
             e.printStackTrace();
