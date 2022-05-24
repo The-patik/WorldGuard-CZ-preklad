@@ -70,7 +70,7 @@ import static com.sk89q.worldguard.WorldGuard.getPlatform;
 public class WorldGuardCommands {
 
     private final WorldGuard worldGuard;
-    private static int build = 50;
+    private static int build = 53;
     public static int buildnumber = build++;
     @Nullable
     private Sampler activeSampler;
