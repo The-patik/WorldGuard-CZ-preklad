@@ -79,7 +79,7 @@ public class WorldGuardCommands {
         this.worldGuard = worldGuard;
     }
 
-    @Command(aliases = {"version"}, desc = "Verze WorldGuardu", max = 0)
+    @Command(aliases = {"version", "verze"}, desc = "Verze WorldGuardu", max = 0)
     public void version(CommandContext args, Actor sender) throws CommandException {
         sender.print("WorldGuard_" + WorldGuard.getVersion() + "-překlad_PREv" + WorldGuard.getTransVersion() + "-B" + buildnumber);
         sender.print("http://www.enginehub.org");
@@ -136,7 +136,7 @@ public class WorldGuardCommands {
                 sender.print("Aktuální verze: WorldGuard_"
                         + WorldGuard.getVersion() + "-překlad_PREv"
                             + WorldGuard.getTransVersion() + "-B" + buildnumber);
-                } else if (buildn < buildnumber){
+                } else if (buildn > buildnumber){
                 sender.print("Nová verze WorldGuard CZ překlad je dostupná na http://jenkins.valleycube.cz");
                 sender.print("Nová verze: WorldGuard_"
                         + WorldGuard.getVersion() + "-překlad_PREv"
