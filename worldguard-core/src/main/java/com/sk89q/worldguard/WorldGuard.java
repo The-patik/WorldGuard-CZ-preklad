@@ -19,16 +19,9 @@
 
 package com.sk89q.worldguard;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-import static com.sk89q.worldguard.commands.WorldGuardCommands.build;
-
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
 import com.sk89q.minecraft.util.commands.CommandException;
-import com.sk89q.worldguard.util.profile.cache.HashMapCache;
-import com.sk89q.worldguard.util.profile.cache.ProfileCache;
-import com.sk89q.worldguard.util.profile.cache.SQLiteCache;
-import com.sk89q.worldguard.util.profile.resolver.ProfileService;
 import com.sk89q.worldedit.extension.platform.Actor;
 import com.sk89q.worldedit.util.task.SimpleSupervisor;
 import com.sk89q.worldedit.util.task.Supervisor;
@@ -39,12 +32,19 @@ import com.sk89q.worldguard.protection.flags.registry.FlagRegistry;
 import com.sk89q.worldguard.protection.flags.registry.SimpleFlagRegistry;
 import com.sk89q.worldguard.util.WorldGuardExceptionConverter;
 import com.sk89q.worldguard.util.concurrent.EvenMoreExecutors;
+import com.sk89q.worldguard.util.profile.cache.HashMapCache;
+import com.sk89q.worldguard.util.profile.cache.ProfileCache;
+import com.sk89q.worldguard.util.profile.cache.SQLiteCache;
+import com.sk89q.worldguard.util.profile.resolver.ProfileService;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 public final class WorldGuard {
 

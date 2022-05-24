@@ -23,11 +23,7 @@ import com.google.common.io.Files;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.MoreExecutors;
-import com.sk89q.minecraft.util.commands.Command;
-import com.sk89q.minecraft.util.commands.CommandContext;
-import com.sk89q.minecraft.util.commands.CommandException;
-import com.sk89q.minecraft.util.commands.CommandPermissions;
-import com.sk89q.minecraft.util.commands.NestedCommand;
+import com.sk89q.minecraft.util.commands.*;
 import com.sk89q.worldedit.WorldEdit;
 import com.sk89q.worldedit.extension.platform.Actor;
 import com.sk89q.worldedit.extension.platform.Capability;
@@ -55,23 +51,19 @@ import com.sk89q.worldguard.util.profiler.ThreadNameFilter;
 import com.sk89q.worldguard.util.report.ApplicableRegionsReport;
 import com.sk89q.worldguard.util.report.ConfigReport;
 
+import javax.annotation.Nullable;
 import java.io.*;
 import java.lang.management.ThreadInfo;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
-import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javax.annotation.Nullable;
 
 import static com.sk89q.worldguard.WorldGuard.getPlatform;
 
@@ -136,13 +128,8 @@ public class WorldGuardCommands {
 
             String target = line3.copyValueOf("build.number=".toCharArray());
             String gbuild = line3.replace(target, "");
-            int gbuildnumber = 0;
             int buildn = Integer.parseInt(gbuild);
-            try {
-                gbuildnumber = buildn--;
-            } catch (NumberFormatException e) {
-                e.printStackTrace();
-            }
+            int gbuildnumber = buildn--;
 
             if (gbuildnumber != build) {
                     sender.print("Nová verze WorldGuard CZ překlad je dostupná na http://jenkins.valleycube.cz");

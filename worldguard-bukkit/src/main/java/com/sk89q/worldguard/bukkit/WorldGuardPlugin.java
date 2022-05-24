@@ -21,13 +21,7 @@ package com.sk89q.worldguard.bukkit;
 
 import com.google.common.collect.ImmutableList;
 import com.sk89q.bukkit.util.CommandsManagerRegistration;
-import com.sk89q.minecraft.util.commands.CommandException;
-import com.sk89q.minecraft.util.commands.CommandPermissionsException;
-import com.sk89q.minecraft.util.commands.CommandUsageException;
-import com.sk89q.minecraft.util.commands.CommandsManager;
-import com.sk89q.minecraft.util.commands.MissingNestedCommandException;
-import com.sk89q.minecraft.util.commands.SimpleInjector;
-import com.sk89q.minecraft.util.commands.WrappedCommandException;
+import com.sk89q.minecraft.util.commands.*;
 import com.sk89q.wepif.PermissionsResolverManager;
 import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldedit.bukkit.BukkitCommandSender;
@@ -37,27 +31,7 @@ import com.sk89q.worldguard.LocalPlayer;
 import com.sk89q.worldguard.WorldGuard;
 import com.sk89q.worldguard.blacklist.Blacklist;
 import com.sk89q.worldguard.bukkit.event.player.ProcessPlayerEvent;
-import com.sk89q.worldguard.bukkit.listener.BlacklistListener;
-import com.sk89q.worldguard.bukkit.listener.BlockedPotionsListener;
-import com.sk89q.worldguard.bukkit.listener.BuildPermissionListener;
-import com.sk89q.worldguard.bukkit.listener.ChestProtectionListener;
-import com.sk89q.worldguard.bukkit.listener.DebuggingListener;
-import com.sk89q.worldguard.bukkit.listener.EventAbstractionListener;
-import com.sk89q.worldguard.bukkit.listener.InvincibilityListener;
-import com.sk89q.worldguard.bukkit.listener.PlayerModesListener;
-import com.sk89q.worldguard.bukkit.listener.PlayerMoveListener;
-import com.sk89q.worldguard.bukkit.listener.RegionFlagsListener;
-import com.sk89q.worldguard.bukkit.listener.RegionProtectionListener;
-import com.sk89q.worldguard.bukkit.listener.WorldGuardBlockListener;
-import com.sk89q.worldguard.bukkit.listener.WorldGuardCommandBookListener;
-import com.sk89q.worldguard.bukkit.listener.WorldGuardEntityListener;
-import com.sk89q.worldguard.bukkit.listener.WorldGuardHangingListener;
-import com.sk89q.worldguard.bukkit.listener.WorldGuardPlayerListener;
-import com.sk89q.worldguard.bukkit.listener.WorldGuardServerListener;
-import com.sk89q.worldguard.bukkit.listener.WorldGuardVehicleListener;
-import com.sk89q.worldguard.bukkit.listener.WorldGuardWeatherListener;
-import com.sk89q.worldguard.bukkit.listener.WorldGuardWorldListener;
-import com.sk89q.worldguard.bukkit.listener.WorldRulesListener;
+import com.sk89q.worldguard.bukkit.listener.*;
 import com.sk89q.worldguard.bukkit.session.BukkitSessionManager;
 import com.sk89q.worldguard.bukkit.util.ClassSourceValidator;
 import com.sk89q.worldguard.bukkit.util.Events;
@@ -90,11 +64,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -262,18 +233,12 @@ public class WorldGuardPlugin extends JavaPlugin {
 
                     String target = line3.copyValueOf("build.number=".toCharArray());
                     String gbuild = line3.replace(target, "");
-                    int gbuildnumber = 0;
                     int buildn = Integer.parseInt(gbuild);
-                    try {
-                        gbuildnumber = buildn--;
-
-                    } catch (NumberFormatException e) {
-                        e.printStackTrace();
-                    }
+                    int gbuildnumber = buildn--;
 
                     if (gbuildnumber != build) {
-                        getLogger().info("Nová verze WorldGuard je dostupná na http://jenkins.valleycube.cz!");
-                        getLogger().info("Nová verze: WorldGuard_" + WorldGuard.getVersion() + "-překlad_PREv" + WorldGuard.getTransVersion() + "-B" + buildn);
+                        getLogger().warning("Nová verze WorldGuard je dostupná na http://jenkins.valleycube.cz!");
+                        getLogger().warning("Nová verze: WorldGuard_" + WorldGuard.getVersion() + "-překlad_PREv" + WorldGuard.getTransVersion() + "-B" + buildn);
                         } else {
                         getLogger().info("Nainstalovaná verze WorldGuardu je nejnovější!");
                         getLogger().info("Aktuální verze: WorldGuard_" + WorldGuard.getVersion() + "-překlad_PREv" + WorldGuard.getTransVersion() + "-B" + build);

@@ -49,30 +49,19 @@ import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.event.player.PlayerCommandPreprocessEvent;
-import org.bukkit.event.player.PlayerGameModeChangeEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerItemHeldEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerLoginEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
-import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.inventory.ItemStack;
 
+import javax.annotation.Nullable;
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Iterator;
-import java.util.Scanner;
 import java.util.Set;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.annotation.Nullable;
 
 import static com.sk89q.worldguard.WorldGuard.getPlatform;
 import static com.sk89q.worldguard.commands.WorldGuardCommands.build;
@@ -181,14 +170,8 @@ public class WorldGuardPlayerListener extends AbstractListener {
 
                     String target = line3.copyValueOf("build.number=".toCharArray());
                     String gbuild = line3.replace(target, "");
-                    int gbuildnumber = 0;
                     int buildn = Integer.parseInt(gbuild);
-                    try {
-                        gbuildnumber = buildn--;
-
-                    } catch (NumberFormatException e) {
-                        e.printStackTrace();
-                    }
+                    int gbuildnumber = buildn--;
 
                     if (gbuildnumber != build) {
                         player.sendMessage(ChatColor.GRAY + "Nová verze WorldGuard je dostupná na http://jenkins.valleycube.cz");
