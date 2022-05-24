@@ -183,7 +183,7 @@ public class WorldGuardPlayerListener extends AbstractListener {
                                 + WorldGuard.getVersion() + "-překlad_PREv"
                                     + WorldGuard.getTransVersion() + "-B" + buildn);
                     } else {
-                        player.sendMessage(ChatColor.RED + "Nesprávná verze! Koukni na http://jenkins.valleycube.cz");
+                        player.sendMessage(ChatColor.RED + "Nesprávná verze - " + buildnumber + " místo " + buildn + "! Koukni na http://jenkins.valleycube.cz");
                     }
                 } catch (Exception e) {
                     player.sendMessage(ChatColor.RED + "Chyba při načítání updateru!");

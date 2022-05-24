@@ -142,7 +142,7 @@ public class WorldGuardCommands {
                         + WorldGuard.getVersion() + "-překlad_PREv"
                             + WorldGuard.getTransVersion() + "-B" + buildn);
                 } else {
-                sender.print("Nesprávná verze! Koukni na http://jenkins.valleycube.cz");
+                sender.print("Nesprávná verze - " + buildnumber + " místo " + buildn + "! Koukni na http://jenkins.valleycube.cz");
             }
         } catch (Exception e) {
             sender.print("Chyba při načítání updateru!");

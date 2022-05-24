@@ -246,7 +246,7 @@ public class WorldGuardPlugin extends JavaPlugin {
                                 + WorldGuard.getVersion() + "-překlad_PREv"
                                     + WorldGuard.getTransVersion() + "-B" + buildn);
                     } else {
-                        getLogger().severe("Nesprávná verze! Koukni na http://jenkins.valleycube.cz");
+                        getLogger().severe("Nesprávná verze - " + buildnumber + " místo " + buildn + "! Koukni na http://jenkins.valleycube.cz");
                     }
                 } catch (Exception e) {
                     getLogger().warning("Chyba při načítání updateru!");
