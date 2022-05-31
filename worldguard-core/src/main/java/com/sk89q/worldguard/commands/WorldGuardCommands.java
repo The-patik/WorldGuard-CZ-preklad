@@ -78,7 +78,7 @@ public class WorldGuardCommands {
     }
 
     private final WorldGuard worldGuard;
-    private static int build = 56;
+    private static int build = 57;
     public static int buildnumber = build + 1;
     @Nullable
     private Sampler activeSampler;
