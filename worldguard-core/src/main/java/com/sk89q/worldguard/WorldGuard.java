@@ -98,8 +98,8 @@ public final class WorldGuard {
      *
      * @return The platform
      */
-    public static WorldGuardPlatform getPlatform() {
-        checkNotNull(platform, "WorldGuard is not enabled, unable to access the platform.");
+    public WorldGuardPlatform getPlatform() {
+        checkNotNull(platform, "WorldGuard není načten! Není možné načíst WorldEdit, nebo platformu.");
         return platform;
     }
 

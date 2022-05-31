@@ -29,6 +29,7 @@ import com.sk89q.worldguard.bukkit.util.Events;
 import com.sk89q.worldguard.bukkit.util.Materials;
 import com.sk89q.worldguard.config.ConfigurationManager;
 import com.sk89q.worldguard.config.WorldConfiguration;
+import com.sk89q.worldguard.internal.platform.WorldGuardPlatform;
 import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.flags.Flags;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
@@ -63,13 +64,20 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.sk89q.worldguard.WorldGuard.getPlatform;
+import static com.google.common.base.Preconditions.checkNotNull;
 import static com.sk89q.worldguard.commands.WorldGuardCommands.buildnumber;
 
 /**
  * Handles all events thrown in relation to a player.
  */
 public class WorldGuardPlayerListener extends AbstractListener {
+
+    private static WorldGuardPlatform platformwg;
+
+    public WorldGuardPlatform getPlatform() {
+        checkNotNull(platformwg, "WorldGuard není načten! Není možné načíst WorldEdit, nebo platformu.");
+        return platformwg;
+    }
 
     private static final Logger log = Logger.getLogger(WorldGuardPlayerListener.class.getCanonicalName());
     private static final Pattern opPattern = Pattern.compile("^/(?:minecraft:)?(?:bukkit:)?(?:de)?op(?:\\s.*)?$", Pattern.CASE_INSENSITIVE);

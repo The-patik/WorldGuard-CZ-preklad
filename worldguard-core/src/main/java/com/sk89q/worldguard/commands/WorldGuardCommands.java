@@ -43,6 +43,7 @@ import com.sk89q.worldedit.world.World;
 import com.sk89q.worldguard.LocalPlayer;
 import com.sk89q.worldguard.WorldGuard;
 import com.sk89q.worldguard.config.ConfigurationManager;
+import com.sk89q.worldguard.internal.platform.WorldGuardPlatform;
 import com.sk89q.worldguard.util.logging.LoggerToChatHandler;
 import com.sk89q.worldguard.util.profiler.SamplerBuilder;
 import com.sk89q.worldguard.util.profiler.SamplerBuilder.Sampler;
@@ -65,9 +66,16 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.sk89q.worldguard.WorldGuard.getPlatform;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 public class WorldGuardCommands {
+
+    private static WorldGuardPlatform platformwg;
+
+    public WorldGuardPlatform getPlatform() {
+        checkNotNull(platformwg, "WorldGuard není načten! Není možné načíst WorldEdit, nebo platformu.");
+        return platformwg;
+    }
 
     private final WorldGuard worldGuard;
     private static int build = 55;
