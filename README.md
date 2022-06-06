@@ -1,5 +1,5 @@
 <h1>
-    <img src="worldguard-logo.svg" alt="WorldGuard" width="400" /> 
+    <img src="worldguard-logo.png" alt="WorldGuard" width="400" /> 
 </h1>
 
 Český překlad známého a velmi používaného pluginu WorldGuard.

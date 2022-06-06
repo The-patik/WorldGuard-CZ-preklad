@@ -104,26 +104,26 @@ public final class RegionCommands extends RegionCommandsBase {
     }
 
     private static TextComponent passthroughFlagWarning = TextComponent.empty()
-            .append(TextComponent.of("WARNING:", TextColor.RED, Sets.newHashSet(TextDecoration.BOLD)))
-            .append(ErrorFormat.wrap(" This flag is unrelated to moving through regions."))
+            .append(TextComponent.of("UPOZORNĚNÍ:", TextColor.RED, Sets.newHashSet(TextDecoration.BOLD)))
+            .append(ErrorFormat.wrap(" Tato vlajka nesouvisí s pohybem po regionech."))
             .append(TextComponent.newline())
-            .append(TextComponent.of("It overrides build checks. If you're unsure what this means, see ")
-                    .append(TextComponent.of("[this documentation page]", TextColor.AQUA)
+            .append(TextComponent.of("Přepíše kontroly stavění. Pokud si nejsi jistý, co to znamená, otevři ")
+                    .append(TextComponent.of("[dokumentace (zatím v ANJ)]", TextColor.AQUA)
                             .clickEvent(ClickEvent.of(ClickEvent.Action.OPEN_URL,
                                     "https://worldguard.enginehub.org/en/latest/regions/flags/#overrides")))
-                    .append(TextComponent.of(" for more info.")));
+                    .append(TextComponent.of(" pro více informací.")));
     private static TextComponent buildFlagWarning = TextComponent.empty()
-            .append(TextComponent.of("WARNING:", TextColor.RED, Sets.newHashSet(TextDecoration.BOLD)))
-            .append(ErrorFormat.wrap(" Setting this flag is not required for protection."))
+            .append(TextComponent.of("UPOZORNĚNÍ:", TextColor.RED, Sets.newHashSet(TextDecoration.BOLD)))
+            .append(ErrorFormat.wrap(" Nastavení této vlajky není nutné pro ochranu."))
             .append(TextComponent.newline())
-            .append(TextComponent.of("Setting this flag will completely override default protection, and apply" +
-                    " to members, non-members, pistons, sand physics, and everything else that can modify blocks."))
+            .append(TextComponent.of("Nastavení tohoto příznaku zcela přepíše výchozí ochranu a použije se na členy, " +
+                    " nečleny, písty, fyziku písku a vše ostatní, co může upravovat bloky."))
             .append(TextComponent.newline())
-            .append(TextComponent.of("Only set this flag if you are sure you know what you are doing. See ")
-                    .append(TextComponent.of("[this documentation page]", TextColor.AQUA)
+            .append(TextComponent.of("Tuto vlajku nastav pouze tehdy, pokud si jsi jistý, že víš, co děláš. Koukni se do ")
+                    .append(TextComponent.of("[dokumentace (zatím v ANJ)]", TextColor.AQUA)
                             .clickEvent(ClickEvent.of(ClickEvent.Action.OPEN_URL,
                                     "https://worldguard.enginehub.org/en/latest/regions/flags/#protection-related")))
-                    .append(TextComponent.of(" for more info.")));
+                    .append(TextComponent.of(" pro více informací.")));
 
     /**
      * Defines a new region.
@@ -133,9 +133,9 @@ public final class RegionCommands extends RegionCommandsBase {
      * @throws CommandException any error
      */
     @Command(aliases = {"define", "def", "d", "create"},
-             usage = "[-w <world>] <id> [<owner1> [<owner2> [<owners...>]]]",
+             usage = "[-w <svět>] <id> [<majitel1> [<majitel2> [<majitelé...>]]]",
              flags = "ngw:",
-             desc = "Defines a region",
+             desc = "Definuje region",
              min = 1)
     public void define(CommandContext args, Actor sender) throws CommandException {
         warnAboutSaveFailures(sender);
@@ -163,17 +163,17 @@ public final class RegionCommands extends RegionCommandsBase {
         RegionAdder task = new RegionAdder(manager, region);
         task.addOwnersFromCommand(args, 2);
 
-        final String description = String.format("Adding region '%s'", region.getId());
+        final String description = String.format("Přidávám region '%s'", region.getId());
         AsyncCommandBuilder.wrap(task, sender)
                 .registerWithSupervisor(worldGuard.getSupervisor(), description)
                 .onSuccess((Component) null,
                         t -> {
-                            sender.print(String.format("A new region has been made named '%s'.", region.getId()));
+                            sender.print(String.format("Nový region byl pojmenován '%s'.", region.getId()));
                             warnAboutDimensions(sender, region);
                             informNewUser(sender, manager, region);
                             checkSpawnOverlap(sender, world, region);
                         })
-                .onFailure(String.format("Failed to add the region '%s'", region.getId()), worldGuard.getExceptionConverter())
+                .onFailure(String.format("Region se nepodařilo vytvořit '%s'", region.getId()), worldGuard.getExceptionConverter())
                 .buildAndExec(worldGuard.getExecutorService());
     }
 
@@ -185,8 +185,8 @@ public final class RegionCommands extends RegionCommandsBase {
      * @throws CommandException any error
      */
     @Command(aliases = {"redefine", "update", "move"},
-             usage = "[-w <world>] <id>",
-             desc = "Re-defines the shape of a region",
+             usage = "[-w <svět>] <id>",
+             desc = "Znovu definuje tvar oblasti",
              flags = "gw:",
              min = 1, max = 1)
     public void redefine(CommandContext args, Actor sender) throws CommandException {
@@ -216,18 +216,18 @@ public final class RegionCommands extends RegionCommandsBase {
 
         RegionAdder task = new RegionAdder(manager, region);
 
-        final String description = String.format("Updating region '%s'", region.getId());
+        final String description = String.format("Aktualizuji region '%s'", region.getId());
         AsyncCommandBuilder.wrap(task, sender)
                 .registerWithSupervisor(worldGuard.getSupervisor(), description)
-                .sendMessageAfterDelay("(Please wait... " + description + ")")
+                .sendMessageAfterDelay("(Prosím počkej... " + description + ")")
                 .onSuccess((Component) null,
                         t -> {
-                            sender.print(String.format("Region '%s' has been updated with a new area.", region.getId()));
+                            sender.print(String.format("Region '%s' byl aktualizován novou oblastí.", region.getId()));
                             warnAboutDimensions(sender, region);
                             informNewUser(sender, manager, region);
                             checkSpawnOverlap(sender, world, region);
                         })
-                .onFailure(String.format("Failed to update the region '%s'", region.getId()), worldGuard.getExceptionConverter())
+                .onFailure(String.format("Nepodařilo se aktualizovat region '%s'", region.getId()), worldGuard.getExceptionConverter())
                 .buildAndExec(worldGuard.getExecutorService());
     }
 
@@ -243,7 +243,7 @@ public final class RegionCommands extends RegionCommandsBase {
      */
     @Command(aliases = {"claim"},
              usage = "<id>",
-             desc = "Claim a region",
+             desc = "Zaber si region",
              min = 1, max = 1)
     public void claim(CommandContext args, Actor sender) throws CommandException {
         warnAboutSaveFailures(sender);
@@ -271,7 +271,7 @@ public final class RegionCommands extends RegionCommandsBase {
             if (maxRegionCount >= 0
                     && manager.getRegionCountOfPlayer(player) >= maxRegionCount) {
                 throw new CommandException(
-                        "You own too many regions, delete one first to claim a new one.");
+                        "Vlastníš příliš mnoho regionů, smaž nejprve jeden, abys získal nový.");
             }
         }
 
@@ -281,7 +281,7 @@ public final class RegionCommands extends RegionCommandsBase {
         if (existing != null) {
             if (!existing.getOwners().contains(player)) {
                 throw new CommandException(
-                        "This region already exists and you don't own it.");
+                        "Tento region již existuje a vy ji nevlastníte.");
             }
         }
 
@@ -291,12 +291,12 @@ public final class RegionCommands extends RegionCommandsBase {
         // Check if this region overlaps any other region
         if (regions.size() > 0) {
             if (!regions.isOwnerOfAll(player)) {
-                throw new CommandException("This region overlaps with someone else's region.");
+                throw new CommandException("Tato oblast se překrývá s oblastí někoho jiného.");
             }
         } else {
             if (wcfg.claimOnlyInsideExistingRegions) {
-                throw new CommandException("You may only claim regions inside " +
-                        "existing regions that you or your group own.");
+                throw new CommandException("Nárokovat si můžeš pouze regiony uvnitř " +
+                        "existujících regionů, které vlastníš ty nebo vaše skupina.");
             }
         }
 
@@ -312,8 +312,8 @@ public final class RegionCommands extends RegionCommandsBase {
             }
 
             if (region.volume() > wcfg.maxClaimVolume) {
-                player.printError("This region is too large to claim.");
-                player.printError("Max. volume: " + wcfg.maxClaimVolume + ", your volume: " + region.volume());
+                player.printError("Tento region je příliš velký na to, aby se dal zabrat.");
+                player.printError("Maximální velikost: " + wcfg.maxClaimVolume + ", tvá velikost: " + region.volume());
                 return;
             }
         }
@@ -334,12 +334,12 @@ public final class RegionCommands extends RegionCommandsBase {
         task.setLocatorPolicy(UserLocatorPolicy.UUID_ONLY);
         task.setOwnersInput(new String[]{player.getName()});
 
-        final String description = String.format("Claiming region '%s'", id);
+        final String description = String.format("Zabírám region '%s'", id);
         AsyncCommandBuilder.wrap(task, sender)
                 .registerWithSupervisor(WorldGuard.getInstance().getSupervisor(), description)
-                .sendMessageAfterDelay("(Please wait... " + description + ")")
-                .onSuccess(TextComponent.of(String.format("A new region has been claimed named '%s'.", id)), null)
-                .onFailure("Failed to claim region", WorldGuard.getInstance().getExceptionConverter())
+                .sendMessageAfterDelay("(Prosím počkej... " + description + ")")
+                .onSuccess(TextComponent.of(String.format("Nový region byl zabrán se jménem '%s'.", id)), null)
+                .onFailure("Nepodařilo se zabrat region", WorldGuard.getInstance().getExceptionConverter())
                 .buildAndExec(WorldGuard.getInstance().getExecutorService());
     }
 
@@ -351,8 +351,8 @@ public final class RegionCommands extends RegionCommandsBase {
      * @throws CommandException any error
      */
     @Command(aliases = {"select", "sel", "s"},
-             usage = "[-w <world>] [id]",
-             desc = "Load a region as a WorldEdit selection",
+             usage = "[-w <svět>] [id]",
+             desc = "Načíst region jako WorldEdit selekci ",
              min = 0, max = 1,
              flags = "w:")
     public void select(CommandContext args, Actor sender) throws CommandException {
@@ -364,7 +364,7 @@ public final class RegionCommands extends RegionCommandsBase {
         if (args.argsLength() == 0) {
             LocalPlayer player = worldGuard.checkPlayer(sender);
             if (!player.getWorld().equals(world)) { // confusing to get current location regions in another world
-                throw new CommandException("Please specify a region name."); // just don't allow that
+                throw new CommandException("Specifikuj prosím jméno."); // just don't allow that
             }
             world = player.getWorld();
             existing = checkRegionStandingIn(manager, player, "/rg select -w \"" + world.getName() + "\" %id%");
@@ -391,7 +391,7 @@ public final class RegionCommands extends RegionCommandsBase {
     @Command(aliases = {"info", "i"},
              usage = "[id]",
              flags = "usw:",
-             desc = "Get information about a region",
+             desc = "Získej informace o regionu",
              min = 0, max = 1)
     public void info(CommandContext args, Actor sender) throws CommandException {
         warnAboutSaveFailures(sender);
@@ -405,7 +405,7 @@ public final class RegionCommands extends RegionCommandsBase {
 
         if (args.argsLength() == 0) { // Get region from where the player is
             if (!(sender instanceof LocalPlayer)) {
-                throw new CommandException("Please specify the region with /region info -w world_name region_name.");
+                throw new CommandException("Prosím, specifikuj region příkazem /region info -w název_světa název_regionu.");
             }
 
             existing = checkRegionStandingIn(manager, (LocalPlayer) sender, true,
@@ -434,13 +434,13 @@ public final class RegionCommands extends RegionCommandsBase {
                 args.hasFlag('u') ? null : WorldGuard.getInstance().getProfileCache(), sender);
 
         AsyncCommandBuilder.wrap(printout, sender)
-                .registerWithSupervisor(WorldGuard.getInstance().getSupervisor(), "Fetching region info")
-                .sendMessageAfterDelay("(Please wait... fetching region information...)")
+                .registerWithSupervisor(WorldGuard.getInstance().getSupervisor(), "Načítání informací o regionu")
+                .sendMessageAfterDelay("(Prosím počkej... Načítám informace o regionu...)")
                 .onSuccess((Component) null, component -> {
                     sender.print(component);
                     checkSpawnOverlap(sender, world, existing);
                 })
-                .onFailure("Failed to fetch region information", WorldGuard.getInstance().getExceptionConverter())
+                .onFailure("Nepodařilo se načíst informace o regionu", WorldGuard.getInstance().getExceptionConverter())
                 .buildAndExec(WorldGuard.getInstance().getExecutorService());
     }
 
@@ -452,8 +452,8 @@ public final class RegionCommands extends RegionCommandsBase {
      * @throws CommandException any error
      */
     @Command(aliases = {"list"},
-             usage = "[-w world] [-p owner [-n]] [-s] [-i filter] [page]",
-             desc = "Get a list of regions",
+             usage = "[-w svět] [-p majitel [-n]] [-s] [-i filtr] [strana]",
+             desc = "Vypíše seznam regionů",
              flags = "np:w:i:s",
              max = 1)
     public void list(CommandContext args, Actor sender) throws CommandException {
@@ -502,9 +502,9 @@ public final class RegionCommands extends RegionCommandsBase {
         }
 
         AsyncCommandBuilder.wrap(task, sender)
-                .registerWithSupervisor(WorldGuard.getInstance().getSupervisor(), "Getting region list")
-                .sendMessageAfterDelay("(Please wait... fetching region list...)")
-                .onFailure("Failed to fetch region list", WorldGuard.getInstance().getExceptionConverter())
+                .registerWithSupervisor(WorldGuard.getInstance().getSupervisor(), "Načítání seznamu regionů")
+                .sendMessageAfterDelay("(Prosím počkej... Načítám seznam regionů...)")
+                .onFailure("Nepodařilo se načíst seznam regionů", WorldGuard.getInstance().getExceptionConverter())
                 .buildAndExec(WorldGuard.getInstance().getExecutorService());
     }
 
@@ -516,9 +516,9 @@ public final class RegionCommands extends RegionCommandsBase {
      * @throws CommandException any error
      */
     @Command(aliases = {"flag", "f"},
-             usage = "<id> <flag> [-w world] [-g group] [value]",
+             usage = "<id> <vlajka> [-w svět] [-g skupina] [hodnota]",
              flags = "g:w:eh:",
-             desc = "Set flags",
+             desc = "Nasta vlajku",
              min = 2)
     public void flag(CommandContext args, Actor sender) throws CommandException {
         warnAboutSaveFailures(sender);
@@ -532,7 +532,7 @@ public final class RegionCommands extends RegionCommandsBase {
 
         if (args.hasFlag('e')) {
             if (value != null) {
-                throw new CommandException("You cannot use -e(mpty) with a flag value.");
+                throw new CommandException("Nemůžeš použít -e(prázdný) jako hodnotu vlajky.");
             }
 
             value = "";
@@ -555,7 +555,7 @@ public final class RegionCommands extends RegionCommandsBase {
         if (foundFlag == null) {
             AsyncCommandBuilder.wrap(new FlagListBuilder(flagRegistry, permModel, existing, world,
                                                          regionId, sender, flagName), sender)
-                    .registerWithSupervisor(WorldGuard.getInstance().getSupervisor(), "Flag list for invalid flag command.")
+                    .registerWithSupervisor(WorldGuard.getInstance().getSupervisor(), "Seznam vlajek pro neznámý příkaz vlajky.")
                     .onSuccess((Component) null, sender::print)
                     .onFailure((Component) null, WorldGuard.getInstance().getExceptionConverter())
                     .buildAndExec(WorldGuard.getInstance().getExecutorService());
@@ -587,8 +587,8 @@ public final class RegionCommands extends RegionCommandsBase {
             RegionGroupFlag groupFlag = foundFlag.getRegionGroupFlag();
 
             if (groupFlag == null) {
-                throw new CommandException("Region flag '" + foundFlag.getName()
-                        + "' does not have a group flag!");
+                throw new CommandException("Vlajky regionu '" + foundFlag.getName()
+                        + "' nemají skupinovou vlajku!");
             }
 
             // Parse the [-g group] separately so entire command can abort if parsing
@@ -611,7 +611,7 @@ public final class RegionCommands extends RegionCommandsBase {
             }
 
             if (!args.hasFlag('h')) {
-                sender.print("Region flag " + foundFlag.getName() + " set on '" + regionId + "' to '" + value + "'.");
+                sender.print("Vlajka " + foundFlag.getName() + " nastavená v regionu '" + regionId + "' na hodnotu '" + value + "'.");
             }
 
         // No value? Clear the flag, if -g isn't specified
@@ -626,7 +626,7 @@ public final class RegionCommands extends RegionCommandsBase {
             }
 
             if (!args.hasFlag('h')) {
-                sender.print("Region flag " + foundFlag.getName() + " removed from '" + regionId + "'. (Any -g(roups) were also removed.)");
+                sender.print("Vlajka " + foundFlag.getName() + " odstraněná z regionu '" + regionId + "'. (Všechny -g(skupiny) byly také odstraněny.)");
             }
         }
 
@@ -637,10 +637,10 @@ public final class RegionCommands extends RegionCommandsBase {
             // If group set to the default, then clear the group flag
             if (groupValue == groupFlag.getDefault()) {
                 existing.setFlag(groupFlag, null);
-                sender.print("Region group flag for '" + foundFlag.getName() + "' reset to default.");
+                sender.print("Vlajka skupiny regionu '" + foundFlag.getName() + "' byla resetována na výchozí.");
             } else {
                 existing.setFlag(groupFlag, groupValue);
-                sender.print("Region group flag for '" + foundFlag.getName() + "' set.");
+                sender.print("Vlajka skupiny regionu '" + foundFlag.getName() + "' byla nastavena.");
             }
         }
 
@@ -650,7 +650,7 @@ public final class RegionCommands extends RegionCommandsBase {
             sendFlagHelper(sender, world, existing, permModel, page);
         } else {
             RegionPrintoutBuilder printout = new RegionPrintoutBuilder(world.getName(), existing, null, sender);
-            printout.append(SubtleFormat.wrap("(Current flags: "));
+            printout.append(SubtleFormat.wrap("(Nynější vlajky: "));
             printout.appendFlagsList(false);
             printout.append(SubtleFormat.wrap(")"));
             printout.send(sender);
@@ -659,9 +659,9 @@ public final class RegionCommands extends RegionCommandsBase {
     }
 
     @Command(aliases = "flags",
-             usage = "[-p <page>] [id]",
+             usage = "[-p <stránka>] [id]",
              flags = "p:w:",
-             desc = "View region flags",
+             desc = "Zobrazí vlajky regionu",
              min = 0, max = 2)
     public void flagHelper(CommandContext args, Actor sender) throws CommandException {
         World world = checkWorld(args, sender, 'w'); // Get the world
@@ -671,7 +671,7 @@ public final class RegionCommands extends RegionCommandsBase {
         ProtectedRegion region;
         if (args.argsLength() == 0) { // Get region from where the player is
             if (!(sender instanceof LocalPlayer)) {
-                throw new CommandException("Please specify the region with /region flags -w world_name region_name.");
+                throw new CommandException("Prosím specifikuj regionu příkazem /region flags -w název_světa název_regionu.");
             }
 
             region = checkRegionStandingIn(manager, (LocalPlayer) sender, true,
@@ -702,7 +702,7 @@ public final class RegionCommands extends RegionCommandsBase {
                     return flagHelperBox.create(page);
                 }, sender)
                 .onSuccess((Component) null, sender::print)
-                .onFailure("Failed to get region flags", WorldGuard.getInstance().getExceptionConverter())
+                .onFailure("Nepodařilo se načíst vlajky regionu", WorldGuard.getInstance().getExceptionConverter())
                 .buildAndExec(WorldGuard.getInstance().getExecutorService());
     }
 
@@ -714,9 +714,9 @@ public final class RegionCommands extends RegionCommandsBase {
      * @throws CommandException any error
      */
     @Command(aliases = {"setpriority", "priority", "pri"},
-             usage = "<id> <priority>",
+             usage = "<id> <priorita>",
              flags = "w:",
-             desc = "Set the priority of a region",
+             desc = "Nastaví prioritu regionu",
              min = 2, max = 2)
     public void setPriority(CommandContext args, Actor sender) throws CommandException {
         warnAboutSaveFailures(sender);
@@ -735,7 +735,7 @@ public final class RegionCommands extends RegionCommandsBase {
 
         existing.setPriority(priority);
 
-        sender.print("Priority of '" + existing.getId() + "' set to " + priority + " (higher numbers override).");
+        sender.print("Priorita regionu '" + existing.getId() + "' nastavena na " + priority + " (vyšší čísla přepisují).");
         checkSpawnOverlap(sender, world, existing);
     }
 
@@ -747,9 +747,9 @@ public final class RegionCommands extends RegionCommandsBase {
      * @throws CommandException any error
      */
     @Command(aliases = {"setparent", "parent", "par"},
-             usage = "<id> [parent-id]",
+             usage = "<id> [id-nadřazeného-regionu]",
              flags = "w:",
-             desc = "Set the parent of a region",
+             desc = "Nastavit nadřazený region",
              min = 1, max = 2)
     public void setParent(CommandContext args, Actor sender) throws CommandException {
         warnAboutSaveFailures(sender);
@@ -780,9 +780,9 @@ public final class RegionCommands extends RegionCommandsBase {
             // Tell the user what's wrong
             RegionPrintoutBuilder printout = new RegionPrintoutBuilder(world.getName(), parent, null, sender);
             assert parent != null;
-            printout.append(ErrorFormat.wrap("Uh oh! Setting '", parent.getId(), "' to be the parent of '", child.getId(),
-                    "' would cause circular inheritance.")).newline();
-            printout.append(SubtleFormat.wrap("(Current inheritance on '", parent.getId(), "':")).newline();
+            printout.append(ErrorFormat.wrap("Ajaj... Nastavení regionu '", parent.getId(), "' jako nadřazený pro region '", child.getId(),
+                    "' může způsobit cyklické dědění.")).newline();
+            printout.append(SubtleFormat.wrap("(Aktuální dědění regionu '", parent.getId(), "':")).newline();
             printout.appendParentTree(true);
             printout.append(SubtleFormat.wrap(")"));
             printout.send(sender);
@@ -791,14 +791,14 @@ public final class RegionCommands extends RegionCommandsBase {
 
         // Tell the user the current inheritance
         RegionPrintoutBuilder printout = new RegionPrintoutBuilder(world.getName(), child, null, sender);
-        printout.append(TextComponent.of("Inheritance set for region '" + child.getId() + "'.", TextColor.LIGHT_PURPLE));
+        printout.append(TextComponent.of("Dědění nastavené pro region '" + child.getId() + "'.", TextColor.LIGHT_PURPLE));
         if (parent != null) {
             printout.newline();
-            printout.append(SubtleFormat.wrap("(Current inheritance:")).newline();
+            printout.append(SubtleFormat.wrap("(Aktuální dědění:")).newline();
             printout.appendParentTree(true);
             printout.append(SubtleFormat.wrap(")"));
         } else {
-            printout.append(LabelFormat.wrap(" Region is now orphaned."));
+            printout.append(LabelFormat.wrap(" Region již nedědí."));
         }
         printout.send(sender);
     }
@@ -813,7 +813,7 @@ public final class RegionCommands extends RegionCommandsBase {
     @Command(aliases = {"remove", "delete", "del", "rem"},
              usage = "<id>",
              flags = "fuw:",
-             desc = "Remove a region",
+             desc = "Odstraní region",
              min = 1, max = 1)
     public void remove(CommandContext args, Actor sender) throws CommandException {
         warnAboutSaveFailures(sender);
@@ -834,21 +834,21 @@ public final class RegionCommands extends RegionCommandsBase {
         RegionRemover task = new RegionRemover(manager, existing);
 
         if (removeChildren && unsetParent) {
-            throw new CommandException("You cannot use both -u (unset parent) and -f (remove children) together.");
+            throw new CommandException("Nemůžeš použít -u (odebrat nadřazené) a -f (odebrat děděné) dohromady.");
         } else if (removeChildren) {
             task.setRemovalStrategy(RemovalStrategy.REMOVE_CHILDREN);
         } else if (unsetParent) {
             task.setRemovalStrategy(RemovalStrategy.UNSET_PARENT_IN_CHILDREN);
         }
 
-        final String description = String.format("Removing region '%s' in '%s'", existing.getId(), world.getName());
+        final String description = String.format("Odstraňuji region '%s' ve světě '%s'", existing.getId(), world.getName());
         AsyncCommandBuilder.wrap(task, sender)
                 .registerWithSupervisor(WorldGuard.getInstance().getSupervisor(), description)
-                .sendMessageAfterDelay("Please wait... removing region.")
+                .sendMessageAfterDelay("Prosím počkej... Odebírám region.")
                 .onSuccess((Component) null, removed -> sender.print(TextComponent.of(
-                        "Successfully removed " + removed.stream().map(ProtectedRegion::getId).collect(Collectors.joining(", ")) + ".",
+                        "Úspěšně odebrán region " + removed.stream().map(ProtectedRegion::getId).collect(Collectors.joining(", ")) + ".",
                         TextColor.LIGHT_PURPLE)))
-                .onFailure("Failed to remove region", WorldGuard.getInstance().getExceptionConverter())
+                .onFailure("Nepodařilo se odebrat region", WorldGuard.getInstance().getExceptionConverter())
                 .buildAndExec(WorldGuard.getInstance().getExecutorService());
     }
 
@@ -861,7 +861,7 @@ public final class RegionCommands extends RegionCommandsBase {
      */
     @Command(aliases = {"load", "reload"},
             usage = "[world]",
-            desc = "Reload regions from file",
+            desc = "Znovu načte region ze souboru",
             flags = "w:")
     public void load(CommandContext args, final Actor sender) throws CommandException {
         warnAboutSaveFailures(sender);
@@ -882,15 +882,15 @@ public final class RegionCommands extends RegionCommandsBase {
             RegionManager manager = checkRegionManager(world);
 
             if (manager == null) {
-                throw new CommandException("No region manager exists for world '" + world.getName() + "'.");
+                throw new CommandException("Neexistuje žádný manažer regionů pro svět '" + world.getName() + "'.");
             }
 
-            final String description = String.format("Loading region data for '%s'.", world.getName());
+            final String description = String.format("Načítám data regionů pro svět '%s'.", world.getName());
             AsyncCommandBuilder.wrap(new RegionManagerLoader(manager), sender)
                     .registerWithSupervisor(worldGuard.getSupervisor(), description)
-                    .sendMessageAfterDelay("Please wait... " + description)
-                    .onSuccess(String.format("Loaded region data for '%s'", world.getName()), null)
-                    .onFailure(String.format("Failed to load region data for '%s'", world.getName()), worldGuard.getExceptionConverter())
+                    .sendMessageAfterDelay("Prosím počkej... " + description)
+                    .onSuccess(String.format("Načetl jsem data regionů pro svět '%s'", world.getName()), null)
+                    .onFailure(String.format("Nepovedlo se načíst data regionů pro svět '%s'", world.getName()), worldGuard.getExceptionConverter())
                     .buildAndExec(worldGuard.getExecutorService());
         } else {
             // Load regions for all worlds
@@ -904,10 +904,10 @@ public final class RegionCommands extends RegionCommandsBase {
             }
 
             AsyncCommandBuilder.wrap(new RegionManagerLoader(managers), sender)
-                    .registerWithSupervisor(worldGuard.getSupervisor(), "Loading regions for all worlds")
-                    .sendMessageAfterDelay("(Please wait... loading region data for all worlds...)")
-                    .onSuccess("Successfully load the region data for all worlds.", null)
-                    .onFailure("Failed to load regions for all worlds", worldGuard.getExceptionConverter())
+                    .registerWithSupervisor(worldGuard.getSupervisor(), "Načítám regiony ze všech světů")
+                    .sendMessageAfterDelay("(Prosím počkej... Načítám data regionů ze všech světů...)")
+                    .onSuccess("Načetly se data regionů ze všech světů .", null)
+                    .onFailure("Nepovedlo se načíst data regionů ze všech světů", worldGuard.getExceptionConverter())
                     .buildAndExec(worldGuard.getExecutorService());
         }
     }
@@ -920,8 +920,8 @@ public final class RegionCommands extends RegionCommandsBase {
      * @throws CommandException any error
      */
     @Command(aliases = {"save", "write"},
-            usage = "[world]",
-            desc = "Re-save regions to file",
+            usage = "[svět]",
+            desc = "Znovu ulož regiony do souboru",
             flags = "w:")
     public void save(CommandContext args, final Actor sender) throws CommandException {
         warnAboutSaveFailures(sender);
@@ -942,15 +942,15 @@ public final class RegionCommands extends RegionCommandsBase {
             RegionManager manager = checkRegionManager(world);
 
             if (manager == null) {
-                throw new CommandException("No region manager exists for world '" + world.getName() + "'.");
+                throw new CommandException("Neexistuje žádný manažer regionů pro svět '" + world.getName() + "'.");
             }
 
-            final String description = String.format("Saving region data for '%s'.", world.getName());
+            final String description = String.format("Ukládám data regionů pro svět '%s'.", world.getName());
             AsyncCommandBuilder.wrap(new RegionManagerSaver(manager), sender)
                     .registerWithSupervisor(worldGuard.getSupervisor(), description)
-                    .sendMessageAfterDelay("Please wait... " + description)
-                    .onSuccess(String.format("Saving region data for '%s'", world.getName()), null)
-                    .onFailure(String.format("Failed to save region data for '%s'", world.getName()), worldGuard.getExceptionConverter())
+                    .sendMessageAfterDelay("Prosím počkej... " + description)
+                    .onSuccess(String.format("Ukládám data regionů pro svět '%s'", world.getName()), null)
+                    .onFailure(String.format("Nepodařilo se načíst data regionů pro svět '%s'", world.getName()), worldGuard.getExceptionConverter())
                     .buildAndExec(worldGuard.getExecutorService());
         } else {
             // Save for all worlds
@@ -965,10 +965,10 @@ public final class RegionCommands extends RegionCommandsBase {
             }
 
             AsyncCommandBuilder.wrap(new RegionManagerSaver(managers), sender)
-                    .registerWithSupervisor(worldGuard.getSupervisor(), "Saving regions for all worlds")
-                    .sendMessageAfterDelay("(Please wait... saving region data for all worlds...)")
-                    .onSuccess("Successfully saved the region data for all worlds.", null)
-                    .onFailure("Failed to save regions for all worlds", worldGuard.getExceptionConverter())
+                    .registerWithSupervisor(worldGuard.getSupervisor(), "Ukládám regiony ze všech světů")
+                    .sendMessageAfterDelay("(Prosím počkej... Ukládám data regionů ze všech světů...)")
+                    .onSuccess("Data regionů ze všech světů byly uloženy.", null)
+                    .onFailure("Nepodařilo se uložit data regionů ze všech světů", worldGuard.getExceptionConverter())
                     .buildAndExec(worldGuard.getExecutorService());
         }
     }
@@ -980,9 +980,9 @@ public final class RegionCommands extends RegionCommandsBase {
      * @param sender the sender
      * @throws CommandException any error
      */
-    @Command(aliases = {"migratedb"}, usage = "<from> <to>",
+    @Command(aliases = {"migratedb"}, usage = "<z> <do>",
              flags = "y",
-             desc = "Migrate from one Protection Database to another.", min = 2, max = 2)
+             desc = "Přesune z jedné databáze ochran do jiné.", min = 2, max = 2)
     public void migrateDB(CommandContext args, Actor sender) throws CommandException {
         // Check permissions
         if (!getPermissionModel(sender).mayMigrateRegionStore()) {
@@ -993,20 +993,20 @@ public final class RegionCommands extends RegionCommandsBase {
         DriverType to = Enums.findFuzzyByValue(DriverType.class, args.getString(1));
 
         if (from == null) {
-            throw new CommandException("The value of 'from' is not a recognized type of region data database.");
+            throw new CommandException("Hodnota 'z' není správným typem databáze dat regionů.");
         }
 
         if (to == null) {
-            throw new CommandException("The value of 'to' is not a recognized type of region region data database.");
+            throw new CommandException("Hodnota 'do' není správným typem databáze dat regionů.");
         }
 
         if (from == to) {
-            throw new CommandException("It is not possible to migrate between the same types of region data databases.");
+            throw new CommandException("Není možné přesouvat data mezi stejnými typy databází dat regionů.");
         }
 
         if (!args.hasFlag('y')) {
-            throw new CommandException("This command is potentially dangerous.\n" +
-                    "Please ensure you have made a backup of your data, and then re-enter the command with -y tacked on at the end to proceed.");
+            throw new CommandException("Tento příklad je nebezpečný.\n" +
+                    "Ujisti se, že jsi provedl zálohu tvých dat, a poté znovu zadej příkaz se značkou '-y' na konci, abys mohl pokračovat.");
         }
 
         ConfigurationManager config = WorldGuard.getInstance().getPlatform().getGlobalStateManager();
@@ -1014,11 +1014,11 @@ public final class RegionCommands extends RegionCommandsBase {
         RegionDriver toDriver = config.regionStoreDriverMap.get(to);
 
         if (fromDriver == null) {
-            throw new CommandException("The driver specified as 'from' does not seem to be supported in your version of WorldGuard.");
+            throw new CommandException("Zdá se, že ovladač zadaný jako 'z' není ve tvé verzi WorldGuardu podporován.");
         }
 
         if (toDriver == null) {
-            throw new CommandException("The driver specified as 'to' does not seem to be supported in your version of WorldGuard.");
+            throw new CommandException("se, že ovladač zadaný jako 'do' není ve tvé verzi WorldGuardu podporován.");
         }
 
         DriverMigration migration = new DriverMigration(fromDriver, toDriver, WorldGuard.getInstance().getFlagRegistry());
@@ -1035,15 +1035,15 @@ public final class RegionCommands extends RegionCommandsBase {
 
         try {
             RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
-            sender.print("Now performing migration... this may take a while.");
+            sender.print("Převádím data... toto asi zabere chvíli.");
             container.migrate(migration);
             sender.print(
-                    "Migration complete! This only migrated the data. If you already changed your settings to use " +
-                    "the target driver, then WorldGuard is now using the new data. If not, you have to adjust your " +
-                    "configuration to use the new driver and then restart your server.");
+                    "Přesun byl dokončen! Toto přesunulo jen data. Pokud jsi již změnil nastavení pro použití " +
+                    "cílového ovladače, WorldGuard nyní používá nová dat. Pokud ne, musíte upravit konfiguraci, " +
+                    "abyste mohli používat nový ovladač, a poté restartovat server.");
         } catch (MigrationException e) {
-            log.log(Level.WARNING, "Failed to migrate", e);
-            throw new CommandException("Error encountered while migrating: " + e.getMessage());
+            log.log(Level.WARNING, "Nepodařilo se přesunout databázi", e);
+            throw new CommandException("Chyba při přesunu databáze: " + e.getMessage());
         } finally {
             if (minecraftLogger != null) {
                 minecraftLogger.removeHandler(handler);
@@ -1059,7 +1059,7 @@ public final class RegionCommands extends RegionCommandsBase {
      * @throws CommandException any error
      */
     @Command(aliases = {"migrateuuid"},
-            desc = "Migrate loaded databases to use UUIDs", max = 0)
+            desc = "Převede načtené databáze pro použití UUID", max = 0)
     public void migrateUuid(CommandContext args, Actor sender) throws CommandException {
         // Check permissions
         if (!getPermissionModel(sender).mayMigrateRegionNames()) {
@@ -1082,12 +1082,12 @@ public final class RegionCommands extends RegionCommandsBase {
             RegionDriver driver = container.getDriver();
             UUIDMigration migration = new UUIDMigration(driver, WorldGuard.getInstance().getProfileService(), WorldGuard.getInstance().getFlagRegistry());
             migration.setKeepUnresolvedNames(config.keepUnresolvedNames);
-            sender.print("Now performing migration... this may take a while.");
+            sender.print("Převádím data... toto asi zabere chvíli.");
             container.migrate(migration);
-            sender.print("Migration complete!");
+            sender.print("Převod dokončen!");
         } catch (MigrationException e) {
-            log.log(Level.WARNING, "Failed to migrate", e);
-            throw new CommandException("Error encountered while migrating: " + e.getMessage());
+            log.log(Level.WARNING, "Nepodařilo se převést data", e);
+            throw new CommandException("Chaba při převádění: " + e.getMessage());
         } finally {
             if (minecraftLogger != null) {
                 minecraftLogger.removeHandler(handler);
@@ -1104,9 +1104,9 @@ public final class RegionCommands extends RegionCommandsBase {
      * @throws CommandException any error
      */
     @Command(aliases = {"migrateheights"},
-            usage = "[world]", max = 1,
+            usage = "[svět]", max = 1,
             flags = "yw:",
-            desc = "Migrate regions from old height limits to new height limits")
+            desc = "Migruje oblasti ze starých výškových limitů na nové výškové limity")
     public void migrateHeights(CommandContext args, Actor sender) throws CommandException {
         // Check permissions
         if (!getPermissionModel(sender).mayMigrateRegionHeights()) {
@@ -1114,8 +1114,8 @@ public final class RegionCommands extends RegionCommandsBase {
         }
 
         if (!args.hasFlag('y')) {
-            throw new CommandException("This command is potentially dangerous.\n" +
-                    "Please ensure you have made a backup of your data, and then re-enter the command with -y tacked on at the end to proceed.");
+            throw new CommandException("Tento příkaz je nebezpečný.\n" +
+                    "Ujisti se, že jsi provedl zálohu tvých dat, a poté znovu zadej příkaz se značkou '-y' na konci, abys mohl pokračovat.");
         }
 
         World world = null;
@@ -1139,10 +1139,10 @@ public final class RegionCommands extends RegionCommandsBase {
             RegionDriver driver = container.getDriver();
             WorldHeightMigration migration = new WorldHeightMigration(driver, WorldGuard.getInstance().getFlagRegistry(), world);
             container.migrate(migration);
-            sender.print("Migration complete!");
+            sender.print("Převod dokončen!");
         } catch (MigrationException e) {
-            log.log(Level.WARNING, "Failed to migrate", e);
-            throw new CommandException("Error encountered while migrating: " + e.getMessage());
+            log.log(Level.WARNING, "Nepodařilo se převést data", e);
+            throw new CommandException("Chyba při převodu: " + e.getMessage());
         } finally {
             if (minecraftLogger != null) {
                 minecraftLogger.removeHandler(handler);
@@ -1159,9 +1159,9 @@ public final class RegionCommands extends RegionCommandsBase {
      * @throws CommandException any error
      */
     @Command(aliases = {"teleport", "tp"},
-             usage = "[-w world] [-c|s] <id>",
+             usage = "[-w svět] [-c|s] <id>",
              flags = "csw:",
-             desc = "Teleports you to the location associated with the region.",
+             desc = "Teleportuje tě na místo spojené s regionem.",
              min = 1, max = 1)
     public void teleport(CommandContext args, Actor sender) throws CommandException {
         LocalPlayer player = worldGuard.checkPlayer(sender);
@@ -1183,7 +1183,7 @@ public final class RegionCommands extends RegionCommandsBase {
             
             if (teleportLocation == null) {
                 throw new CommandException(
-                        "The region has no spawn point associated.");
+                        "Region nemá žádný bod zrození.");
             }
         } else if (args.hasFlag('c')) {
             // Check permissions
@@ -1192,7 +1192,7 @@ public final class RegionCommands extends RegionCommandsBase {
             }
             Region region = WorldEditRegionConverter.convertToRegion(existing);
             if (region == null || region.getCenter() == null) {
-                throw new CommandException("The region has no center point.");
+                throw new CommandException("Region nemá žádné centrum.");
             }
             if (player.getGameMode() == GameModes.SPECTATOR) {
                 teleportLocation = new Location(world, region.getCenter(), 0, 0);
@@ -1200,13 +1200,13 @@ public final class RegionCommands extends RegionCommandsBase {
                 // TODO: Add some method to create a safe teleport location.
                 // The method AbstractPlayerActor$findFreePoisition(Location loc) is no good way for this.
                 // It doesn't return the found location and it can't be checked if the location is inside the region.
-                throw new CommandException("Center teleport is only availible in Spectator gamemode.");
+                throw new CommandException("Teleport na střed je dostupný pouze v režimu Divák.");
             }
         } else {
             teleportLocation = FlagValueCalculator.getEffectiveFlagOf(existing, Flags.TELE_LOC, player);
             
             if (teleportLocation == null) {
-                throw new CommandException("The region has no teleport point associated.");
+                throw new CommandException("Region nemá přiřazený žádný bod pro teleport.");
             }
         }
 
@@ -1220,11 +1220,11 @@ public final class RegionCommands extends RegionCommandsBase {
 
         player.teleport(teleportLocation,
                 message.replace("%id%", existing.getId()),
-                "Unable to teleport to region '" + existing.getId() + "'.");
+                "Nebylo možné tě teleportovat do regionu '" + existing.getId() + "'.");
     }
 
     @Command(aliases = {"toggle-bypass", "bypass"},
-             usage = "[on|off]",
+             usage = "[zap|vyp]",
              desc = "Toggle region bypassing, effectively ignoring bypass permissions.")
     public void toggleBypass(CommandContext args, Actor sender) throws CommandException {
         LocalPlayer player = worldGuard.checkPlayer(sender);
@@ -1235,8 +1235,8 @@ public final class RegionCommands extends RegionCommandsBase {
         boolean shouldEnableBypass;
         if (args.argsLength() > 0) {
             String arg1 = args.getString(0);
-            if (!arg1.equalsIgnoreCase("on") && !arg1.equalsIgnoreCase("off")) {
-                throw new CommandException("Allowed optional arguments are: on, off");
+            if (!arg1.equalsIgnoreCase("zap") && !arg1.equalsIgnoreCase("vyp")) {
+                throw new CommandException("Povolené volitelné možnosti jsou: zap, vyp");
             }
             shouldEnableBypass = arg1.equalsIgnoreCase("on");
         } else {
@@ -1244,10 +1244,10 @@ public final class RegionCommands extends RegionCommandsBase {
         }
         if (shouldEnableBypass) {
             session.setBypassDisabled(false);
-            player.print("You are now bypassing region protection (as long as you have permission).");
+            player.print("Nyní obcházíte ochranu regionu (pokud máte oprávnění).");
         } else {
             session.setBypassDisabled(true);
-            player.print("You are no longer bypassing region protection.");
+            player.print("Již neobcházíš ochranu regionu.");
         }
     }
 
@@ -1287,9 +1287,9 @@ public final class RegionCommands extends RegionCommandsBase {
 
             Collections.sort(flagList);
 
-            final TextComponent.Builder builder = TextComponent.builder("Available flags: ");
+            final TextComponent.Builder builder = TextComponent.builder("Dostupné vlajky: ");
 
-            final HoverEvent clickToSet = HoverEvent.of(HoverEvent.Action.SHOW_TEXT, TextComponent.of("Click to set"));
+            final HoverEvent clickToSet = HoverEvent.of(HoverEvent.Action.SHOW_TEXT, TextComponent.of("Klikni pro nastavení"));
             for (int i = 0; i < flagList.size(); i++) {
                 String flag = flagList.get(i);
 
@@ -1301,11 +1301,11 @@ public final class RegionCommands extends RegionCommandsBase {
                 }
             }
 
-            Component ret = ErrorFormat.wrap("Unknown flag specified: " + flagName)
+            Component ret = ErrorFormat.wrap("Neznámá vlajka: " + flagName)
                     .append(TextComponent.newline())
                     .append(builder.build());
             if (sender.isPlayer()) {
-                return ret.append(TextComponent.of("Or use the command ", TextColor.LIGHT_PURPLE)
+                return ret.append(TextComponent.of("Nebo použij příkaz ", TextColor.LIGHT_PURPLE)
                                 .append(TextComponent.of("/rg flags " + regionId, TextColor.AQUA)
                                     .clickEvent(ClickEvent.of(ClickEvent.Action.RUN_COMMAND,
                                         "/rg flags -w \"" + world.getName() + "\" " + regionId))));

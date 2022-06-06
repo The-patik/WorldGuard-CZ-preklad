@@ -40,7 +40,7 @@ public class DebuggingCommands {
         this.worldGuard = worldGuard;
     }
 
-    @Command(aliases = {"testbreak"}, usage = "[player]", desc = "Simulate a block break", min = 1, max = 1, flags = "ts")
+    @Command(aliases = {"testbreak"}, usage = "[hráč]", desc = "Simuluje zničení bloku", min = 1, max = 1, flags = "ts")
     @CommandPermissions("worldguard.debug.event")
     public void fireBreakEvent(CommandContext args, final Actor sender) throws CommandException {
         LocalPlayer target = worldGuard.getPlatform().getMatcher().matchSinglePlayer(sender, args.getString(0));
@@ -48,21 +48,21 @@ public class DebuggingCommands {
     }
 
 
-    @Command(aliases = {"testplace"}, usage = "[player]", desc = "Simulate a block place", min = 1, max = 1, flags = "ts")
+    @Command(aliases = {"testplace"}, usage = "[hráč]", desc = "Simuluje položení bloku", min = 1, max = 1, flags = "ts")
     @CommandPermissions("worldguard.debug.event")
     public void firePlaceEvent(CommandContext args, final Actor sender) throws CommandException {
         LocalPlayer target = worldGuard.getPlatform().getMatcher().matchSinglePlayer(sender, args.getString(0));
         worldGuard.getPlatform().getDebugHandler().testPlace(sender, target, args.hasFlag('t'), args.hasFlag('s'));
     }
 
-    @Command(aliases = {"testinteract"}, usage = "[player]", desc = "Simulate a block interact", min = 1, max = 1, flags = "ts")
+    @Command(aliases = {"testinteract"}, usage = "[hráč]", desc = "Simuluje interakci s blokem", min = 1, max = 1, flags = "ts")
     @CommandPermissions("worldguard.debug.event")
     public void fireInteractEvent(CommandContext args, final Actor sender) throws CommandException {
         LocalPlayer target = worldGuard.getPlatform().getMatcher().matchSinglePlayer(sender, args.getString(0));
         worldGuard.getPlatform().getDebugHandler().testInteract(sender, target, args.hasFlag('t'), args.hasFlag('s'));
     }
 
-    @Command(aliases = {"testdamage"}, usage = "[player]", desc = "Simulate an entity damage", min = 1, max = 1, flags = "ts")
+    @Command(aliases = {"testdamage"}, usage = "[player]", desc = "Simuluje poškození bytosti", min = 1, max = 1, flags = "ts")
     @CommandPermissions("worldguard.debug.event")
     public void fireDamageEvent(CommandContext args, final Actor sender) throws CommandException {
         LocalPlayer target = worldGuard.getPlatform().getMatcher().matchSinglePlayer(sender, args.getString(0));

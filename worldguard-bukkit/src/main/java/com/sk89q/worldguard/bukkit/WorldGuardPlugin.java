@@ -206,6 +206,8 @@ public class WorldGuardPlugin extends JavaPlugin {
             setupCustomCharts(metrics);
         }
 
+        //Kontrola verze překladu WorldGuardu
+
             try {
                 String giturl = "http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad/ws/build.number";
                 URL url = new URL(giturl);
@@ -249,12 +251,12 @@ public class WorldGuardPlugin extends JavaPlugin {
                                 + WorldGuard.getVersion() + "-překlad_PREv"
                                     + WorldGuard.getTransVersion() + "-B" + buildnumber);
                         } else if (buildn > buildnumber){
-                        getLogger().warning("Nová verze WorldGuard CZ překlad je dostupná na http://jenkins.valleycube.cz");
+                        getLogger().warning("Nová verze WorldGuard CZ překlad je dostupná na http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad/");
                         getLogger().warning("Nová verze: WorldGuard_"
                                 + WorldGuard.getVersion() + "-překlad_PREv"
                                     + WorldGuard.getTransVersion() + "-B" + buildn);
                     } else {
-                        getLogger().severe("Nesprávná verze - " + buildnumber + " místo " + buildn + "! Koukni na http://jenkins.valleycube.cz");
+                        getLogger().severe("Nesprávná verze - " + buildnumber + " místo " + buildn + "! Koukni na http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad/");
                     }
                 } catch (Exception e) {
                     getLogger().warning("Chyba při načítání updateru!");

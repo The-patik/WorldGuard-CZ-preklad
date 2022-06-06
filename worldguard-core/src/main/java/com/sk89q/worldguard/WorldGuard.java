@@ -75,7 +75,7 @@ public final class WorldGuard {
 
     public void setup() {
         executorService = MoreExecutors.listeningDecorator(EvenMoreExecutors.newBoundedCachedThreadPool(0, 1, 20,
-                "WorldGuard Task Executor - %s"));
+                "WorldGuard vykonávač úloh - %s"));
 
         File cacheDir = new File(getPlatform().getConfigDir().toFile(), "cache");
         cacheDir.mkdirs();
@@ -83,7 +83,7 @@ public final class WorldGuard {
         try {
             profileCache = new SQLiteCache(new File(cacheDir, "profiles.sqlite"));
         } catch (IOException | UnsatisfiedLinkError ignored) {
-            logger.log(Level.WARNING, "Failed to initialize SQLite profile cache. Cache is memory-only.");
+            logger.log(Level.WARNING, "Nepodařilo se inicializovat mezipaměť profilu SQLite. Cache je pouze v paměti.");
             profileCache = new HashMapCache();
         }
 
@@ -99,7 +99,7 @@ public final class WorldGuard {
      * @return The platform
      */
     public WorldGuardPlatform getPlatform() {
-        checkNotNull(platform, "WorldGuard není načten! Není možné načíst WorldEdit, nebo platformu.");
+        checkNotNull(platform, "WorldGuard není načten! Není možné načíst WorldEdit, nebo jinou platformu.");
         return platform;
     }
 
@@ -239,7 +239,7 @@ public final class WorldGuard {
      * Verze překladu :)
      */
     public static String getTransVersion() {
-        transVersion = "0.3";
+        transVersion = "0.4";
         return transVersion;
     }
 }

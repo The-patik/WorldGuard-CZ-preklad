@@ -99,7 +99,7 @@ public class WorldGuardPlayerListener extends AbstractListener {
                     localPlayer.getWorld())) {
                 GameMode expected = handler.getSetGameMode();
                 if (handler.getOriginalGameMode() != null && expected != null && expected != BukkitAdapter.adapt(event.getNewGameMode())) {
-                    log.info("Game mode change on " + player.getName() + " has been blocked due to the region GAMEMODE flag");
+                    log.info("Herní mód hráče " + player.getName() + " byl změněn z důvodu jiného herního módu v regionu!");
                     event.setCancelled(true);
                 }
             }
@@ -135,12 +135,14 @@ public class WorldGuardPlayerListener extends AbstractListener {
 
         if (wcfg.fireSpreadDisableToggle) {
             player.sendMessage(ChatColor.YELLOW
-                    + "Fire spread is currently globally disabled for this world.");
+                    + "Šíření ohně je v tomto světě globálně zakázáno.");
         }
 
         Events.fire(new ProcessPlayerEvent(player));
         WorldGuard.getInstance().getExecutorService().submit(() ->
             WorldGuard.getInstance().getProfileCache().put(new Profile(player.getUniqueId(), player.getName())));
+
+    //Kontrola verze překladu WorldGuardu
 
         if (player.hasPermission("worldguard.update")) {
             try {
@@ -186,12 +188,12 @@ public class WorldGuardPlayerListener extends AbstractListener {
                                 + WorldGuard.getVersion() + "-překlad_PREv"
                                     + WorldGuard.getTransVersion() + "-B" + buildnumber);
                     } else if (buildn > buildnumber){
-                        player.sendMessage(ChatColor.GRAY + "Nová verze WorldGuard CZ překlad je dostupná na http://jenkins.valleycube.cz");
+                        player.sendMessage(ChatColor.GRAY + "Nová verze WorldGuard CZ překlad je dostupná na http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad/");
                         player.sendMessage(ChatColor.GRAY + "Nová verze: WorldGuard_"
                                 + WorldGuard.getVersion() + "-překlad_PREv"
                                     + WorldGuard.getTransVersion() + "-B" + buildn);
                     } else {
-                        player.sendMessage(ChatColor.RED + "Nesprávná verze - " + buildnumber + " místo " + buildn + "! Koukni na http://jenkins.valleycube.cz");
+                        player.sendMessage(ChatColor.RED + "Nesprávná verze - " + buildnumber + " místo " + buildn + "! Koukni na http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad/");
                     }
                 } catch (Exception e) {
                     player.sendMessage(ChatColor.RED + "Chyba při načítání updateru!");
