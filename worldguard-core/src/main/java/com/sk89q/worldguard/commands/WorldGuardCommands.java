@@ -66,16 +66,7 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
 public class WorldGuardCommands {
-
-    private static WorldGuardPlatform platformwg;
-
-    public WorldGuardPlatform getPlatform() {
-        checkNotNull(platformwg, "WorldGuard není načten! Není možné načíst WorldEdit, nebo jinou platformu.");
-        return platformwg;
-    }
 
     private final WorldGuard worldGuard;
     private static int build = 58;
@@ -123,7 +114,7 @@ public class WorldGuardCommands {
         }
         String str = buf.toString();
 
-        File cacheDir = new File(getPlatform().getConfigDir().toFile(), "cache");
+        File cacheDir = new File("plugins/WorldGuard", "cache");
         File output = new File(cacheDir, "versioncheck.txt");
         FileWriter writer = new FileWriter(output);
 

@@ -38,7 +38,6 @@ import com.sk89q.worldguard.bukkit.util.Events;
 import com.sk89q.worldguard.commands.GeneralCommands;
 import com.sk89q.worldguard.commands.ProtectionCommands;
 import com.sk89q.worldguard.commands.ToggleCommands;
-import com.sk89q.worldguard.internal.platform.WorldGuardPlatform;
 import com.sk89q.worldguard.protection.flags.Flag;
 import com.sk89q.worldguard.protection.flags.Flags;
 import com.sk89q.worldguard.protection.flags.registry.SimpleFlagRegistry;
@@ -72,15 +71,12 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import static com.sk89q.worldguard.commands.WorldGuardCommands.buildnumber;
 
 /**
  * The main class for WorldGuard as a Bukkit plugin.
  */
 public class WorldGuardPlugin extends JavaPlugin {
-
-    private static WorldGuardPlatform platformwg;
 
     private static WorldGuardPlugin inst;
     private static BukkitWorldGuardPlatform platform;
@@ -109,11 +105,6 @@ public class WorldGuardPlugin extends JavaPlugin {
      */
     public static WorldGuardPlugin inst() {
         return inst;
-    }
-
-    public WorldGuardPlatform getPlatform() {
-        checkNotNull(platformwg, "WorldGuard není načten! Není možné načíst WorldEdit, nebo platformu.");
-        return platformwg;
     }
 
     /**
@@ -227,7 +218,7 @@ public class WorldGuardPlugin extends JavaPlugin {
                 }
                 String str = buf.toString();
 
-                File cacheDir = new File(getPlatform().getConfigDir().toFile(), "cache");
+                File cacheDir = new File("plugins/WorldGuard", "cache");
                 File output = new File(cacheDir,"versioncheck.txt");
                 FileWriter writer = new FileWriter(output);
 

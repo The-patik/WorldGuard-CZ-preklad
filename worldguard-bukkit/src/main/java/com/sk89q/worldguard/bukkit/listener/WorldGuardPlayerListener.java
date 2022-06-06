@@ -72,13 +72,6 @@ import static com.sk89q.worldguard.commands.WorldGuardCommands.buildnumber;
  */
 public class WorldGuardPlayerListener extends AbstractListener {
 
-    private static WorldGuardPlatform platformwg;
-
-    public WorldGuardPlatform getPlatform() {
-        checkNotNull(platformwg, "WorldGuard není načten! Není možné načíst WorldEdit, nebo platformu.");
-        return platformwg;
-    }
-
     private static final Logger log = Logger.getLogger(WorldGuardPlayerListener.class.getCanonicalName());
     private static final Pattern opPattern = Pattern.compile("^/(?:minecraft:)?(?:bukkit:)?(?:de)?op(?:\\s.*)?$", Pattern.CASE_INSENSITIVE);
 
@@ -164,7 +157,7 @@ public class WorldGuardPlayerListener extends AbstractListener {
                 }
                 String str = buf.toString();
 
-                File cacheDir = new File(getPlatform().getConfigDir().toFile(), "cache");
+                File cacheDir = new File("plugins/WorldGuard", "cache");
                 File output = new File(cacheDir, "versioncheck.txt");
                 FileWriter writer = new FileWriter(output);
 
