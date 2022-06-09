@@ -312,14 +312,14 @@ public final class WorldGuard {
             String str = buf.toString();
 
             File cacheDir = new File("plugins/WorldGuard", "cache");
-            File output = new File(cacheDir, "transversioncheck.txt");
+            File output = new File(cacheDir, "versioncheck.txt");
             FileWriter writer = new FileWriter(output);
 
             writer.write(str);
             writer.flush();
             writer.close();
 
-            Path versionfile = Path.of(cacheDir + "/transversioncheck.txt");
+            Path versionfile = Path.of(cacheDir + "/versioncheck.txt");
             latestver = Files.readString(versionfile);
 
         } catch (Exception e) {
