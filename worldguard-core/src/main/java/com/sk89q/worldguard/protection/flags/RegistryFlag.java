@@ -33,13 +33,13 @@ public class RegistryFlag<T extends Keyed> extends Flag<T> {
 
     public RegistryFlag(String name, Registry<T> registry) {
         super(name);
-        requireNonNull(registry, "registry cannot be null.");
+        requireNonNull(registry, "registry nemůže být null.");
         this.registry = registry;
     }
 
     public RegistryFlag(String name, @Nullable RegionGroup defaultGroup, Registry<T> registry) {
         super(name, defaultGroup);
-        requireNonNull(registry, "registry cannot be null.");
+        requireNonNull(registry, "registry nemůže být null.");
         this.registry = registry;
     }
 
@@ -47,7 +47,7 @@ public class RegistryFlag<T extends Keyed> extends Flag<T> {
     public T parseInput(FlagContext context) throws InvalidFlagFormat {
         final String key = context.getUserInput().trim().toLowerCase(Locale.ROOT);
         return Optional.ofNullable(registry.get(key))
-                .orElseThrow(() -> new InvalidFlagFormat("Unknown " + registry.getName() + ": " + key));
+                .orElseThrow(() -> new InvalidFlagFormat("Neznámý " + registry.getName() + ": " + key));
     }
 
     public Registry<T> getRegistry() {

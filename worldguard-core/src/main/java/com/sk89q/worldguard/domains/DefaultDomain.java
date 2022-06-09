@@ -379,7 +379,7 @@ public class DefaultDomain implements Domain, ChangeTracked {
                 builder.append(TextComponent.of(", "));
             }
         }
-        return builder.build().hoverEvent(HoverEvent.of(HoverEvent.Action.SHOW_TEXT, TextComponent.of("Groups")));
+        return builder.build().hoverEvent(HoverEvent.of(HoverEvent.Action.SHOW_TEXT, TextComponent.of("Skupiny")));
     }
 
     private Component toPlayersComponent(ProfileCache cache) {
@@ -411,8 +411,8 @@ public class DefaultDomain implements Domain, ChangeTracked {
             final UUID uuid = profileMap.get(name);
             final TextComponent component = TextComponent.of(name, TextColor.YELLOW)
                     .hoverEvent(HoverEvent.of(HoverEvent.Action.SHOW_TEXT, uuid == null
-                            ? TextComponent.of("Name only", TextColor.GRAY)
-                            : TextComponent.of("Last known name of uuid: ", TextColor.GRAY)
+                            ? TextComponent.of("Pouze jméno", TextColor.GRAY)
+                            : TextComponent.of("Poslední známé jméno uuid: ", TextColor.GRAY)
                             .append(TextComponent.of(uuid.toString(), TextColor.WHITE))));
             if (uuid == null) {
                 return component;
@@ -429,7 +429,7 @@ public class DefaultDomain implements Domain, ChangeTracked {
         if (!uuids.isEmpty()) {
             builder.append(TextComponent.of(uuids.size() + " unknown uuid" + (uuids.size() == 1 ? "" : "s"), TextColor.GRAY)
                     .hoverEvent(HoverEvent.of(HoverEvent.Action.SHOW_TEXT, TextComponent.of(String.join("\n", uuids))
-                        .append(TextComponent.newline().append(TextComponent.of("Click to select")))))
+                        .append(TextComponent.newline().append(TextComponent.of("Klikni pro výběr")))))
                     .clickEvent(ClickEvent.of(ClickEvent.Action.SUGGEST_COMMAND, String.join(",", uuids))));
         }
 

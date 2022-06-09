@@ -115,7 +115,7 @@ public class WorldGuardCommands {
         String str = buf.toString();
 
         File cacheDir = new File("plugins/WorldGuard", "cache");
-        File output = new File(cacheDir, "versioncheck.txt");
+        File output = new File(cacheDir, "buildcheck.txt");
         FileWriter writer = new FileWriter(output);
 
         writer.write(str);
@@ -140,8 +140,8 @@ public class WorldGuardCommands {
                 } else if (buildn > buildnumber){
                 sender.print("Nová verze WorldGuard CZ překlad je dostupná na http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad/");
                 sender.print("Nová verze: WorldGuard_"
-                        + WorldGuard.getVersion() + "-překlad_PREv"
-                            + WorldGuard.getTransVersion() + "-B" + buildn);
+                        + WorldGuard.getLatestVersion() + "-překlad_PREv"
+                            + WorldGuard.getLatestTransVersion() + "-B" + buildn);
                 } else {
                 sender.print("Neplatná verze - " + buildnumber + " místo " + buildn + "! Koukni na http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad/");
             }

@@ -62,23 +62,23 @@ public class WorldGuardExceptionConverter extends ExceptionConverterHelper {
 
     @ExceptionMatch
     public void convert(StorageException e) throws CommandException {
-        WorldGuard.logger.log(Level.WARNING, "Error loading/saving regions", e);
-        throw newCommandException("Region data could not be loaded/saved: " + e.getMessage(), e);
+        WorldGuard.logger.log(Level.WARNING, "Chyba při načítání/ukládání regionů", e);
+        throw newCommandException("Data regionu nelze načíst/uložit: " + e.getMessage(), e);
     }
 
     @ExceptionMatch
     public void convert(RejectedExecutionException e) throws CommandException {
-        throw newCommandException("There are currently too many tasks queued to add yours. Use /wg running to list queued and running tasks.", e);
+        throw newCommandException("Aktuálně je ve frontě příliš mnoho úkolů, než aby bylo možné přidat ty vaše. Použijte /wg running k zobrazení seznamu úloh ve frontě a spuštěných úloh.", e);
     }
 
     @ExceptionMatch
     public void convert(CancellationException e) throws CommandException {
-        throw newCommandException("Task was cancelled.", e);
+        throw newCommandException("Úkol byl zrušen.", e);
     }
 
     @ExceptionMatch
     public void convert(InterruptedException e) throws CommandException {
-        throw newCommandException("Task was interrupted.", e);
+        throw newCommandException("Úkol byl přerušen.", e);
     }
 
     @ExceptionMatch
@@ -93,6 +93,6 @@ public class WorldGuardExceptionConverter extends ExceptionConverterHelper {
 
     @ExceptionMatch
     public void convert(AuthorizationException e) throws CommandException {
-        throw newCommandException("You don't have permission to do that.", e);
+        throw newCommandException("Nemáte dostatečná práva.", e);
     }
 }

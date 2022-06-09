@@ -200,8 +200,8 @@ public class WorldGuardPlugin extends JavaPlugin {
         //Kontrola verze překladu WorldGuardu
 
             try {
-                String giturl = "http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad/ws/build.number";
-                URL url = new URL(giturl);
+                String buildurl = "http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad/ws/build.number";
+                URL url = new URL(buildurl);
                 URLConnection con = url.openConnection();
                 Pattern p = Pattern.compile("text/html;\\s+charset=([^\\s]+)\\s*");
                 Matcher m = p.matcher(con.getContentType());
@@ -219,7 +219,7 @@ public class WorldGuardPlugin extends JavaPlugin {
                 String str = buf.toString();
 
                 File cacheDir = new File("plugins/WorldGuard", "cache");
-                File output = new File(cacheDir,"versioncheck.txt");
+                File output = new File(cacheDir,"buildcheck.txt");
                 FileWriter writer = new FileWriter(output);
 
                 writer.write(str);
@@ -244,8 +244,8 @@ public class WorldGuardPlugin extends JavaPlugin {
                         } else if (buildn > buildnumber){
                         getLogger().warning("Nová verze WorldGuard CZ překlad je dostupná na http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad/");
                         getLogger().warning("Nová verze: WorldGuard_"
-                                + WorldGuard.getVersion() + "-překlad_PREv"
-                                    + WorldGuard.getTransVersion() + "-B" + buildn);
+                                + WorldGuard.getLatestVersion() + "-překlad_PREv"
+                                    + WorldGuard.getLatestTransVersion() + "-B" + buildn);
                     } else {
                         getLogger().severe("Nesprávná verze - " + buildnumber + " místo " + buildn + "! Koukni na http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad/");
                     }
@@ -327,7 +327,7 @@ public class WorldGuardPlugin extends JavaPlugin {
                 throw t;
             }
         } catch (CommandPermissionsException e) {
-            sender.sendMessage(ChatColor.RED + "You don't have permission.");
+            sender.sendMessage(ChatColor.RED + "Nemáš dostatená práva.");
         } catch (MissingNestedCommandException e) {
             sender.sendMessage(ChatColor.RED + e.getUsage());
         } catch (CommandUsageException e) {
@@ -424,15 +424,15 @@ public class WorldGuardPlugin extends JavaPlugin {
     public WorldEditPlugin getWorldEdit() throws CommandException {
         Plugin worldEdit = getServer().getPluginManager().getPlugin("WorldEdit");
         if (worldEdit == null) {
-            throw new CommandException("WorldEdit does not appear to be installed.");
+            throw new CommandException("Zdá se, že WorldEdit není nainstalován.");
         } else if (!worldEdit.isEnabled()) {
-            throw new CommandException("WorldEdit does not appear to be enabled.");
+            throw new CommandException("Zdá se, že WorldEdit není povolen.");
         }
 
         if (worldEdit instanceof WorldEditPlugin) {
             return (WorldEditPlugin) worldEdit;
         } else {
-            throw new CommandException("WorldEdit detection failed (report error).");
+            throw new CommandException("Detekce WorldEdit se nezdařila (nahlaš chybu).");
         }
     }
 
@@ -476,7 +476,7 @@ public class WorldGuardPlugin extends JavaPlugin {
         } else if (sender instanceof BukkitCommandSender) {
             return Bukkit.getConsoleSender(); // TODO Fix
         } else {
-            throw new IllegalArgumentException("Unknown actor type. Please report");
+            throw new IllegalArgumentException("Neznámý typ hráče. Prosím o nahlášení");
         }
     }
 
@@ -514,7 +514,7 @@ public class WorldGuardPlugin extends JavaPlugin {
      * Configure WorldGuard's loggers.
      */
     private void configureLogger() {
-        RecordMessagePrefixer.register(Logger.getLogger("com.sk89q.worldguard"), "[WorldGuard] ");
+        RecordMessagePrefixer.register(Logger.getLogger("com.sk89q.worldguard"), "[WorldGuard CZ] ");
     }
 
     /**
@@ -539,7 +539,7 @@ public class WorldGuardPlugin extends JavaPlugin {
             if (stream == null) throw new FileNotFoundException();
             copyDefaultConfig(stream, actual, defaultName);
         } catch (IOException e) {
-            getLogger().severe("Unable to read default configuration: " + defaultName);
+            getLogger().severe("Nelze přečíst výchozí konfiguraci: " + defaultName);
         }
 
     }
@@ -551,9 +551,9 @@ public class WorldGuardPlugin extends JavaPlugin {
             while ((length = input.read(buf)) > 0) {
                 output.write(buf, 0, length);
             }
-            getLogger().info("Default configuration file written: " + name);
+            getLogger().info("Zapsán výchozí konfigurační soubor: " + name);
         } catch (IOException e) {
-            getLogger().log(Level.WARNING, "Failed to write default config file", e);
+            getLogger().log(Level.WARNING, "Zápis výchozího konfiguračního souboru se nezdařil", e);
         }
     }
 

@@ -1,21 +1,21 @@
 #
 # WorldGuard's configuration file.
 #
-# This is the a per-world configuration file. It only affects one
-# corresponding world.
+# Toto je konfigurační soubor pro každý svět, takže
+#  ovlivňuje pouze jeden odpovídající svět.
 #
-# About editing this file:
-# - DO NOT USE TABS. You MUST use spaces or Bukkit will complain. If
-#   you use an editor like Notepad++ (recommended for Windows users), you
-#   must configure it to "replace tabs with spaces." In Notepad++, this can
-#   be changed in Settings > Preferences > Language Menu.
-# - Don't get rid of the indents. They are indented so some entries are
-#   in categories (like "enforce-single-session" is in the "protection"
-#   category.
-# - If you want to check the format of this file before putting it
-#   into WorldGuard, paste it into http://yaml-online-parser.appspot.com/
-#   and see if it gives "ERROR:".
-# - Lines starting with # are comments and so they are ignored.
+# O úpravě tohoto souboru:
+# - NEPOUŽÍVEJTE TABULÁTOR. MUSÍTE používat mezery, jinak bude mít Bukkit problémy.
+#   Pokud používáte editor, jako je Notepad++ (doporučeno pro uživatele Windows),
+#   musíte jej nakonfigurovat tak, aby „nahradil tabulátory mezerami“.
+#   V Notepad++ to lze změnit v Nastavení > Předvolby > Jazyková nabídka.
+#      (Settings > Preferences > Language Menu)
+# - Neodstraňujte odsazení. Texty jsou odsazeny tak, že některé položky
+#   jsou v kategoriích (např. „enforce-single-session“ je v kategorii „protection“.
+# - Chcete-li zkontrolovat formát tohoto souboru před jeho použitím a načtením ve
+#   WorldGuard, vložte jej do http://yaml-online-parser.appspot.com/
+#   a zjistěte, zda tu není nějaký „ERROR:“.
+# - Řádky začínající # jsou komentáře, a proto jsou ignorovány.
 #
 
 # -- This should be automatically replaced by the plugin in-game --

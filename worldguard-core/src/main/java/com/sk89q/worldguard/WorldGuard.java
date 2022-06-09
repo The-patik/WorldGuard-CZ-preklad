@@ -37,12 +37,17 @@ import com.sk89q.worldguard.util.profile.cache.ProfileCache;
 import com.sk89q.worldguard.util.profile.cache.SQLiteCache;
 import com.sk89q.worldguard.util.profile.resolver.ProfileService;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.net.URL;
+import java.net.URLConnection;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -52,6 +57,8 @@ public final class WorldGuard {
 
     private static String version;
     private static String transVersion;
+    private static String latestTransVersion;
+    private static String latestVersion;
     private static final WorldGuard instance = new WorldGuard();
 
     private static WorldGuardPlatform platform;
@@ -241,5 +248,86 @@ public final class WorldGuard {
     public static String getTransVersion() {
         transVersion = "0.4";
         return transVersion;
+    }
+    public static String getLatestTransVersion() {
+        String versionn = null;
+        try {
+            String versionurl = "http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad/ws/trans_version.number";
+            URL url = new URL(versionurl);
+            URLConnection con = url.openConnection();
+            Pattern p = Pattern.compile("text/html;\\s+charset=([^\\s]+)\\s*");
+            Matcher m = p.matcher(con.getContentType());
+
+            String charset = m.matches() ? m.group(1) : "UTF-8";
+            Reader r = new InputStreamReader(con.getInputStream(), charset);
+            StringBuilder buf = new StringBuilder();
+
+            while (true) {
+                int ch = r.read();
+                if (ch < 0)
+                    break;
+                buf.append((char) ch);
+            }
+
+            String str = buf.toString();
+
+            File cacheDir = new File("plugins/WorldGuard", "cache");
+            File output = new File(cacheDir, "transversioncheck.txt");
+            FileWriter writer = new FileWriter(output);
+
+            writer.write(str);
+            writer.flush();
+            writer.close();
+
+            Path versionfile = Path.of(cacheDir + "/transversioncheck.txt");
+            versionn = Files.readString(versionfile);
+
+        } catch (Exception e) {
+            logger.log(Level.WARNING, "Nepodařilo se získat poslední verzi z GitHub! Kontaktuj podporu...");
+        }
+        latestTransVersion = versionn;
+
+        return latestTransVersion;
+    }
+    public static String getLatestVersion() {
+        String latestver = null;
+        try {
+            String versionurl = "http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad/ws/version.number";
+            URL url = new URL(versionurl);
+            URLConnection con = url.openConnection();
+            Pattern p = Pattern.compile("text/html;\\s+charset=([^\\s]+)\\s*");
+            Matcher m = p.matcher(con.getContentType());
+
+            String charset = m.matches() ? m.group(1) : "UTF-8";
+            Reader r = new InputStreamReader(con.getInputStream(), charset);
+            StringBuilder buf = new StringBuilder();
+
+            while (true) {
+                int ch = r.read();
+                if (ch < 0)
+                    break;
+                buf.append((char) ch);
+            }
+
+            String str = buf.toString();
+
+            File cacheDir = new File("plugins/WorldGuard", "cache");
+            File output = new File(cacheDir, "transversioncheck.txt");
+            FileWriter writer = new FileWriter(output);
+
+            writer.write(str);
+            writer.flush();
+            writer.close();
+
+            Path versionfile = Path.of(cacheDir + "/transversioncheck.txt");
+            latestver = Files.readString(versionfile);
+
+        } catch (Exception e) {
+            logger.log(Level.WARNING, "Nepodařilo se získat poslední verzi z GitHub! Kontaktuj podporu...");
+        }
+        latestVersion = latestver;
+
+        return latestVersion;
+
     }
 }

@@ -44,24 +44,24 @@ public abstract class ConfigurationManager {
     protected static final Logger log = Logger.getLogger(ConfigurationManager.class.getCanonicalName());
 
     static final String CONFIG_HEADER = "#\r\n" +
-            "# WorldGuard's main configuration file\r\n" +
+            "# Hlavní konfigurační soubor WorldGuard\r\n" +
             "#\r\n" +
-            "# This is the global configuration file. Anything placed into here will\r\n" +
-            "# be applied to all worlds. However, each world has its own configuration\r\n" +
-            "# file to allow you to replace most settings in here for that world only.\r\n" +
+            "# Toto je globální konfigurační soubor. Vše, co se sem umístí, bude použito\r\n" +
+            "# na všechny světy. Každý svět má však svůj vlastní konfigurační soubor,\r\n" +
+            "# který vám umožní nahradit většinu nastavení zde pouze pro daný svět.\r\n" +
             "#\r\n" +
-            "# About editing this file:\r\n" +
-            "# - DO NOT USE TABS. You MUST use spaces or Bukkit will complain. If\r\n" +
-            "#   you use an editor like Notepad++ (recommended for Windows users), you\r\n" +
-            "#   must configure it to \"replace tabs with spaces.\" In Notepad++, this can\r\n" +
-            "#   be changed in Settings > Preferences > Language Menu.\r\n" +
-            "# - Don't get rid of the indents. They are indented so some entries are\r\n" +
-            "#   in categories (like \"enforce-single-session\" is in the \"protection\"\r\n" +
-            "#   category.\r\n" +
-            "# - If you want to check the format of this file before putting it\r\n" +
-            "#   into WorldGuard, paste it into http://yaml-online-parser.appspot.com/\r\n" +
-            "#   and see if it gives \"ERROR:\".\r\n" +
-            "# - Lines starting with # are comments and so they are ignored.\r\n" +
+            "# O úpravě tohoto souboru::\r\n" +
+            "# - NEPOUŽÍVEJTE TABULÁTOR. MUSÍTE používat mezery, jinak bude mít Bukkit problémy.\r\n" +
+            "#   Pokud používáte editor, jako je Notepad++ (doporučeno pro uživatele Windows),\r\n" +
+            "#   musíte jej nakonfigurovat tak, aby \"nahradil tabulátory mezerami\".\r\n" +
+            "#   V Notepad++ to lze změnit v Nastavení > Předvolby > Jazyková nabídka.\r\n" +
+            "#           (Settings > Preferences > Language Menu)\r\n" +
+            "# - Neodstraňujte odsazení. Texty jsou odsazeny tak, že některé položky\r\n" +
+            "#   jsou v kategoriích (např. \"enforce-single-session\" je v kategorii \"protection\".\"\r\n" +
+            "# - Chcete-li zkontrolovat formát tohoto souboru před jeho použitím a načtením ve\r\n" +
+            "#   WorldGuard, vložte jej do http://yaml-online-parser.appspot.com/\r\n" +
+            "#   a zjistěte, zda tu není nějaký \"ERROR:\".\r\n" +
+            "# - Řádky začínající # jsou komentáře, a proto jsou ignorovány.\r\n" +
             "#\r\n";
 
     public boolean useRegionsCreatureSpawnEvent;

@@ -48,7 +48,7 @@ public abstract class YamlConfigurationManager extends ConfigurationManager {
         try {
             config.load();
         } catch (IOException e) {
-            log.severe("Error reading configuration for global config: ");
+            log.severe("Chyba při čtení konfigurace pro globální konfiguraci: ");
             e.printStackTrace();
         }
 
@@ -96,8 +96,8 @@ public abstract class YamlConfigurationManager extends ConfigurationManager {
         if (!useSqlDatabase) {
             config.removeProperty("regions.sql");
         } else {
-            log.warning("SQL support for WorldGuard region storage is deprecated for removal in a future version. Please migrate to YAML storage.");
-            log.warning("For details, see https://worldguard.enginehub.org/en/latest/regions/storage/");
+            log.warning("Podpora SQL pro regiony je zastaralá a bude v budoucí verzi odstraněna. Proveďte migraci do úložiště YAML.");
+            log.warning("Podrobnosti viz https://worldguard.enginehub.org/en/latest/regions/storage/");
         }
 
         DataSourceConfig dataSourceConfig = new DataSourceConfig(sqlDsn, sqlUsername, sqlPassword, sqlTablePrefix);
@@ -125,7 +125,7 @@ public abstract class YamlConfigurationManager extends ConfigurationManager {
     public void disableUuidMigration() {
         config.setProperty("regions.uuid-migration.perform-on-next-start", false);
         if (!config.save()) {
-            log.severe("Error saving configuration!");
+            log.severe("Při ukládání konfigurace došlo k chybě!");
         }
     }
 }

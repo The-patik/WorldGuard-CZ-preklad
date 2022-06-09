@@ -23,6 +23,8 @@ General Public License v3.
 
 Pro použití WorldGuard je vyžadována implementace serveru Bukkit (jako [Paper](https://papermc.io)) a [WorldEdit plugin](https://dev.bukkit.org/projects/worldedit). Vydanou kopii WorldGuard můžete získat z [BukkitDev](https://dev.bukkit.org/projects/worldguard). Přeložená verze je dostupná na webu [ValleyCube Jenkins](http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad).
 
+### UPOZORNĚNÍ! KONTROLA PŘEKLADU, ABY BYL SROZUMITELNÝ VE HŘE PROBĚHNE V BUDOUCÍCH VERZÍCH
+
 Links
 -----
 

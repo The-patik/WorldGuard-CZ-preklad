@@ -37,16 +37,16 @@ public class MapFlag<K, V> extends Flag<Map<K, V>> {
 
     public MapFlag(final String name, final Flag<K> keyFlag, final Flag<V> valueFlag) {
         super(name);
-        requireNonNull(keyFlag, "keyFlag cannot be null.");
-        requireNonNull(valueFlag, "valueFlag cannot be null.");
+        requireNonNull(keyFlag, "keyFlag nemůže mít hodnotu null.");
+        requireNonNull(valueFlag, "valueFlag nemůže mít hodnotu null.");
         this.keyFlag = keyFlag;
         this.valueFlag = valueFlag;
     }
 
     public MapFlag(final String name, @Nullable final RegionGroup defaultGroup, final Flag<K> keyFlag, final Flag<V> valueFlag) {
         super(name, defaultGroup);
-        requireNonNull(keyFlag, "keyFlag cannot be null.");
-        requireNonNull(valueFlag, "valueFlag cannot be null.");
+        requireNonNull(keyFlag, "keyFlag nemůže mít hodnotu null.");
+        requireNonNull(valueFlag, "valueFlag nemůže mít hodnotu null.");
         this.keyFlag = keyFlag;
         this.valueFlag = valueFlag;
     }
@@ -83,7 +83,7 @@ public class MapFlag<K, V> extends Flag<Map<K, V>> {
             final char split = str.indexOf('=') == -1 ? ':' : '=';
             final String[] keyVal = str.split(String.valueOf(split));
             if (keyVal.length != 2) {
-                throw new InvalidFlagFormat("Input must be in a 'key:value,key1=value1' format. Either ':' or '=' can be used.");
+                throw new InvalidFlagFormat("Vstup musí být ve formátu 'key:value,key1=value1'. Lze použít buď ':' nebo '='.");
             }
 
             final FlagContext key = context.copyWith(null, keyVal[0], null);

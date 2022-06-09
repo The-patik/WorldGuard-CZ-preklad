@@ -1,5 +1,10 @@
 # Seznam změn v překladu
 
+## v0.5-beta
+* Další přeložené fráze - většina hotova
+* Plus přeložené konfigurační soubory pluginu 
+* Dokončení funkce hledání nových verzí
+
 ## v0.4-beta
 * Nové přeložené fráze - příkazy (`/region`, `/wg` a další...)
 * Oprava funkce hledání nových verzí

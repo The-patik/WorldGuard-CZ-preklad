@@ -57,7 +57,7 @@ public class SimpleFlagRegistry implements FlagRegistry {
     public void register(Flag<?> flag) throws FlagConflictException {
         synchronized (lock) {
             if (initialized) {
-                throw new IllegalStateException("New flags cannot be registered at this time");
+                throw new IllegalStateException("V tuto chvíli nelze registrovat nové vlajky");
             }
 
             forceRegister(flag);
@@ -84,7 +84,7 @@ public class SimpleFlagRegistry implements FlagRegistry {
         synchronized (lock) {
             String name = flag.getName().toLowerCase();
             if (flags.containsKey(name)) {
-                throw new FlagConflictException("A flag already exists by the name " + name);
+                throw new FlagConflictException("Vlajky pod tímto jménem již existuje: " + name);
             }
 
             flags.put(name, flag);
@@ -142,10 +142,10 @@ public class SimpleFlagRegistry implements FlagRegistry {
                     if (unmarshalled != null) {
                         values.put(flag, unmarshalled);
                     } else {
-                        log.warning("Failed to parse flag '" + flag.getName() + "' with value '" + entry.getValue() + "'");
+                        log.warning("Nepodařilo se analyzovat vlajku '" + flag.getName() + "' s hodnotou '" + entry.getValue() + "'");
                     }
                 } catch (Throwable e) {
-                    log.log(Level.WARNING, "Failed to unmarshal flag value for " + flag, e);
+                    log.log(Level.WARNING, "Nepodařilo se uvolnit hodnotu vlajky pro " + flag, e);
                 }
             }
         }

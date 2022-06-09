@@ -95,7 +95,7 @@ public class BukkitWorldConfiguration extends YamlWorldConfiguration {
         loadConfiguration();
 
         if (summaryOnStart) {
-            log.info("Loaded configuration for world '" + worldName + "'");
+            log.info("Načtená konfigurace pro svět '" + worldName + "'");
         }
     }
 
@@ -119,7 +119,7 @@ public class BukkitWorldConfiguration extends YamlWorldConfiguration {
             try {
                 set.add(matcherParser.fromInput(input));
             } catch (TargetMatcherParseException e) {
-                log.warning("Failed to parse the block / item type specified as '" + input + "'");
+                log.warning("Nepodařilo se analyzovat typ bloku / položky: '" + input + "'");
             }
         }
 
@@ -134,9 +134,9 @@ public class BukkitWorldConfiguration extends YamlWorldConfiguration {
         try {
             config.load();
         } catch (IOException e) {
-            log.log(Level.SEVERE, "Error reading configuration for world " + worldName + ": ", e);
+            log.log(Level.SEVERE, "Chyba při čtení konfigurace pro svět " + worldName + ": ", e);
         } catch (YAMLException e) {
-            log.severe("Error parsing configuration for world " + worldName + ". ");
+            log.severe("Chyba při analýze konfigurace pro svět " + worldName + ". ");
             throw e;
         }
 
@@ -147,7 +147,7 @@ public class BukkitWorldConfiguration extends YamlWorldConfiguration {
 
         buildPermissions = getBoolean("build-permission-nodes.enable", false);
         buildPermissionDenyMessage = CommandUtils.replaceColorMacros(
-                getString("build-permission-nodes.deny-message", "&eSorry, but you are not permitted to do that here."));
+                getString("build-permission-nodes.deny-message", "&ePromiň, ale tady to nesmíš dělat."));
 
         strictEntitySpawn = getBoolean("event-handling.block-entity-spawns-with-untraceable-cause", false);
         allowAllInteract = getTargetMatchers("event-handling.interaction-whitelist");
@@ -170,7 +170,7 @@ public class BukkitWorldConfiguration extends YamlWorldConfiguration {
             PotionEffectType effect = PotionEffectType.getByName(potionName);
 
             if (effect == null) {
-                log.warning("Unknown potion effect type '" + potionName + "'");
+                log.warning("Neznámý typ efektu lektvaru '" + potionName + "'");
             } else {
                 blockPotions.add(effect);
             }
@@ -182,7 +182,7 @@ public class BukkitWorldConfiguration extends YamlWorldConfiguration {
         spongeRadius = Math.max(1, getInt("simulation.sponge.radius", 3)) - 1;
         redstoneSponges = getBoolean("simulation.sponge.redstone", false);
         if (simulateSponge) {
-            log.warning("Sponge simulation is deprecated for removal in a future version. We recommend using CraftBook's sponge simulation instead.");
+            log.warning("Simulace houby zastaralá a bude v budoucí verzi odstraněná. Místo toho doporučujeme použít simulaci houby pomocí CraftBook.");
         } else {
             needParentSave |= removeProperty("simulation");
         }
@@ -246,7 +246,7 @@ public class BukkitWorldConfiguration extends YamlWorldConfiguration {
         signChestProtection = getBoolean("chest-protection.enable", false);
         disableSignChestProtectionCheck = getBoolean("chest-protection.disable-off-check", false);
         if (signChestProtection) {
-            log.warning("Sign-based chest protection is deprecated for removal in a future version. See https://worldguard.enginehub.org/en/latest/chest-protection/ for details.");
+            log.warning("Ochrana truhel pomocí cedulí je zastaralá a bude v budoucí verzi odstraněná. Viz https://worldguard.enginehub.org/en/latest/chest-protection/ .");
         } else {
             needParentSave |= removeProperty("chest-protection");
         }
@@ -319,7 +319,7 @@ public class BukkitWorldConfiguration extends YamlWorldConfiguration {
             EntityType creature = EntityTypes.get(creatureName.toLowerCase());
 
             if (creature == null) {
-                log.warning("Unknown entity type '" + creatureName + "'");
+                log.warning("Neznámý typ bytosti '" + creatureName + "'");
             } else {
                 blockCreatureSpawn.add(creature);
             }
@@ -360,7 +360,7 @@ public class BukkitWorldConfiguration extends YamlWorldConfiguration {
             } else {
                 this.blacklist = blist;
                 if (summaryOnStart) {
-                    log.log(Level.INFO, "({0}) Blacklist loaded with {1} entries.",
+                    log.log(Level.INFO, "({0}) Černá listina naštena se {1} záznamy.",
                             new Object[]{worldName, blacklist.getItemCount()});
                 }
 
@@ -381,34 +381,34 @@ public class BukkitWorldConfiguration extends YamlWorldConfiguration {
                 }
             }
         } catch (FileNotFoundException e) {
-            log.log(Level.WARNING, "WorldGuard blacklist does not exist.");
+            log.log(Level.WARNING, "Černá listina WorldGurd neexistuje.");
         } catch (IOException e) {
-            log.log(Level.WARNING, "Could not load WorldGuard blacklist: "
+            log.log(Level.WARNING, "Nemůžu načíst černou listinu WorldGuardu: "
                     + e.getMessage());
         }
 
         // Print an overview of settings
         if (summaryOnStart) {
             log.log(Level.INFO, blockTNTExplosions
-                    ? "(" + worldName + ") TNT ignition is blocked."
-                    : "(" + worldName + ") TNT ignition is PERMITTED.");
+                    ? "(" + worldName + ") Zapalování TNT je zakázáno."
+                    : "(" + worldName + ") Zapalování TNT je POVOLENO.");
             log.log(Level.INFO, blockLighter
-                    ? "(" + worldName + ") Lighters are blocked."
-                    : "(" + worldName + ") Lighters are PERMITTED.");
+                    ? "(" + worldName + ") Zapalovače jsou zakázané."
+                    : "(" + worldName + ") Zapalovače jsou POVOLENY.");
             log.log(Level.INFO, preventLavaFire
-                    ? "(" + worldName + ") Lava fire is blocked."
-                    : "(" + worldName + ") Lava fire is PERMITTED.");
+                    ? "(" + worldName + ") Šíření ohně z lávy je blokováno."
+                    : "(" + worldName + ") Šíření ohně z lávy je POVOLENO.");
 
             if (disableFireSpread) {
-                log.log(Level.INFO, "(" + worldName + ") All fire spread is disabled.");
+                log.log(Level.INFO, "(" + worldName + ") Veškeré šíření ohně je zakázáno.");
             } else {
                 if (!disableFireSpreadBlocks.isEmpty()) {
                     log.log(Level.INFO, "(" + worldName
-                            + ") Fire spread is limited to "
-                            + disableFireSpreadBlocks.size() + " block types.");
+                            + ") Šíření ohně je omezeno na: "
+                            + disableFireSpreadBlocks.size() + ".");
                 } else {
                     log.log(Level.INFO, "(" + worldName
-                            + ") Fire spread is UNRESTRICTED.");
+                            + ") Šíření ohně je NEOMEZENÉ.");
                 }
             }
         }

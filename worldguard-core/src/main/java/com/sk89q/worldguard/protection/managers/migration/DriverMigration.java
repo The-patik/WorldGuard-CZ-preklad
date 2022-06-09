@@ -59,26 +59,26 @@ public class DriverMigration extends AbstractMigration {
     protected void migrate(RegionDatabase store) throws MigrationException {
         Set<ProtectedRegion> regions;
 
-        log.info("Loading the regions for '" + store.getName() + "' with the old driver...");
+        log.info("Načítání regionů pro '" + store.getName() + "' se starým ovladačem...");
 
         try {
             regions = store.loadAll(flagRegistry);
         } catch (StorageException e) {
-            throw new MigrationException("Failed to load region data for the world '" + store.getName() + "'", e);
+            throw new MigrationException("Nepodařilo se načíst regionální data pro celý svět '" + store.getName() + "'", e);
         }
 
         write(store.getName(), regions);
     }
 
     private void write(String name, Set<ProtectedRegion> regions) throws MigrationException {
-        log.info("Saving the data for '" + name + "' with the new driver...");
+        log.info("Ukládání dat pro '" + name + "' s novým ovladačem...");
 
         RegionDatabase store = target.get(name);
 
         try {
             store.saveAll(regions);
         } catch (StorageException e) {
-            throw new MigrationException("Failed to save region data for '" + store.getName() + "' to the new driver", e);
+            throw new MigrationException("Nepodařilo se uložit data regionu pro '" + store.getName() + "' k novému ovladači", e);
         }
     }
 

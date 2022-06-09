@@ -76,14 +76,14 @@ public class UUIDMigration extends AbstractMigration {
 
     @Override
     protected void migrate(RegionDatabase store) throws MigrationException {
-        log.log(Level.INFO, "Migrating regions in '" + store.getName() + "' to convert names -> UUIDs...");
+        log.log(Level.INFO, "Migruji regiony v '" + store.getName() + "' pro převod jmen -> UUID...");
 
         Set<ProtectedRegion> regions;
 
         try {
             regions = store.loadAll(flagRegistry);
         } catch (StorageException e) {
-            throw new MigrationException("Failed to load region data for the world '" + store.getName() + "'", e);
+            throw new MigrationException("Nepodařilo se načíst data regionů pro celý svět '" + store.getName() + "'", e);
         }
 
         migrate(regions);
@@ -91,7 +91,7 @@ public class UUIDMigration extends AbstractMigration {
         try {
             store.saveAll(regions);
         } catch (StorageException e) {
-            throw new MigrationException("Failed to save region data after migration of the world '" + store.getName() + "'", e);
+            throw new MigrationException("Po migraci světa se nepodařilo uložit data regionů '" + store.getName() + "'", e);
         }
     }
 
@@ -107,7 +107,7 @@ public class UUIDMigration extends AbstractMigration {
             try {
                 timer.schedule(task, LOG_DELAY, LOG_DELAY);
 
-                log.log(Level.INFO, "Resolving " + names.size() + " name(s) into UUIDs... this may take a while.");
+                log.log(Level.INFO, "Řeším " + names.size() + " jméno(a) na UUID... může to chvíli trvat.");
 
                 // Don't lookup names that we already looked up for previous
                 // worlds -- note: all names are lowercase in these collections
@@ -123,16 +123,16 @@ public class UUIDMigration extends AbstractMigration {
                     }
                 });
             } catch (IOException e) {
-                throw new MigrationException("The name -> UUID service failed", e);
+                throw new MigrationException("Jména -> UUID služba selhala", e);
             } catch (InterruptedException e) {
-                throw new MigrationException("The migration was interrupted");
+                throw new MigrationException("Migrace byla přerušena");
             } finally {
                 // Stop showing the % converted messages
                 task.cancel();
             }
 
             // Name -> UUID in all regions
-            log.log(Level.INFO, "UUIDs resolved... now migrating all regions to UUIDs where possible...");
+            log.log(Level.INFO, "UUID vyřešeno... nyní migruji všechny oblasti na UUID, kde je to možné...");
             convert(regions);
 
             return true;
@@ -239,7 +239,7 @@ public class UUIDMigration extends AbstractMigration {
     private class ResolvedNamesTimerTask extends TimerTask {
         @Override
         public void run() {
-            log.info("UUIDs have been found for " + resolvedNames.size() + " name(s)...");
+            log.info("UUID byla nalezena pro " + resolvedNames.size() + " jméno(a)...");
         }
     }
 

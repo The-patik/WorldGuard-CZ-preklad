@@ -158,14 +158,14 @@ public class Blacklist {
                             builder.add(matcher, entry);
                             currentEntries.add(entry);
                         } catch (TargetMatcherParseException e) {
-                            log.log(Level.WARNING, "Could not parse a block/item heading: " + e.getMessage());
+                            log.log(Level.WARNING, "Nelze analyzovat záhlaví bloku/položky: " + e.getMessage());
                         }
                     }
                 } else if (currentEntries != null) {
                     String[] parts = line.split("=");
 
                     if (parts.length == 1) {
-                        log.log(Level.WARNING, "Found option with no value " + file.getName() + " for '" + line + "'");
+                        log.log(Level.WARNING, "Nalezena možnost bez hodnoty " + file.getName() + " řádek '" + line + "'");
                         continue;
                     }
 
@@ -202,11 +202,11 @@ public class Blacklist {
                     }
 
                     if (unknownOption) {
-                        log.log(Level.WARNING, "Unknown option '" + parts[0] + "' in " + file.getName() + " for '" + line + "'");
+                        log.log(Level.WARNING, "Neznámá možnost '" + parts[0] + "' v souboru " + file.getName() + " řádek '" + line + "'");
                     }
                 } else {
-                    log.log(Level.WARNING, "Found option with no heading "
-                            + file.getName() + " for '" + line + "'");
+                    log.log(Level.WARNING, "Nalezena možnost bez názvu "
+                            + file.getName() + " v řádku '" + line + "'");
                 }
             }
 
@@ -232,7 +232,7 @@ public class Blacklist {
             }
 
             if (!found) {
-                log.log(Level.WARNING, "Unknown blacklist action: " + name);
+                log.log(Level.WARNING, "Neznámá akce na černé listině: " + name);
             }
         }
 

@@ -389,7 +389,7 @@ public class FlagValueCalculator {
 
         // Check to see whether we have a subject if this is BUILD
         if (flag.requiresSubject() && subject == null) {
-            throw new NullPointerException("The " + flag.getName() + " flag is handled in a special fashion and requires a non-null subject parameter");
+            throw new NullPointerException("Vlajka " + flag.getName() + " se zachází zvláštním způsobem a vyžaduje nenulový parametr předmětu");
         }
 
         int minimumPriority = Integer.MIN_VALUE;

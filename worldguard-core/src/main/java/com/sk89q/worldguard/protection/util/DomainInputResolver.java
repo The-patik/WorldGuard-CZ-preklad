@@ -126,14 +126,14 @@ public class DomainInputResolver implements Callable<DefaultDomain> {
                     domain.addPlayer(profile.getUniqueId());
                 }
             } catch (IOException e) {
-                throw new UnresolvedNamesException("The UUID lookup service failed so the names entered could not be turned into UUIDs");
+                throw new UnresolvedNamesException("Služba vyhledávání UUID selhala, takže zadaná jména nebylo možné převést na UUID");
             } catch (InterruptedException e) {
-                throw new UnresolvedNamesException("UUID lookup was interrupted");
+                throw new UnresolvedNamesException("Vyhledávání UUID bylo přerušeno");
             }
         }
 
         if (!namesToQuery.isEmpty()) {
-            throw new UnresolvedNamesException("Unable to resolve the names " + Joiner.on(", ").join(namesToQuery));
+            throw new UnresolvedNamesException("Nelze vyřešit názvy " + Joiner.on(", ").join(namesToQuery));
         }
 
         return domain;

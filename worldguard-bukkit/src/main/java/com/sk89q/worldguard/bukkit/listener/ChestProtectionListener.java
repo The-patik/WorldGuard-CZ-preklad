@@ -69,7 +69,7 @@ public class ChestProtectionListener extends AbstractListener {
             event.filter(target -> {
                 if (wcfg.getChestProtection().isChest(BukkitAdapter.asBlockType(event.getEffectiveMaterial())) && wcfg.isChestProtected(BukkitAdapter.adapt(target.getBlock().getLocation()),
                         WorldGuardPlugin.inst().wrapPlayer(player))) {
-                    sendMessage(event, player, ChatColor.DARK_RED + "This spot is for a chest that you don't have permission for.");
+                    sendMessage(event, player, ChatColor.DARK_RED + "Toto místo je pro truhlu, ke které nemáš povolení.");
                     return false;
                 }
 
@@ -93,7 +93,7 @@ public class ChestProtectionListener extends AbstractListener {
             final LocalPlayer localPlayer = WorldGuardPlugin.inst().wrapPlayer(player);
             event.filter(target -> {
                 if (wcfg.isChestProtected(BukkitAdapter.adapt(target.getBlock().getLocation()), localPlayer)) {
-                    sendMessage(event, player, ChatColor.DARK_RED + "This chest is protected.");
+                    sendMessage(event, player, ChatColor.DARK_RED + "Tato truhla je chráněna.");
                     return false;
                 }
 
@@ -119,7 +119,7 @@ public class ChestProtectionListener extends AbstractListener {
             final LocalPlayer localPlayer = WorldGuardPlugin.inst().wrapPlayer(player);
             event.filter(target -> {
                 if (wcfg.isChestProtected(BukkitAdapter.adapt(target.getBlock().getLocation()), localPlayer)) {
-                    sendMessage(event, player, ChatColor.DARK_RED + "This chest is protected.");
+                    sendMessage(event, player, ChatColor.DARK_RED + "Tato truhla je chráněna.");
                     return false;
                 }
 
@@ -138,7 +138,7 @@ public class ChestProtectionListener extends AbstractListener {
         if (wcfg.signChestProtection) {
             if ("[Lock]".equalsIgnoreCase(event.getLine(0))) {
                 if (wcfg.isChestProtectedPlacement(BukkitAdapter.adapt(event.getBlock().getLocation()), WorldGuardPlugin.inst().wrapPlayer(player))) {
-                    player.sendMessage(ChatColor.DARK_RED + "You do not own the adjacent chest.");
+                    player.sendMessage(ChatColor.DARK_RED + "Nevlastníš sousední truhlu.");
                     event.getBlock().breakNaturally();
                     event.setCancelled(true);
                     return;
@@ -146,7 +146,7 @@ public class ChestProtectionListener extends AbstractListener {
 
                 if (!Tag.STANDING_SIGNS.isTagged(event.getBlock().getType())) {
                     player.sendMessage(ChatColor.RED
-                            + "The [Lock] sign must be a sign post, not a wall sign.");
+                            + "Cedulka [Lock] musí být položená pod truhlou a nesmí být na stěně!");
 
                     event.getBlock().breakNaturally();
                     event.setCancelled(true);
@@ -155,7 +155,7 @@ public class ChestProtectionListener extends AbstractListener {
 
                 if (!player.getName().equalsIgnoreCase(event.getLine(1))) {
                     player.sendMessage(ChatColor.RED
-                            + "The first owner line must be your name.");
+                            + "Na druhém řádku (první řádek majitele) musí být tvé jméno.");
 
                     event.getBlock().breakNaturally();
                     event.setCancelled(true);
@@ -167,7 +167,7 @@ public class ChestProtectionListener extends AbstractListener {
                 if (below == Material.TNT || below == Material.SAND
                         || below == Material.GRAVEL || Tag.STANDING_SIGNS.isTagged(below)) {
                     player.sendMessage(ChatColor.RED
-                            + "That is not a safe block that you're putting this sign on.");
+                            + "Blok, na který pokládáte cedulku není bezpečný!");
 
                     event.getBlock().breakNaturally();
                     event.setCancelled(true);
@@ -176,12 +176,14 @@ public class ChestProtectionListener extends AbstractListener {
 
                 event.setLine(0, "[Lock]");
                 player.sendMessage(ChatColor.YELLOW
-                        + "A chest or double chest above is now protected.");
+                        + "Truhla, nebo dvojitá truhla nad cedulkou je právě chráněna.");
             }
         } else if (!wcfg.disableSignChestProtectionCheck) {
             if ("[Lock]".equalsIgnoreCase(event.getLine(0))) {
                 player.sendMessage(ChatColor.RED
-                        + "WorldGuard's sign chest protection is disabled.");
+                        + "WorldGuard chránění truhel cedulkami je právě vypnuto."
+                            + ChatColor.GRAY
+                                + "Před zapnutím si rozmyslete, zda nepoužít jiný pluginu. Sám WorldGuard radí použít třeba LWC :)");
 
                 event.getBlock().breakNaturally();
                 event.setCancelled(true);

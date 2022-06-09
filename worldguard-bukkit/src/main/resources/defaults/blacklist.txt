@@ -1,62 +1,62 @@
 #
 # WorldGuard blacklist
 #
-# The blacklist lets you block actions, blocks, and items from being used.
-# You choose a set of "items to affect" and a list of "actions to perform."
+# Černá listina vám umožňuje zablokovat použití akcí, bloků a položek.
+# Vyberete si sadu „položek k ovlivnění“ a seznam „akcí k provedení“.
 #
 ###############################################################################
 #
-# Example to block some ore mining and placement:
+# Příklad pro zablokování těžby a stavění rud:
 # [coal_ore,gold_ore,iron_ore]
 # on-break=deny,log,kick
 # on-place=deny,tell
 #
-# Events that you can detect:
-# - on-break (when a block of this type is about to be broken)
-# - on-destroy-with (the item/block held by the user while destroying)
-# - on-place (a block is being placed)
-# - on-use (an item like flint and steel or a bucket is being used)
-# - on-interact (when a block in used (doors, chests, etc.))
-# - on-drop (an item is being dropped from the player's inventory)
-# - on-acquire (an item enters a player's inventory via some method)
-# - on-equip (an item is equipped to the player's armor slots)
-#      NOTE: on-equip is overprotective due to deficiencies in Bukkit API
-# - on-dispense (a dispenser is about to dispense an item)
+# Události, které můžete použít:
+# - on-break (když má dojít k rozbití bloku tohoto typu)
+# - on-destroy-with (předmět/blok držený uživatelem při ničení)
+# - on-place (při umístění bloku)
+# - on-use (když je používán předmět jako pazourek a ocel nebo kbelík)
+# - on-interact (při použití bloku (dveře, truhly atd.))
+# - on-drop (předmět je upuštění z hráčova inventáře)
+# - on-acquire (při sebrání předmětu do hráčova inventáře)
+# - on-equip (při vybavení slotů s brněním)
+#      POZNÁMKA: On-equip je přehnaně chráněný kvůli nedostatkům v Bukkit API
+# - on-dispense (dávkovač se chystá pustit položku)
 #
-# Actions (for events):
-# - deny (deny completely, used blacklist mode)
-# - allow (used in whitelist mode)
-# - notify (notify admins with the 'worldguard.notify' permission)
-# - log (log to console/file/database)
-# - tell (tell a player that that's not allowed)
-# - kick (kick player)
-# - ban (ban player)
+# Akce (u událostí):
+# - deny (zcela odmítnout, použit režim černé listiny)
+# - allow (používá se v režimu bílé listiny)
+# - notify (upozornit administrátory s právami 'worldguard.notify')
+# - log (zapsat do konzole/souboru/databáze)
+# - tell (říct hráči, že to není povoleno)
+# - kick (vyhodí hráče)
+# - ban (banuje hráče)
 #
-# Options:
-# - ignore-groups (comma-separated list of groups to not affect)
-# - ignore-perms (comma-separated list of permissions to not affect - make up
-#   your very own permissions!)
-# - comment (message for yourself that is printed with 'log' and 'notify')
-# - message (optional message to show the user instead; %s is the item name)
+# Možnosti:
+# - ignore-groups (čárkami oddělený seznam skupin, které nemají být ovlivněny)
+# - ignore-perms (čárkami oddělený seznam oprávnění, která neovlivníte – vytvořte si
+#       svá vlastní oprávnění!)
+# - comment (zpráva pro vás, která je vytištěna s 'log' a 'notify')
+# - message (volitelná zpráva, která se zobrazí hráčovi; %s je název itemu)
 #
 ###############################################################################
 #
-# For more information, see:
+# Více informací na webu (zatím v ANJ):
 # https://worldguard.enginehub.org/en/latest/blacklist/
 #
 ###############################################################################
 #
-# Some examples follow.
-# REMEMBER: If a line has # in front, it will be ignored.
+# Následuje několik příkladů.
+# PAMATUJTE: Pokud má řádek vpředu #, bude ignorován.
 #
 
-# Deny lava buckets
+# Zakáže lávové vědra
 #[lava_bucket]
 #ignore-perms=my.own.madeup.permission
 #ignore-groups=admins,mods
 #on-use=deny,tell
 
-# Deny some ore
+# Zakáže některé rudy
 #[coal_ore,gold_ore,iron_ore]
 #ignore-groups=admins,mods
 #on-break=notify,deny,log

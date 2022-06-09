@@ -220,12 +220,12 @@ public class GeneralCommands {
         if (args.argsLength() == 0) {
             player.setCompassTarget(new Location(player.getWorld(), player.getWorld().getSpawnPosition().toVector3()));
             
-            sender.print("Compass reset to spawn.");
+            sender.print("Kompas se resetuje na spawn.");
         } else {
             LocalPlayer target = worldGuard.getPlatform().getMatcher().matchSinglePlayer(sender, args.getString(0));
             player.setCompassTarget(target.getLocation());
             
-            sender.print("Compass repointed.");
+            sender.print("Kompas byl znovu namířen.");
         }
     }
     
