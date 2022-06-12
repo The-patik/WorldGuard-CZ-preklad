@@ -256,6 +256,13 @@ public class WorldGuardPlugin extends JavaPlugin {
             } catch (Exception e) {
                 getLogger().warning("Chyba při načítání celého updateru!");
             }
+
+        int pluginId = 15431; // <-- Replace with the id of your plugin!
+        final Metrics stats = new Metrics(this, pluginId);
+
+        if (platform.getGlobalStateManager().extraStats) {
+            setupCustomCharts(stats);
+        }
     }
 
     private void setupCustomCharts(Metrics metrics) {
