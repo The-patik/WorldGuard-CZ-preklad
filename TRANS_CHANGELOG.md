@@ -1,5 +1,9 @@
 # Seznam změn v překladu
 
+## v0.5.1-beta
+* Statistiky používání pluginu
+* Drobné úpravy v kódu
+
 ## v0.5-beta
 * Další přeložené fráze - většina hotova
 * Plus přeložené konfigurační soubory pluginu 
