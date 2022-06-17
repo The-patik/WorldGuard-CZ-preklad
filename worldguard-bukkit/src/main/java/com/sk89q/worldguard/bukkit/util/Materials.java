@@ -242,7 +242,7 @@ public final class Materials {
         MATERIAL_FLAGS.put(Material.PURPUR_SLAB, 0);
         MATERIAL_FLAGS.put(Material.STRUCTURE_BLOCK, MODIFIED_ON_LEFT | MODIFIED_ON_RIGHT);
         MATERIAL_FLAGS.put(Material.REPEATING_COMMAND_BLOCK, MODIFIED_ON_RIGHT);
-        MATERIAL_FLAGS.put(Material.CHAIN_COMMAND_BLOCK , MODIFIED_ON_RIGHT);
+        MATERIAL_FLAGS.put(Material.CHAIN_COMMAND_BLOCK, MODIFIED_ON_RIGHT);
 
         MATERIAL_FLAGS.put(Material.MAGMA_BLOCK, 0);
         MATERIAL_FLAGS.put(Material.NETHER_WART_BLOCK, 0);
@@ -832,7 +832,7 @@ public final class Materials {
             MATERIAL_FLAGS.put(stair, 0);
         }
         for (Material wool : Tag.WOOL.getValues()) {
-           MATERIAL_FLAGS.put(wool, 0);
+            MATERIAL_FLAGS.put(wool, 0);
         }
         for (Material plate : Tag.WOODEN_PRESSURE_PLATES.getValues()) {
             MATERIAL_FLAGS.put(plate, 0);
@@ -866,7 +866,8 @@ public final class Materials {
         }
         for (Material fence : Tag.FENCES.getValues()) {
             MATERIAL_FLAGS.put(fence, 0);
-        }        for (Material coalOre : Tag.COAL_ORES.getValues()) {
+        }
+        for (Material coalOre : Tag.COAL_ORES.getValues()) {
             MATERIAL_FLAGS.put(coalOre, 0);
         }
         for (Material ironOre : Tag.IRON_ORES.getValues()) {
@@ -901,8 +902,8 @@ public final class Materials {
         }
 
         Stream.concat(Stream.concat(
-                Tag.CORAL_BLOCKS.getValues().stream(),
-                Tag.CORALS.getValues().stream()),
+                        Tag.CORAL_BLOCKS.getValues().stream(),
+                        Tag.CORALS.getValues().stream()),
                 Tag.WALL_CORALS.getValues().stream()).forEach(m -> {
             MATERIAL_FLAGS.put(m, 0);
             Material dead = Material.getMaterial("DEAD_" + m.name());
@@ -1044,7 +1045,7 @@ public final class Materials {
      */
     public static boolean isWater(Material material) {
         return material == Material.WATER || material == Material.BUBBLE_COLUMN
-            || material == Material.KELP_PLANT || material == Material.SEAGRASS || material == Material.TALL_SEAGRASS;
+                || material == Material.KELP_PLANT || material == Material.SEAGRASS || material == Material.TALL_SEAGRASS;
     }
 
     /**
@@ -1376,6 +1377,7 @@ public final class Materials {
 
     /**
      * Test whether the material is a crop.
+     *
      * @param type the material
      * @return true if the material is a crop
      */
@@ -1404,6 +1406,7 @@ public final class Materials {
 
     /**
      * Test whether the material should be handled as vine. Used by the vine-growth flag
+     *
      * @param newType the material
      * @return true if the material should be handled as vine
      */
@@ -1444,7 +1447,8 @@ public final class Materials {
             case STONECUTTER:
             case GRINDSTONE:
                 return true;
-            default: return false;
+            default:
+                return false;
         }
     }
 
@@ -1455,7 +1459,7 @@ public final class Materials {
      * <p>This test is conservative, returning true for blocks that it is not
      * aware of.</p>
      *
-     * @param material the material
+     * @param material   the material
      * @param rightClick whether it is a right click
      * @return true if the block is modified
      */
@@ -1472,7 +1476,7 @@ public final class Materials {
      * <p>This test is conservative, returning true for items that it is not
      * aware of or does not have the details for.</p>
      *
-     * @param item the item
+     * @param item  the item
      * @param block the block
      * @return true if the item is applied to the block
      */
@@ -1490,11 +1494,11 @@ public final class Materials {
      */
     public static boolean isConsideredBuildingIfUsed(Material type) {
         return type == Material.REPEATER
-            || type == Material.COMPARATOR
-            || type == Material.CAKE
-            || Tag.FLOWER_POTS.isTagged(type)
-            || Tag.CANDLES.isTagged(type)
-            || Tag.CANDLE_CAKES.isTagged(type);
+                || type == Material.COMPARATOR
+                || type == Material.CAKE
+                || Tag.FLOWER_POTS.isTagged(type)
+                || Tag.CANDLES.isTagged(type)
+                || Tag.CANDLE_CAKES.isTagged(type);
     }
 
     /**
@@ -1563,7 +1567,7 @@ public final class Materials {
      * by the provided tool, or of the provided tool material isn't
      * a tool material.
      *
-     * @param toolMaterial the tool material being used
+     * @param toolMaterial   the tool material being used
      * @param targetMaterial the target material to check
      * @return true if tool has an interact function with this material
      */
@@ -1580,7 +1584,7 @@ public final class Materials {
                     case DIRT:
                     case DIRT_PATH:
                     case ROOTED_DIRT:
-                    // case COARSE_DIRT: // already handled by the server...
+                        // case COARSE_DIRT: // already handled by the server...
                         return true;
                 }
                 return false;
@@ -1662,7 +1666,7 @@ public final class Materials {
     public static boolean isFire(Material type) {
         return type == Material.FIRE || type == Material.SOUL_FIRE;
     }
-    
+
     public static boolean isWaxedCopper(Material type) {
         switch (type) {
             case WAXED_COPPER_BLOCK:
@@ -1685,7 +1689,7 @@ public final class Materials {
         }
         return false;
     }
-    
+
     public static boolean isUnwaxedCopper(Material type) {
         switch (type) {
             case COPPER_BLOCK:
@@ -1707,5 +1711,13 @@ public final class Materials {
                 return true;
         }
         return false;
+    }
+
+    public static boolean isAmethystGrowth(Material mat) {
+        return mat == Material.BUDDING_AMETHYST
+                || mat == Material.AMETHYST_CLUSTER
+                || mat == Material.LARGE_AMETHYST_BUD
+                || mat == Material.MEDIUM_AMETHYST_BUD
+                || mat == Material.SMALL_AMETHYST_BUD;
     }
 }

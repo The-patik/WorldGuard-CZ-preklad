@@ -28,6 +28,12 @@ configurations {
 
 dependencies {
     "api"(project(":worldguard-core"))
+
+    /**
+     * "compileOnly"("io.papermc.paper:paper-api:1.19-R0.1-SNAPSHOT")
+     * "runtimeOnly"("org.spigotmc:spigot-api:1.19-R0.1-SNAPSHOT") {
+     */
+
     "compileOnly"("io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT")
     "runtimeOnly"("org.spigotmc:spigot-api:1.17.1-R0.1-SNAPSHOT") {
         exclude("junit", "junit")

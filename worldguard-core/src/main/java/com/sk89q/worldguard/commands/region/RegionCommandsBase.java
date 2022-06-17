@@ -268,7 +268,7 @@ class RegionCommandsBase {
      */
     protected static void checkRegionDoesNotExist(RegionManager manager, String id, boolean mayRedefine) throws CommandException {
         if (manager.hasRegion(id)) {
-            throw new CommandException("Region s tímto jménem již existuje. Prosím vyber si jiné." +
+            throw new CommandException("Region s tímto názvem již existuje. Prosím vyber si jiný název." +
                     (mayRedefine ? " Pro změnu tvaru regionu použij /region redefine " + id + "." : ""));
         }
     }

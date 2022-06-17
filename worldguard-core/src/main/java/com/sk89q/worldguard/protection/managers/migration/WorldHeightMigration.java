@@ -63,7 +63,7 @@ public class WorldHeightMigration extends AbstractMigration {
     protected void migrate(RegionDatabase store) throws MigrationException {
         if (world != null && !store.getName().equals(world.getName())) return;
 
-        log.log(Level.INFO, "Migruji regiony v '" + store.getName() + "' na nové výškové limity...");
+        log.log(Level.INFO, "Migruji regiony v úložišti '" + store.getName() + "' na nové výškové limity...");
 
         Set<ProtectedRegion> regions;
 

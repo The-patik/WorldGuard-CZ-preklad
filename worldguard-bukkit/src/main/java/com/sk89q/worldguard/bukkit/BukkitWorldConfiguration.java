@@ -95,7 +95,7 @@ public class BukkitWorldConfiguration extends YamlWorldConfiguration {
         loadConfiguration();
 
         if (summaryOnStart) {
-            log.info("Načtená konfigurace pro svět '" + worldName + "'");
+            log.info("Konfigurace pro svět '" + worldName + "' byla úspěšně načtena");
         }
     }
 
@@ -244,7 +244,7 @@ public class BukkitWorldConfiguration extends YamlWorldConfiguration {
         disableDeathMessages = getBoolean("player-damage.disable-death-messages", false);
 
         signChestProtection = getBoolean("chest-protection.enable", false);
-        disableSignChestProtectionCheck = getBoolean("chest-protection.disable-off-check", false);
+        disableSignChestProtectionCheck = getBoolean("chest-protection.disable-off-check", true);
         if (signChestProtection) {
             log.warning("Ochrana truhel pomocí cedulí je zastaralá a bude v budoucí verzi odstraněná. Viz https://worldguard.enginehub.org/en/latest/chest-protection/ .");
         } else {

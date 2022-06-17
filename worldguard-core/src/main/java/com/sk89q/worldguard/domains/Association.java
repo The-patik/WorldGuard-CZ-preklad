@@ -22,7 +22,54 @@ package com.sk89q.worldguard.domains;
 /**
  * Indicates the level of membership.
  */
-public enum Association {
+public enum
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Association {
 
     OWNER,
     MEMBER,

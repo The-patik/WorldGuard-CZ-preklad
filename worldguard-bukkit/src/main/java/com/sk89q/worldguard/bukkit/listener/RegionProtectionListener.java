@@ -255,12 +255,12 @@ public class RegionProtectionListener extends AbstractListener {
             /* Saplings, etc. */
             if (Materials.isConsideredBuildingIfUsed(type)) {
                 canUse = query.testBuild(BukkitAdapter.adapt(target), associable, combine(event));
-                what = "používat to";
+                what = "používat tuto věc";
 
             /* Inventory */
             } else if (Materials.isInventoryBlock(type)) {
                 canUse = query.testBuild(BukkitAdapter.adapt(target), associable, combine(event, Flags.CHEST_ACCESS));
-                what = "otevírat to";
+                what = "otevírat truhly";
 
             /* Inventory for blocks with the possibility to be only use, e.g. lectern */
             } else if (handleAsInventoryUsage(event.getOriginalEvent())) {
@@ -290,12 +290,12 @@ public class RegionProtectionListener extends AbstractListener {
             /* Legacy USE flag */
             } else if (Materials.isUseFlagApplicable(type)) {
                 canUse = query.testBuild(BukkitAdapter.adapt(target), associable, combine(event, Flags.INTERACT, Flags.USE));
-                what = "používat to";
+                what = "používat tuto věc";
 
             /* Everything else */
             } else {
                 canUse = query.testBuild(BukkitAdapter.adapt(target), associable, combine(event, Flags.INTERACT));
-                what = "používat to";
+                what = "používat tuto věc";
             }
 
             if (!canUse) {
@@ -335,7 +335,7 @@ public class RegionProtectionListener extends AbstractListener {
         /* XP drops */
         } else if (type == EntityType.EXPERIENCE_ORB) {
             canSpawn = query.testBuild(BukkitAdapter.adapt(target), associable, combine(event, Flags.EXP_DROPS));
-            what = "pouštět XP";
+            what = "upouštět XP";
 
         } else if (Entities.isAoECloud(type)) {
             canSpawn = query.testBuild(BukkitAdapter.adapt(target), associable, combine(event, Flags.POTION_SPLASH));
@@ -415,13 +415,13 @@ public class RegionProtectionListener extends AbstractListener {
                     && event.getCause().getFirstPlayer() != null
                     && ((ItemFrame) entity).getItem().getType() != Material.AIR) {
                 canUse = query.testBuild(BukkitAdapter.adapt(target), associable, combine(event, Flags.ITEM_FRAME_ROTATE));
-                what = "měnit to";
+                what = "měnit ráměčky";
             } else if (Entities.isMinecart(type)) {
                 canUse = query.testBuild(BukkitAdapter.adapt(target), associable, combine(event, Flags.CHEST_ACCESS));
-                what = "otevírat to";
+                what = "otevírat truhly";
             } else {
                 canUse = query.testBuild(BukkitAdapter.adapt(target), associable, combine(event));
-                what = "měnit to";
+                what = "měnit tuto věc";
             }
         /* Ridden on use */
         } else if (Entities.isRiddenOnUse(entity)) {
@@ -431,7 +431,7 @@ public class RegionProtectionListener extends AbstractListener {
         /* Everything else */
         } else {
             canUse = query.testBuild(BukkitAdapter.adapt(target), associable, combine(event, Flags.INTERACT));
-            what = "používat to";
+            what = "používat tuto věc";
         }
 
         if (!canUse) {

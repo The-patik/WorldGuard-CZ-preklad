@@ -239,12 +239,15 @@ public class WorldGuardPlugin extends JavaPlugin {
                     if (buildn == buildnumber) {
                         getLogger().info("Nainstalovaná verze WorldGuardu je nejnovější!");
                         getLogger().info("Aktuální verze: WorldGuard_"
-                                + WorldGuard.getVersion() + "-překlad_PREv"
+                                + WorldGuard.getVersion() + "-překlad_v"
                                     + WorldGuard.getTransVersion() + "-B" + buildnumber);
                         } else if (buildn > buildnumber){
                         getLogger().warning("Nová verze WorldGuard CZ překlad je dostupná na http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad/");
+                        getLogger().info("Aktuální verze: WorldGuard_"
+                                + WorldGuard.getVersion() + "-překlad_v"
+                                + WorldGuard.getTransVersion() + "-B" + buildnumber);
                         getLogger().warning("Nová verze: WorldGuard_"
-                                + WorldGuard.getLatestVersion() + "-překlad_PREv"
+                                + WorldGuard.getLatestVersion() + "-překlad_v"
                                     + WorldGuard.getLatestTransVersion() + "-B" + buildn);
                     } else {
                         getLogger().severe("Nesprávná verze - " + buildnumber + " místo " + buildn + "! Koukni na http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad/");
@@ -259,10 +262,20 @@ public class WorldGuardPlugin extends JavaPlugin {
 
         int pluginId = 15431; // <-- Replace with the id of your plugin!
         final Metrics stats = new Metrics(this, pluginId);
-
-        if (platform.getGlobalStateManager().extraStats) {
-            setupCustomCharts(stats);
-        }
+        stats.addCustomChart(new DrilldownPie("translate_version", () -> {
+            Map<String, Map<String, Integer>> map = new HashMap<>();
+            String transVersion = WorldGuard.getTransVersion();
+            Map<String, Integer> entry = new HashMap<>();
+            entry.put(transVersion, 1);
+            if (transVersion.startsWith("0.5.1")) {
+                map.put("Překlad WG v0.5.1-beta", entry);
+            } else if (transVersion.startsWith("1.0")) {
+                map.put("Překlad WG v1.0", entry);
+            } else {
+                map.put("Jiná", entry);
+            }
+            return map;
+        }));
     }
 
     private void setupCustomCharts(Metrics metrics) {
@@ -334,7 +347,7 @@ public class WorldGuardPlugin extends JavaPlugin {
                 throw t;
             }
         } catch (CommandPermissionsException e) {
-            sender.sendMessage(ChatColor.RED + "Nemáš dostatená práva.");
+            sender.sendMessage(ChatColor.RED + "Nemáš dostatečná práva.");
         } catch (MissingNestedCommandException e) {
             sender.sendMessage(ChatColor.RED + e.getUsage());
         } catch (CommandUsageException e) {

@@ -155,11 +155,11 @@ public abstract class RegionContainer {
 
         synchronized (lock) {
             try {
-                WorldGuard.logger.info("Uvolnění a uložení dat regionu, která jsou aktuálně načtena...");
+                WorldGuard.logger.info("Uvolnění a uložení dat regionů, která jsou aktuálně načtena...");
                 unload();
                 migration.migrate();
             } finally {
-                WorldGuard.logger.info("Načítání dat regionu pro načtené světy...");
+                WorldGuard.logger.info("Načítání dat regionů pro načtené světy...");
                 loadWorlds();
             }
         }
@@ -169,7 +169,7 @@ public abstract class RegionContainer {
      * Try loading the region managers for all currently loaded worlds.
      */
     protected void loadWorlds() {
-        WorldGuard.logger.info("Načítání dat regionu...");
+        WorldGuard.logger.info("Načítání dat regionů...");
         synchronized (lock) {
             for (World world : WorldEdit.getInstance().getPlatformManager().queryCapability(Capability.GAME_HOOKS).getWorlds()) {
                 load(world);

@@ -111,10 +111,9 @@ public class CancelReport implements Report {
 
             return builder.toString();
         } else {
-            return "No plugins cancelled the event. Other causes for cancellation: " +
-                    "(1) Bukkit may be using a different event for the action " +
-                    " (example: buckets have their own bucket events); or " +
-                    "(2) Minecraft's spawn protection has not been disabled.";
+            return "Žádný plugin nezrušil úlohu. Další důvody, proč byla úloha zrušena: " +
+                    "(1) Bukkit užívá jiné názvy úloh pro akce, nebo" +
+                    "(2) Klasická Minecraft ochrana spawnu je zapnutá.";
         }
     }
 

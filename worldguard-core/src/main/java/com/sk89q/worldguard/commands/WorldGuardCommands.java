@@ -80,7 +80,7 @@ public class WorldGuardCommands {
 
     @Command(aliases = {"version", "verze"}, desc = "Verze WorldGuardu", max = 0)
     public void version(CommandContext args, Actor sender) throws CommandException {
-        sender.print("WorldGuard_" + WorldGuard.getVersion() + "-překlad_PREv" + WorldGuard.getTransVersion() + "-B" + buildnumber);
+        sender.print("WorldGuard_" + WorldGuard.getVersion() + "-překlad_v" + WorldGuard.getTransVersion() + "-B" + buildnumber);
         sender.print("http://www.enginehub.org");
         sender.print(" ");
         sender.print("§bPřeložil: _patik_");
@@ -135,12 +135,15 @@ public class WorldGuardCommands {
             if (buildn == buildnumber) {
                 sender.print("Nainstalovaná verze WorldGuardu je nejnovější!");
                 sender.print("Aktuální verze: WorldGuard_"
-                        + WorldGuard.getVersion() + "-překlad_PREv"
+                        + WorldGuard.getVersion() + "-překlad_v"
                             + WorldGuard.getTransVersion() + "-B" + buildnumber);
                 } else if (buildn > buildnumber){
                 sender.print("Nová verze WorldGuard CZ překlad je dostupná na http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad/");
+                sender.print("Aktuální verze: WorldGuard_"
+                        + WorldGuard.getVersion() + "-překlad_v"
+                        + WorldGuard.getTransVersion() + "-B" + buildnumber);
                 sender.print("Nová verze: WorldGuard_"
-                        + WorldGuard.getLatestVersion() + "-překlad_PREv"
+                        + WorldGuard.getLatestVersion() + "-překlad_v"
                             + WorldGuard.getLatestTransVersion() + "-B" + buildn);
                 } else {
                 sender.print("Neplatná verze - " + buildnumber + " místo " + buildn + "! Koukni na http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad/");
@@ -179,7 +182,7 @@ public class WorldGuardCommands {
             }
             WorldGuard.getInstance().getPlatform().getRegionContainer().reload();
             // WGBukkit.cleanCache();
-            sender.print("Konfigurace WorldGuard znovu načtena");
+            sender.print("Konfigurace WorldGuardu byla znovu načtena");
         } catch (Throwable t) {
             sender.printError("Chyba při načítání WorldGuardu: " + t.getMessage());
         } finally {
@@ -275,7 +278,7 @@ public class WorldGuardCommands {
             sampler = activeSampler = builder.start();
         }
 
-        sender.print(TextComponent.of("Spuštění profilování CPU. Výsledky budou k dispozici za " + minutes + " minut.", TextColor.LIGHT_PURPLE)
+        sender.print(TextComponent.of("Spouštím profilování CPU. Výsledky budou k dispozici za " + minutes + " minut.", TextColor.LIGHT_PURPLE)
                 .append(TextComponent.newline())
                 .append(TextComponent.of("Použij ", TextColor.GRAY))
                 .append(TextComponent.of("/wg stopprofile", TextColor.AQUA)
@@ -315,7 +318,7 @@ public class WorldGuardCommands {
         }, MoreExecutors.directExecutor());
     }
 
-    @Command(aliases = {"stopprofile"}, usage = "",desc = "Zastaví běžící profilování", min = 0, max = 0)
+    @Command(aliases = {"stopprofile"}, usage = "",desc = "Zastaví spuštěné profilování", min = 0, max = 0)
     @CommandPermissions("worldguard.profile")
     public void stopProfile(CommandContext args, final Actor sender) throws CommandException {
         synchronized (this) {
@@ -327,7 +330,7 @@ public class WorldGuardCommands {
             activeSampler = null;
         }
 
-        sender.print("Běžící profilování bylo zrušené.");
+        sender.print("Spuštěné profilování bylo zrušeno.");
     }
 
     @Command(aliases = {"flushstates", "clearstates"},
@@ -352,10 +355,10 @@ public class WorldGuardCommands {
         List<Task<?>> tasks = WorldGuard.getInstance().getSupervisor().getTasks();
 
         if (tasks.isEmpty()) {
-            sender.print("Právě tu nejsou žádné věžící úlohy.");
+            sender.print("Nejsou tu žádné probíhající úlohy.");
         } else {
             tasks.sort(new TaskStateComparator());
-            MessageBox builder = new MessageBox("Běžící úlohy", new TextComponentProducer());
+            MessageBox builder = new MessageBox("Spuštěné úlohy", new TextComponentProducer());
             builder.append(TextComponent.of("Poznámka: Některé „běžící“ úlohy mohou čekat na spuštění.", TextColor.GRAY));
             for (Task<?> task : tasks) {
                 builder.append(TextComponent.newline());

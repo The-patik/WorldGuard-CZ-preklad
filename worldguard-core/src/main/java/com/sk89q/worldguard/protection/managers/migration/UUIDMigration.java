@@ -76,7 +76,7 @@ public class UUIDMigration extends AbstractMigration {
 
     @Override
     protected void migrate(RegionDatabase store) throws MigrationException {
-        log.log(Level.INFO, "Migruji regiony v '" + store.getName() + "' pro převod jmen -> UUID...");
+        log.log(Level.INFO, "Migruji regiony v úložišti '" + store.getName() + "' pro převod jmen -> UUID...");
 
         Set<ProtectedRegion> regions;
 
