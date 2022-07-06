@@ -237,12 +237,12 @@ public class WorldGuardPlugin extends JavaPlugin {
                     int buildn = Integer.parseInt(gbuild);
 
                     if (buildn == buildnumber) {
-                        getLogger().info("Nainstalovaná verze WorldGuardu je nejnovější!");
+                        getLogger().info("Nainstalovaná verze překladu WorldGuardu je nejnovější!");
                         getLogger().info("Aktuální verze: WorldGuard_"
                                 + WorldGuard.getVersion() + "-překlad_v"
                                     + WorldGuard.getTransVersion() + "-B" + buildnumber);
                         } else if (buildn > buildnumber){
-                        getLogger().warning("Nová verze WorldGuard CZ překlad je dostupná na http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad/");
+                        getLogger().warning("Nová verze překladu WorldGuard CZ je dostupná na http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad/");
                         getLogger().info("Aktuální verze: WorldGuard_"
                                 + WorldGuard.getVersion() + "-překlad_v"
                                 + WorldGuard.getTransVersion() + "-B" + buildnumber);
@@ -250,14 +250,16 @@ public class WorldGuardPlugin extends JavaPlugin {
                                 + WorldGuard.getLatestVersion() + "-překlad_v"
                                     + WorldGuard.getLatestTransVersion() + "-B" + buildn);
                     } else {
-                        getLogger().severe("Nesprávná verze - " + buildnumber + " místo " + buildn + "! Koukni na http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad/");
+                        getLogger().severe("Nesprávná verze překladu WorldGuardu - " + buildnumber + " místo " + buildn + "! Koukni na http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad/");
                     }
                 } catch (Exception e) {
                     getLogger().warning("Chyba při načítání updateru!");
+                    getLogger().warning("Kód pro podporu: transVer01");
                     e.printStackTrace();
                 }
             } catch (Exception e) {
                 getLogger().warning("Chyba při načítání celého updateru!");
+                getLogger().warning("Kód pro podporu: transVer02");
             }
 
         int pluginId = 15431; // <-- Replace with the id of your plugin!
@@ -271,6 +273,8 @@ public class WorldGuardPlugin extends JavaPlugin {
                 map.put("Překlad WG v0.5.1-beta", entry);
             } else if (transVersion.startsWith("1.0")) {
                 map.put("Překlad WG v1.0", entry);
+            } else if (transVersion.startsWith("1.1")) {
+                map.put("Překlad WG v1.1", entry);
             } else {
                 map.put("Jiná", entry);
             }

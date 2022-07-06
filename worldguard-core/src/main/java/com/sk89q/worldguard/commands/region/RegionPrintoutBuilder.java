@@ -105,7 +105,7 @@ public class RegionPrintoutBuilder implements Callable<TextComponent> {
      * Add information about flags.
      */
     public void appendFlags() {
-        builder.append(TextComponent.of("Vlajky: ", TextColor.BLUE));
+        builder.append(TextComponent.of("Značky: ", TextColor.BLUE));
         
         appendFlagsList(true);
         
@@ -163,7 +163,7 @@ public class RegionPrintoutBuilder implements Callable<TextComponent> {
             TextComponent flagText = TextComponent.of(flagString, flagColor)
                     .append(TextComponent.of(String.valueOf(val), useColors ? TextColor.YELLOW : TextColor.WHITE));
             if (perms != null && perms.maySetFlag(region, flag)) {
-                flagText = flagText.hoverEvent(HoverEvent.of(HoverEvent.Action.SHOW_TEXT, TextComponent.of("Klikni pro nastavení vlajky")))
+                flagText = flagText.hoverEvent(HoverEvent.of(HoverEvent.Action.SHOW_TEXT, TextComponent.of("Klikni pro nastavení značky")))
                         .clickEvent(ClickEvent.of(ClickEvent.Action.SUGGEST_COMMAND,
                                 "/rg flag -w \"" + world + "\" " + region.getId() + " " + flag.getName() + " "));
             }
@@ -179,8 +179,8 @@ public class RegionPrintoutBuilder implements Callable<TextComponent> {
 
         if (perms != null && perms.maySetFlag(region)) {
             builder.append(TextComponent.space())
-                    .append(TextComponent.of("[Vlajky]", useColors ? TextColor.GREEN : TextColor.GRAY)
-                    .hoverEvent(HoverEvent.of(HoverEvent.Action.SHOW_TEXT, TextComponent.of("Klikni pro nastavení vlajky")))
+                    .append(TextComponent.of("[Značky]", useColors ? TextColor.GREEN : TextColor.GRAY)
+                    .hoverEvent(HoverEvent.of(HoverEvent.Action.SHOW_TEXT, TextComponent.of("Klikni pro nastavení značky")))
                     .clickEvent(ClickEvent.of(ClickEvent.Action.RUN_COMMAND, "/rg flags -w \"" + world + "\" " + region.getId())));
         }
     }

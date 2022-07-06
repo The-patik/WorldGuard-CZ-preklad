@@ -56,7 +56,7 @@ public abstract class Flag<T> {
      */
     protected Flag(String name, @Nullable RegionGroup defaultGroup) {
         if (name != null && !isValidName(name)) {
-            throw new IllegalArgumentException("Byl použit neplatný název vlajky");
+            throw new IllegalArgumentException("Byl použit neplatný název značky");
         }
         this.name = name;
         this.regionGroup = defaultGroup != null ? new RegionGroupFlag(name + "-group", defaultGroup) : null;

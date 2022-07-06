@@ -33,7 +33,7 @@ public class UnknownFlag extends Flag<Object> {
 
     @Override
     public Object parseInput(FlagContext context) throws InvalidFlagFormat {
-        throw new InvalidFlagFormat("Plugin, který zaregistroval tuto vlajku, není aktuálně nainstalován");
+        throw new InvalidFlagFormat("Plugin, který zaregistroval tuto značku, není aktuálně nainstalován");
     }
 
     @Override

@@ -84,7 +84,7 @@ class FlagHelperBox extends PaginationBox {
     private boolean monoSpace;
 
     FlagHelperBox(World world, ProtectedRegion region, RegionPermissionModel perms) {
-        super("Povolené vlajky: " + region.getId(), "/rg flags -w \"" + world.getName() + "\" -p %page% " + region.getId());
+        super("Povolené značky: " + region.getId(), "/rg flags -w \"" + world.getName() + "\" -p %page% " + region.getId());
         this.world = world;
         this.region = region;
         this.perms = perms;
@@ -93,7 +93,7 @@ class FlagHelperBox extends PaginationBox {
     @Override
     public Component getComponent(int number) {
         if (number == Flags.INBUILT_FLAGS.size()) {
-            return centerAndBorder(TextComponent.of("Vlajky třetích stran", TextColor.AQUA));
+            return centerAndBorder(TextComponent.of("Značky třetích stran", TextColor.AQUA));
         } else if (number > Flags.INBUILT_FLAGS.size()) {
             number -= 1;
         }
@@ -121,13 +121,13 @@ class FlagHelperBox extends PaginationBox {
         if (flag.usesMembershipAsDefault()) {
             builder.append(TextComponent.empty().append(TextComponent.of("*", TextColor.AQUA))
                     .hoverEvent(HoverEvent.of(HoverEvent.Action.SHOW_TEXT,
-                            TextComponent.of("Toto je speciální vlajka, která je standardně povolená pro členy a zakázaná pro nečleny."))));
+                            TextComponent.of("Toto je speciální značka, která je standardně povolená pro členy a zakázaná pro nečleny."))));
             length += monoSpace ? 1 : FlagFontInfo.getPxLength('*');
         }
         if (flag == Flags.PASSTHROUGH) {
             builder.append(TextComponent.empty().append(TextComponent.of("*", TextColor.AQUA))
                     .hoverEvent(HoverEvent.of(HoverEvent.Action.SHOW_TEXT,
-                            TextComponent.of("Toto je speciální vlajka, která přepíše kontrolu stavění. (Nesouvisí s pohybem!)"))));
+                            TextComponent.of("Toto je speciální značka, která přepíše kontrolu stavění. (Nesouvisí s pohybem!)"))));
             length += monoSpace ? 1 : FlagFontInfo.getPxLength('*');
         }
         int leftover = (monoSpace ? PAD_PX_SIZE / 3 : PAD_PX_SIZE) - length;
@@ -201,9 +201,9 @@ class FlagHelperBox extends PaginationBox {
                 if (isExplicitSet) {
                     hoverTexts.add(TextComponent.of("Klikni pro zrušení", TextColor.GOLD));
                 } else if (DANGER_ZONE.contains(flag) && !(ProtectedRegion.GLOBAL_REGION.equals(region.getId()) && flag == Flags.PASSTHROUGH)) {
-                    hoverTexts.add(TextComponent.of("Nastavení této vlajky může mít nezamýšlené následky.", TextColor.RED)
+                    hoverTexts.add(TextComponent.of("Nastavení této značky může mít nezamýšlené následky.", TextColor.RED)
                             .append(TextComponent.newline())
-                            .append(TextComponent.of("Přečti si prosím dokumentaci a nastav tuto vlajku ručně, pokud to opravdu chceš.")
+                            .append(TextComponent.of("Přečti si prosím dokumentaci a nastav tuto značku ručně, pokud to opravdu chceš.")
                             .append(TextComponent.newline())
                             .append(TextComponent.of("(Tip: Pro ochranu regionu není nutné toto nastavovat!)"))));
                 } else {
@@ -355,7 +355,7 @@ class FlagHelperBox extends PaginationBox {
         String subName;
         subName = clazz.isAssignableFrom(RegistryFlag.class)
                 ? ((RegistryFlag<?>) subType).getRegistry().getName()
-                : subType.getClass().getSimpleName().replace("Vlajka", "");
+                : subType.getClass().getSimpleName().replace("Značka", "");
         Set<V> currVal = region.getFlag(flag);
         if (currVal == null) {
             currVal = getInheritedValue(region, flag);

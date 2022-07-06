@@ -49,7 +49,7 @@ public final class FlagUtil {
             try {
                 rawValues.put(entry.getKey().getName(), marshal(entry.getKey(), entry.getValue()));
             } catch (Throwable e) {
-                log.log(Level.WARNING, "Nepodařilo se zařadit hodnotu vlajky pro " + entry.getKey() + "; hodnota je " + entry.getValue(), e);
+                log.log(Level.WARNING, "Nepodařilo se zařadit hodnotu značky pro " + entry.getKey() + "; hodnota je " + entry.getValue(), e);
             }
         }
 

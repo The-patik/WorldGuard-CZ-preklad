@@ -246,7 +246,7 @@ public final class WorldGuard {
      * Verze překladu :)
      */
     public static String getTransVersion() {
-        transVersion = "1.0";
+        transVersion = "1.1";
         return transVersion;
     }
     public static String getLatestTransVersion() {
@@ -293,8 +293,8 @@ public final class WorldGuard {
         String latestver = null;
         try {
             String versionurl = "http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad/ws/version.number";
-            URL url = new URL(versionurl);
-            URLConnection con = url.openConnection();
+            URL urlvn = new URL(versionurl);
+            URLConnection con = urlvn.openConnection();
             Pattern p = Pattern.compile("text/html;\\s+charset=([^\\s]+)\\s*");
             Matcher m = p.matcher(con.getContentType());
 

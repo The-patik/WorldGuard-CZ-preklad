@@ -105,7 +105,7 @@ public final class RegionCommands extends RegionCommandsBase {
 
     private static TextComponent passthroughFlagWarning = TextComponent.empty()
             .append(TextComponent.of("UPOZORNĚNÍ:", TextColor.RED, Sets.newHashSet(TextDecoration.BOLD)))
-            .append(ErrorFormat.wrap(" Tato vlajka nesouvisí s pohybem po regionech."))
+            .append(ErrorFormat.wrap(" Tato značka nesouvisí s pohybem po regionech."))
             .append(TextComponent.newline())
             .append(TextComponent.of("Přepíše kontroly stavění. Pokud si nejsi jistý, co to znamená, otevři ")
                     .append(TextComponent.of("[dokumentace (zatím v ANJ)]", TextColor.AQUA)
@@ -114,12 +114,12 @@ public final class RegionCommands extends RegionCommandsBase {
                     .append(TextComponent.of(" pro více informací.")));
     private static TextComponent buildFlagWarning = TextComponent.empty()
             .append(TextComponent.of("UPOZORNĚNÍ:", TextColor.RED, Sets.newHashSet(TextDecoration.BOLD)))
-            .append(ErrorFormat.wrap(" Nastavení této vlajky není nutné pro ochranu."))
+            .append(ErrorFormat.wrap(" Nastavení této značky není nutné pro ochranu."))
             .append(TextComponent.newline())
             .append(TextComponent.of("Nastavení tohoto příznaku zcela přepíše výchozí ochranu a použije se na členy, " +
                     " nečleny, písty, fyziku písku a vše ostatní, co může upravovat bloky."))
             .append(TextComponent.newline())
-            .append(TextComponent.of("Tuto vlajku nastav pouze tehdy, pokud si jsi jistý, že víš, co děláš. Koukni se do ")
+            .append(TextComponent.of("Tuto značku nastav pouze tehdy, pokud si jsi jistý, že víš, co děláš. Koukni se do ")
                     .append(TextComponent.of("[dokumentace (zatím v ANJ)]", TextColor.AQUA)
                             .clickEvent(ClickEvent.of(ClickEvent.Action.OPEN_URL,
                                     "https://worldguard.enginehub.org/en/latest/regions/flags/#protection-related")))
@@ -508,9 +508,9 @@ public final class RegionCommands extends RegionCommandsBase {
      * @throws CommandException any error
      */
     @Command(aliases = {"flag", "f"},
-             usage = "<id> <vlajka> [-w svět] [-g skupina] [hodnota]",
+             usage = "<id> <značka> [-w svět] [-g skupina] [hodnota]",
              flags = "g:w:eh:",
-             desc = "Nasta vlajku",
+             desc = "Nastav značky",
              min = 2)
     public void flag(CommandContext args, Actor sender) throws CommandException {
         warnAboutSaveFailures(sender);
@@ -524,7 +524,7 @@ public final class RegionCommands extends RegionCommandsBase {
 
         if (args.hasFlag('e')) {
             if (value != null) {
-                throw new CommandException("Nemůžeš použít -e(prázdný) jako hodnotu vlajky.");
+                throw new CommandException("Nemůžeš použít -e(prázdný) jako hodnotu značky.");
             }
 
             value = "";
@@ -547,7 +547,7 @@ public final class RegionCommands extends RegionCommandsBase {
         if (foundFlag == null) {
             AsyncCommandBuilder.wrap(new FlagListBuilder(flagRegistry, permModel, existing, world,
                                                          regionId, sender, flagName), sender)
-                    .registerWithSupervisor(WorldGuard.getInstance().getSupervisor(), "Seznam vlajek pro neznámý příkaz vlajky.")
+                    .registerWithSupervisor(WorldGuard.getInstance().getSupervisor(), "Seznam značek pro neznámý příkaz značky.")
                     .onSuccess((Component) null, sender::print)
                     .onFailure((Component) null, WorldGuard.getInstance().getExceptionConverter())
                     .buildAndExec(WorldGuard.getInstance().getExecutorService());
@@ -579,8 +579,8 @@ public final class RegionCommands extends RegionCommandsBase {
             RegionGroupFlag groupFlag = foundFlag.getRegionGroupFlag();
 
             if (groupFlag == null) {
-                throw new CommandException("Vlajky regionu '" + foundFlag.getName()
-                        + "' nemají skupinovou vlajku!");
+                throw new CommandException("Značky regionu '" + foundFlag.getName()
+                        + "' nemají skupinovou značku!");
             }
 
             // Parse the [-g group] separately so entire command can abort if parsing
@@ -603,7 +603,7 @@ public final class RegionCommands extends RegionCommandsBase {
             }
 
             if (!args.hasFlag('h')) {
-                sender.print("Vlajka " + foundFlag.getName() + " nastavená v regionu '" + regionId + "' na hodnotu '" + value + "'.");
+                sender.print("Značka " + foundFlag.getName() + " nastavená v regionu '" + regionId + "' na hodnotu '" + value + "'.");
             }
 
         // No value? Clear the flag, if -g isn't specified
@@ -618,7 +618,7 @@ public final class RegionCommands extends RegionCommandsBase {
             }
 
             if (!args.hasFlag('h')) {
-                sender.print("Vlajka " + foundFlag.getName() + " odstraněná z regionu '" + regionId + "'. (Všechny -g(skupiny) byly také odstraněny.)");
+                sender.print("Značka " + foundFlag.getName() + " byla odstraněna z regionu '" + regionId + "'. (Všechny -g(skupiny) byly také odstraněny.)");
             }
         }
 
@@ -629,10 +629,10 @@ public final class RegionCommands extends RegionCommandsBase {
             // If group set to the default, then clear the group flag
             if (groupValue == groupFlag.getDefault()) {
                 existing.setFlag(groupFlag, null);
-                sender.print("Vlajka skupiny regionu '" + foundFlag.getName() + "' byla resetována na výchozí.");
+                sender.print("Značka skupiny regionu '" + foundFlag.getName() + "' byla resetována na výchozí.");
             } else {
                 existing.setFlag(groupFlag, groupValue);
-                sender.print("Vlajka skupiny regionu '" + foundFlag.getName() + "' byla nastavena.");
+                sender.print("Značka skupiny regionu '" + foundFlag.getName() + "' byla nastavena.");
             }
         }
 
@@ -642,7 +642,7 @@ public final class RegionCommands extends RegionCommandsBase {
             sendFlagHelper(sender, world, existing, permModel, page);
         } else {
             RegionPrintoutBuilder printout = new RegionPrintoutBuilder(world.getName(), existing, null, sender);
-            printout.append(SubtleFormat.wrap("(Nynější vlajky: "));
+            printout.append(SubtleFormat.wrap("(Nynější značky: "));
             printout.appendFlagsList(false);
             printout.append(SubtleFormat.wrap(")"));
             printout.send(sender);
@@ -653,7 +653,7 @@ public final class RegionCommands extends RegionCommandsBase {
     @Command(aliases = "flags",
              usage = "[-p <stránka>] [id]",
              flags = "p:w:",
-             desc = "Zobrazí vlajky regionu",
+             desc = "Zobrazí značky regionu",
              min = 0, max = 2)
     public void flagHelper(CommandContext args, Actor sender) throws CommandException {
         World world = checkWorld(args, sender, 'w'); // Get the world
@@ -694,7 +694,7 @@ public final class RegionCommands extends RegionCommandsBase {
                     return flagHelperBox.create(page);
                 }, sender)
                 .onSuccess((Component) null, sender::print)
-                .onFailure("Nepodařilo se načíst vlajky regionu", WorldGuard.getInstance().getExceptionConverter())
+                .onFailure("Nepodařilo se načíst značky regionu", WorldGuard.getInstance().getExceptionConverter())
                 .buildAndExec(WorldGuard.getInstance().getExecutorService());
     }
 
@@ -1279,7 +1279,7 @@ public final class RegionCommands extends RegionCommandsBase {
 
             Collections.sort(flagList);
 
-            final TextComponent.Builder builder = TextComponent.builder("Dostupné vlajky: ");
+            final TextComponent.Builder builder = TextComponent.builder("Dostupné značky: ");
 
             final HoverEvent clickToSet = HoverEvent.of(HoverEvent.Action.SHOW_TEXT, TextComponent.of("Klikni pro nastavení"));
             for (int i = 0; i < flagList.size(); i++) {
@@ -1293,7 +1293,7 @@ public final class RegionCommands extends RegionCommandsBase {
                 }
             }
 
-            Component ret = ErrorFormat.wrap("Neznámá vlajka: " + flagName)
+            Component ret = ErrorFormat.wrap("Neznámá značka: " + flagName)
                     .append(TextComponent.newline())
                     .append(builder.build());
             if (sender.isPlayer()) {

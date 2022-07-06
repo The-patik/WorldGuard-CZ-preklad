@@ -176,12 +176,12 @@ public class WorldGuardPlayerListener extends AbstractListener {
                     int buildn = Integer.parseInt(gbuild);
 
                     if (buildn == buildnumber) {
-                        player.sendMessage(ChatColor.GRAY + "Nainstalovaná verze WorldGuardu je nejnovější!");
+                        player.sendMessage(ChatColor.GRAY + "Nainstalovaná verze překladu WorldGuardu je nejnovější!");
                         player.sendMessage(ChatColor.GRAY + "Aktuální verze: WorldGuard_"
                                 + WorldGuard.getVersion() + "-překlad_v"
                                     + WorldGuard.getTransVersion() + "-B" + buildnumber);
                     } else if (buildn > buildnumber){
-                        player.sendMessage(ChatColor.GRAY + "Nová verze WorldGuard CZ překlad je dostupná na http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad/");
+                        player.sendMessage(ChatColor.GRAY + "Nová verze překladu WorldGuard CZ je dostupná na http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad/");
                         player.sendMessage(ChatColor.GRAY + "Aktuální verze: WorldGuard_"
                                 + WorldGuard.getVersion() + "-překlad_v"
                                 + WorldGuard.getTransVersion() + "-B" + buildnumber);
@@ -189,7 +189,7 @@ public class WorldGuardPlayerListener extends AbstractListener {
                                 + WorldGuard.getLatestVersion() + "-překlad_v"
                                     + WorldGuard.getLatestTransVersion() + "-B" + buildn);
                     } else {
-                        player.sendMessage(ChatColor.RED + "Nesprávná verze - " + buildnumber + " místo " + buildn + "! Koukni na http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad/");
+                        player.sendMessage(ChatColor.RED + "Nesprávná verze překladu WorldGuardu - " + buildnumber + " místo " + buildn + "! Koukni na http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad/");
                     }
                 } catch (Exception e) {
                     player.sendMessage(ChatColor.RED + "Chyba při načítání updateru!");

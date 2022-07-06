@@ -1,5 +1,10 @@
 # Seznam změn v překladu
 
+## v1.1
+* Kvůli chybnému číslování verzí se mění verze WorldGuard na 7.0.7
+* Příprava na verzi Minecraft 1.19 - **POZOR! BUDOU ROZDĚLENY SESTAVENÍ**
+* Změna překladu slova `flag (vlajka)` na `značka`
+
 ## v1.0
 * Dokončení překladu
   * Změna hlášek - `"STOP! Není povoleno ..."`
