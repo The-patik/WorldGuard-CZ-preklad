@@ -1,6 +1,6 @@
 # Seznam změn v překladu
 
-## v1.1.1
+## v1.1.1 
 * Příprava 1.19
 * Zkouška prvního buildu mimo hlavní sestavení
 
