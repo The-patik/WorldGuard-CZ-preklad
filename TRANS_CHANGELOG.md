@@ -1,5 +1,9 @@
 # Seznam změn v překladu
 
+## v1.1.1
+* Příprava 1.19
+* Zkouška prvního buildu mimo hlavní sestavení
+
 ## v1.1
 * Kvůli chybnému číslování verzí se mění verze WorldGuard na 7.0.7
 * Příprava na verzi Minecraft 1.19 - **POZOR! BUDOU ROZDĚLENY SESTAVENÍ - master (hlavní), version/7.x.x (pro verze budoucí)**
