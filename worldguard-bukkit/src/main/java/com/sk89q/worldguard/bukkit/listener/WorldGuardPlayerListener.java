@@ -139,7 +139,7 @@ public class WorldGuardPlayerListener extends AbstractListener {
 
         if (player.hasPermission("worldguard.update")) {
             try {
-                String giturl = "http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad-master/ws/build.number";
+                String giturl = "http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad-version-7.x.x/ws/build.number";
                 URL url = new URL(giturl);
                 URLConnection con = url.openConnection();
                 Pattern p = Pattern.compile("text/html;\\s+charset=([^\\s]+)\\s*");
@@ -181,7 +181,7 @@ public class WorldGuardPlayerListener extends AbstractListener {
                                 + WorldGuard.getVersion() + "-překlad_v"
                                     + WorldGuard.getTransVersion() + "-B" + buildnumber);
                     } else if (buildn > buildnumber){
-                        player.sendMessage(ChatColor.GRAY + "Nová verze překladu WorldGuard CZ je dostupná na http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad-master/");
+                        player.sendMessage(ChatColor.GRAY + "Nová verze překladu WorldGuard CZ je dostupná na http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad-version-7.x.x/");
                         player.sendMessage(ChatColor.GRAY + "Aktuální verze: WorldGuard_"
                                 + WorldGuard.getVersion() + "-překlad_v"
                                 + WorldGuard.getTransVersion() + "-B" + buildnumber);
@@ -189,7 +189,7 @@ public class WorldGuardPlayerListener extends AbstractListener {
                                 + WorldGuard.getLatestVersion() + "-překlad_v"
                                     + WorldGuard.getLatestTransVersion() + "-B" + buildn);
                     } else {
-                        player.sendMessage(ChatColor.RED + "Nesprávná verze překladu WorldGuardu - " + buildnumber + " místo " + buildn + "! Koukni na http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad-master/");
+                        player.sendMessage(ChatColor.RED + "Nesprávná verze překladu WorldGuardu - " + buildnumber + " místo " + buildn + "! Koukni na http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad-version-7.x.x/");
                     }
                 } catch (Exception e) {
                     player.sendMessage(ChatColor.RED + "Chyba při načítání updateru!");

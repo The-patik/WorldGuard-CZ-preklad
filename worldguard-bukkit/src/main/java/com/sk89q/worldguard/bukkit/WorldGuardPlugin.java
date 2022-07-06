@@ -200,7 +200,7 @@ public class WorldGuardPlugin extends JavaPlugin {
         //Kontrola verze překladu WorldGuardu
 
             try {
-                String buildurl = "http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad-master/ws/build.number";
+                String buildurl = "http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad-version-7.x.x/ws/build.number";
                 URL url = new URL(buildurl);
                 URLConnection con = url.openConnection();
                 Pattern p = Pattern.compile("text/html;\\s+charset=([^\\s]+)\\s*");
@@ -242,7 +242,7 @@ public class WorldGuardPlugin extends JavaPlugin {
                                 + WorldGuard.getVersion() + "-překlad_v"
                                     + WorldGuard.getTransVersion() + "-B" + buildnumber);
                         } else if (buildn > buildnumber){
-                        getLogger().warning("Nová verze překladu WorldGuard CZ je dostupná na http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad-master/");
+                        getLogger().warning("Nová verze překladu WorldGuard CZ je dostupná na http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad-version-7.x.x/");
                         getLogger().info("Aktuální verze: WorldGuard_"
                                 + WorldGuard.getVersion() + "-překlad_v"
                                 + WorldGuard.getTransVersion() + "-B" + buildnumber);
@@ -250,7 +250,7 @@ public class WorldGuardPlugin extends JavaPlugin {
                                 + WorldGuard.getLatestVersion() + "-překlad_v"
                                     + WorldGuard.getLatestTransVersion() + "-B" + buildn);
                     } else {
-                        getLogger().severe("Nesprávná verze překladu WorldGuardu - " + buildnumber + " místo " + buildn + "! Koukni na http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad-master/");
+                        getLogger().severe("Nesprávná verze překladu WorldGuardu - " + buildnumber + " místo " + buildn + "! Koukni na http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad-version-7.x.x/");
                     }
                 } catch (Exception e) {
                     getLogger().warning("Chyba při načítání updateru!");
