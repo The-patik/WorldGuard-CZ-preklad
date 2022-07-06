@@ -2,7 +2,8 @@
 
 ## v1.1
 * Kvůli chybnému číslování verzí se mění verze WorldGuard na 7.0.7
-* Příprava na verzi Minecraft 1.19 - **POZOR! BUDOU ROZDĚLENY SESTAVENÍ**
+* Příprava na verzi Minecraft 1.19 - **POZOR! BUDOU ROZDĚLENY SESTAVENÍ - master (hlavní), version/7.x.x (pro verze budoucí)**
+* Změna url v odkazech
 * Změna překladu slova `flag (vlajka)` na `značka`
 
 ## v1.0

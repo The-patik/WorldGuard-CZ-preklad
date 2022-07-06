@@ -96,7 +96,7 @@ public class WorldGuardCommands {
     @Command(aliases = {"update", "aktualizovat"}, desc = "Zkontroluje aktualizace", max = 0)
     @CommandPermissions({"worldguard.update"})
     public void update(CommandContext args, Actor sender) throws Exception {
-        String giturl = "http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad/ws/build.number";
+        String giturl = "http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad-master/ws/build.number";
         URL url = new URL(giturl);
         URLConnection con = url.openConnection();
         Pattern p = Pattern.compile("text/html;\\s+charset=([^\\s]+)\\s*");
@@ -138,7 +138,7 @@ public class WorldGuardCommands {
                         + WorldGuard.getVersion() + "-překlad_v"
                             + WorldGuard.getTransVersion() + "-B" + buildnumber);
                 } else if (buildn > buildnumber){
-                sender.print("Nová verze překladu WorldGuard CZ je dostupná na http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad/");
+                sender.print("Nová verze překladu WorldGuard CZ je dostupná na http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad-master/");
                 sender.print("Aktuální verze: WorldGuard_"
                         + WorldGuard.getVersion() + "-překlad_v"
                         + WorldGuard.getTransVersion() + "-B" + buildnumber);
@@ -146,7 +146,7 @@ public class WorldGuardCommands {
                         + WorldGuard.getLatestVersion() + "-překlad_v"
                             + WorldGuard.getLatestTransVersion() + "-B" + buildn);
                 } else {
-                sender.print("Nesprávná verze překladu WorldGuardu - " + buildnumber + " místo " + buildn + "! Koukni na http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad/");
+                sender.print("Nesprávná verze překladu WorldGuardu - " + buildnumber + " místo " + buildn + "! Koukni na http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad-master/");
             }
         } catch (Exception e) {
             sender.print("Chyba při načítání updateru!");
