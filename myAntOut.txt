@@ -1,1 +1,1 @@
-My first ant /root/.jenkins/workspace/WorldGuard-CZ-preklad/worldguard-core/src 
+My first ant /root/.jenkins/workspace/WorldGuard-CZ-preklad-master/worldguard-core/src 
