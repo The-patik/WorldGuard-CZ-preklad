@@ -69,7 +69,7 @@ import java.util.regex.Pattern;
 public class WorldGuardCommands {
 
     private final WorldGuard worldGuard;
-    private static int build = 7;
+    private static int build = 8;
     public static int buildnumber = build + 1;
     @Nullable
     private Sampler activeSampler;
