@@ -1,7 +1,7 @@
 # Seznam změn v překladu
 
-## v1.1.1 
-* Příprava 1.19
+## v1.1.1-beta
+* Dokončení příprav na Minecraft 1.19
 * Zkouška prvního buildu mimo hlavní sestavení
 
 ## v1.1
