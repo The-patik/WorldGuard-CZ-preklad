@@ -33,5 +33,5 @@ Links
 * [Discord WG](https://discord.gg/enginehub)
 * [Discord CZ]()
 * [Oznámení problémů](https://github.com/The-patik/WorldGuard-CZ-preklad/issues)
-* [Sestavení](http://jenkins.valleycube.cz) [![Build Status](http://jenkins.valleycube.cz/buildStatus/icon?job=WorldGuard-CZ-preklad)](http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad-master/)
+* [Sestavení](http://jenkins.valleycube.cz) [![Build Status](http://jenkins.valleycube.cz/buildStatus/icon?job=WorldGuard-CZ-preklad-master)](http://jenkins.valleycube.cz/job/WorldGuard-CZ-preklad-master/)
 * [Dokumentace EN](https://worldguard.enginehub.org/en/latest/)
