@@ -4,7 +4,7 @@
 * **Verze pro Minecraft 1.19**
 * Zkouška první verze mimo hlavní sestavení
 * Nová verze WorldGuardu 7.0.8
-* Příprava překladu `CHANGELOG.md` ***(dostupný od verze 7.0.8)***
+* Příprava překladu `CHANGELOG.md` ***(překlad bude dostupný od verze 7.0.8)***
 
 ## v1.1
 * Kvůli chybnému číslování verzí se mění verze WorldGuard na 7.0.7
