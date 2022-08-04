@@ -1,5 +1,10 @@
 # Changelog
 
+## 7.0.8 (beta)
+* Podpora Minecraftu 1.19
+* Nová značka (skulk-growth) a možnosti její konfigurace
+* Oprava možné chyby při použití API bytostí od PaperMC
+
 ## 7.0.7
 * Add rock-growth flag for budding amethyst and pointed dripstone.
 * Add /rg migrateheights command. See https://worldguard.enginehub.org/en/latest/regions/commands/#migrate-region-heights
