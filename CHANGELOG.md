@@ -4,6 +4,7 @@
 * Podpora Minecraftu 1.19
 * Nová značka (skulk-growth) a možnosti její konfigurace
 * Oprava možné chyby při použití API bytostí od PaperMC
+* Odstranění zpoždění registrace příkazů v Knize příkazů
 
 ## 7.0.7
 * Add rock-growth flag for budding amethyst and pointed dripstone.
