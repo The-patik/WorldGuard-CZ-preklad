@@ -60,7 +60,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
-
+import com.sk89q.worldguard.bukkit.util.Entities;
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
@@ -482,9 +482,11 @@ public class WorldGuardPlugin extends JavaPlugin {
     }
 
     public Actor wrapCommandSender(CommandSender sender) {
-        if (sender instanceof Player) {
+        if (sender instanceof Player player) {
+            if (Entities.isNPC(player)) return null;
             return wrapPlayer((Player) sender);
         }
+
 
         try {
             return new BukkitCommandSender(getWorldEdit(), sender);
