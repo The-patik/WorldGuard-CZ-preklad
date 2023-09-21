@@ -4,6 +4,10 @@
 
 Český překlad známého a velmi používaného pluginu WorldGuard.
 
+<h1>
+V BRZKÉ DOBĚ PROBĚHNE UPDATE NA NEJNOVĚJŠÍ VERZI!
+</h1>
+
 WolrdGuard umožňuje majitelům serverů ochránit části mapy před hráči. Navíc umožňuje další
 nastavení:
 
